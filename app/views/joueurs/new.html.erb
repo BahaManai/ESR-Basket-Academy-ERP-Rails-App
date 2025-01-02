@@ -1,0 +1,11 @@
+<% content_for :title, "New joueur" %>
+
+<h1>New joueur</h1>
+
+<%= render "form", joueur: @joueur %>
+
+<br>
+
+<div>
+  <%= link_to "Back to joueurs", joueurs_path %>
+</div>

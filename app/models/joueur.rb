@@ -1,0 +1,2 @@
+class Joueur < ApplicationRecord
+end
