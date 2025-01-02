@@ -5,11 +5,18 @@
     <% end %>
   </div>
   <div class="navbar-menu">
-    <%= link_to "Home", root_path, class: "nav-link" %>
-    <%= link_to "Joueurs", joueurs_path, class: "nav-link" %>
-    <%= link_to "Parents", parents_path, class: "nav-link" %>
-    <%= link_to "Entraîneurs", entraineurs_path, class: "nav-link" %>
-    <%= link_to "Dépenses", depenses_path, class: "nav-link" %>
-    <%= link_to "Utilisateurs", users_path, class: "nav-link" %>
+    <%= link_to "Dashboard", root_path, class: "nav-link btn" %>
+    <%= link_to "Joueurs", joueurs_path, class: "nav-link btn" %>
+    <%= link_to "Parents", parents_path, class: "nav-link btn" %>
+    <%= link_to "Entraîneurs", entraineurs_path, class: "nav-link btn" %>
+    <%= link_to "Dépenses", depenses_path, class: "nav-link btn" %>
+    
+    <div class="nav-section">
+      <span class="nav-label">Configuration</span>
+      <ul class="nav-list">
+        <li><%= link_to "Utilisateurs", users_path, class: "nav-link btn" %></li>
+        <li><%= link_to "Saisons", saisons_path, class: "nav-link btn" %></li>
+      </ul>
+    </div>
   </div>
 </nav>

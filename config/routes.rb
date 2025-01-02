@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :saisons
   resources :users
   resources :parents
   resources :depenses

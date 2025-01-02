@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Saisons" %>
+
+<h1>Saisons</h1>
+
+<div id="saisons">
+  <% @saisons.each do |saison| %>
+    <%= render saison %>
+    <p>
+      <%= link_to "Show this saison", saison %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New saison", new_saison_path %>
