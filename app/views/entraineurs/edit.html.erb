@@ -1,0 +1,12 @@
+<% content_for :title, "Editing entraineur" %>
+
+<h1>Editing entraineur</h1>
+
+<%= render "form", entraineur: @entraineur %>
+
+<br>
+
+<div>
+  <%= link_to "Show this entraineur", @entraineur %> |
+  <%= link_to "Back to entraineurs", entraineurs_path %>
+</div>

@@ -1,0 +1,2 @@
+class Depense < ApplicationRecord
+end
