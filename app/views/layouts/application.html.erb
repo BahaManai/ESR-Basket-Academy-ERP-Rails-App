@@ -24,9 +24,11 @@
   </head>
 
   <body>
-    <%= render partial: "shared/navbar"%>
-    <div class="container">
+    <div class="app-layout">
+      <%= render partial: "shared/navbar" %>
+      <div class="content-area">
         <%= yield %>
+      </div>
     </div>
   </body>
 </html>

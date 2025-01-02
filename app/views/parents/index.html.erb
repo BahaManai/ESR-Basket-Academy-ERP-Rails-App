@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Parents" %>
+
+<h1>Parents</h1>
+
+<div id="parents">
+  <% @parents.each do |parent| %>
+    <%= render parent %>
+    <p>
+      <%= link_to "Show this parent", parent %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New parent", new_parent_path %>

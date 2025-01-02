@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :users
+  resources :parents
   resources :depenses
   get "dashbord/index"
   resources :entraineurs

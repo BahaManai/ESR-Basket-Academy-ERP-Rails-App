@@ -1,0 +1,12 @@
+<% content_for :title, "Editing parent" %>
+
+<h1>Editing parent</h1>
+
+<%= render "form", parent: @parent %>
+
+<br>
+
+<div>
+  <%= link_to "Show this parent", @parent %> |
+  <%= link_to "Back to parents", parents_path %>
+</div>
