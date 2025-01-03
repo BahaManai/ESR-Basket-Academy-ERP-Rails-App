@@ -1,16 +1,20 @@
-<p style="color: green"><%= notice %></p>
+<p class="notice"><%= notice %></p>
 
 <% content_for :title, "Joueurs" %>
 
 <h1>Joueurs</h1>
 
-<div id="joueurs">
+<div id="joueurs" class="joueurs-container">
   <% @joueurs.each do |joueur| %>
-    <%= render joueur %>
-    <p>
-      <%= link_to "Show this joueur", joueur %>
-    </p>
+    <div class="joueur-card">
+      <%= render joueur %>
+      <p class="actions">
+        <%= link_to "Show this joueur", joueur, class: "btn btn-primary" %>
+      </p>
+    </div>
   <% end %>
 </div>
 
-<%= link_to "New joueur", new_joueur_path %>
+<p>
+  <%= link_to "New joueur", new_joueur_path, class: "btn btn-success" %>
+</p>

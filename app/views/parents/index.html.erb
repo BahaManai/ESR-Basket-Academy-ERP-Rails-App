@@ -1,16 +1,21 @@
-<p style="color: green"><%= notice %></p>
+<p class="notice"><%= notice %></p>
 
 <% content_for :title, "Parents" %>
 
 <h1>Parents</h1>
 
-<div id="parents">
+<div id="parents" class="container">
   <% @parents.each do |parent| %>
-    <%= render parent %>
-    <p>
-      <%= link_to "Show this parent", parent %>
-    </p>
+    <div class="card">
+      <%= render parent %>
+      <p class="actions">
+        <%= link_to "Show this parent", parent, class: "btn btn-primary" %>
+      </p>
+    </div>
   <% end %>
 </div>
 
-<%= link_to "New parent", new_parent_path %>
+
+<p>
+  <%= link_to "New parent", new_parent_path, class: "btn btn-success" %>
+</p>
