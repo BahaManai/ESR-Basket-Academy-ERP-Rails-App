@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get "credit/index"
+  get "achat/index"
+  get "assurance/index"
+  get "paiement/index"
   resources :saisons
   resources :users
   resources :parents

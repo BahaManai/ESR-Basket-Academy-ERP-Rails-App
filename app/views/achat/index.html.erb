@@ -1,0 +1,31 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Achats" %>
+
+<h1>Achats</h1>
+
+<div id="achats">
+  <% @achats.each do |achat| %>
+    <div id="<%= dom_id achat %>">
+  <p>
+    <strong>Désignation:</strong>
+    <%= achat.designation %>
+  </p>
+  <p>
+    <strong>prix:</strong>
+    <%= achat.prix %>
+  </p>
+
+  <p>
+    <strong>date_achat:</strong>
+    <%= achat.date_achat %>
+  </p>
+
+  <p>
+    <strong>Joueur:</strong>
+    <%= achat.joueur.prénom %>
+  </p>
+
+</div>
+  <% end %>
+</div>

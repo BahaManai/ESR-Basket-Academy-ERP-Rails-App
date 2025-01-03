@@ -1,0 +1,27 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Assurances" %>
+
+<h1>Assurances</h1>
+
+<div id="assurances">
+  <% @assurances.each do |assurance| %>
+    <div id="<%= dom_id assurance %>">
+  <p>
+    <strong>montant:</strong>
+    <%= assurance.montant %>
+  </p>
+
+  <p>
+    <strong>date_paiement:</strong>
+    <%= assurance.date_paiement %>
+  </p>
+
+  <p>
+    <strong>Joueur:</strong>
+    <%= assurance.joueur.prénom %>
+  </p>
+
+</div>
+  <% end %>
+</div>

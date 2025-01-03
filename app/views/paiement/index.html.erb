@@ -1,0 +1,37 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Paiements" %>
+
+<h1>Paiements</h1>
+
+<div id="paiements">
+  <% @paiements.each do |paiement| %>
+    <div id="<%= dom_id paiement %>">
+  <p>
+    <strong>montant:</strong>
+    <%= paiement.montant %>
+  </p>
+
+  <p>
+    <strong>date_abonnement:</strong>
+    <%= paiement.date_abonnement %>
+  </p>
+
+  <p>
+    <strong>date_encaissement:</strong>
+    <%= paiement.date_encaissement %>
+  </p>
+
+  <p>
+    <strong>etat_abonnement:</strong>
+    <%= paiement.etat_abonnement %>
+  </p>
+
+  <p>
+    <strong>Joueur:</strong>
+    <%= paiement.joueur.prénom %>
+  </p>
+
+</div>
+  <% end %>
+</div>

@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  montant: 1.5
+  date_abonnement: 2025-01-03
+  date_encaissement: 2025-01-03
+  etat_abonnement: MyString
+
+two:
+  montant: 1.5
+  date_abonnement: 2025-01-03
+  date_encaissement: 2025-01-03
+  etat_abonnement: MyString

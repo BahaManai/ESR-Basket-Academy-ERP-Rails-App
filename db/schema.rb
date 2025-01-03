@@ -10,7 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_02_144435) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_03_101632) do
+  create_table "achats", force: :cascade do |t|
+    t.string "designation"
+    t.float "prix"
+    t.date "date_achat"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "joueur_id", null: false
+    t.index ["joueur_id"], name: "index_achats_on_joueur_id"
+  end
+
+  create_table "assurances", force: :cascade do |t|
+    t.float "montant"
+    t.date "date_paiement"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "joueur_id", null: false
+    t.index ["joueur_id"], name: "index_assurances_on_joueur_id"
+  end
+
+  create_table "credits", force: :cascade do |t|
+    t.string "type_credit"
+    t.float "montant"
+    t.string "statut"
+    t.date "date_credit"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "joueur_id", null: false
+    t.index ["joueur_id"], name: "index_credits_on_joueur_id"
+  end
+
   create_table "depenses", force: :cascade do |t|
     t.string "designation"
     t.float "prix"
@@ -37,6 +68,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_02_144435) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "paiements", force: :cascade do |t|
+    t.integer "joueur_id"
+    t.float "montant"
+    t.date "date_abonnement"
+    t.date "date_encaissement"
+    t.string "etat_abonnement"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["joueur_id"], name: "index_paiements_on_joueur_id"
+  end
+
   create_table "parents", force: :cascade do |t|
     t.string "nom"
     t.string "prénom"
@@ -60,4 +102,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_02_144435) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "achats", "joueurs"
+  add_foreign_key "assurances", "joueurs"
+  add_foreign_key "credits", "joueurs"
 end
