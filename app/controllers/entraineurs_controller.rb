@@ -1,13 +1,9 @@
 class EntraineursController < ApplicationController
-  before_action :set_entraineur, only: %i[ show edit update destroy ]
+  before_action :set_entraineur, only: %i[ edit update destroy ]
 
   # GET /entraineurs or /entraineurs.json
   def index
     @entraineurs = Entraineur.all
-  end
-
-  # GET /entraineurs/1 or /entraineurs/1.json
-  def show
   end
 
   # GET /entraineurs/new
@@ -25,7 +21,7 @@ class EntraineursController < ApplicationController
 
     respond_to do |format|
       if @entraineur.save
-        format.html { redirect_to @entraineur, notice: "Entraineur was successfully created." }
+        format.html { redirect_to entraineurs_path, notice: "Entraineur was successfully created." }
         format.json { render :show, status: :created, location: @entraineur }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +34,7 @@ class EntraineursController < ApplicationController
   def update
     respond_to do |format|
       if @entraineur.update(entraineur_params)
-        format.html { redirect_to @entraineur, notice: "Entraineur was successfully updated." }
+        format.html { redirect_to entraineurs_path, notice: "Entraineur was successfully updated." }
         format.json { render :show, status: :ok, location: @entraineur }
       else
         format.html { render :edit, status: :unprocessable_entity }

@@ -1,13 +1,9 @@
 class DepensesController < ApplicationController
-  before_action :set_depense, only: %i[ show edit update destroy ]
+  before_action :set_depense, only: %i[ edit update destroy ]
 
   # GET /depenses or /depenses.json
   def index
     @depenses = Depense.all
-  end
-
-  # GET /depenses/1 or /depenses/1.json
-  def show
   end
 
   # GET /depenses/new
@@ -25,7 +21,7 @@ class DepensesController < ApplicationController
 
     respond_to do |format|
       if @depense.save
-        format.html { redirect_to @depense, notice: "Depense was successfully created." }
+        format.html { redirect_to depenses_path, notice: "Depense was successfully created." }
         format.json { render :show, status: :created, location: @depense }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +34,7 @@ class DepensesController < ApplicationController
   def update
     respond_to do |format|
       if @depense.update(depense_params)
-        format.html { redirect_to @depense, notice: "Depense was successfully updated." }
+        format.html { redirect_to depenses_path, notice: "Depense was successfully updated." }
         format.json { render :show, status: :ok, location: @depense }
       else
         format.html { render :edit, status: :unprocessable_entity }

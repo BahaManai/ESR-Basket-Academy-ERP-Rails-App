@@ -4,16 +4,32 @@
 
 <h1>Joueurs</h1>
 
-<div id="joueurs" class="joueurs-container">
-  <% @joueurs.each do |joueur| %>
-    <div class="joueur-card">
-      <%= render joueur %>
-      <p class="actions">
-        <%= link_to "Show this joueur", joueur, class: "btn btn-primary" %>
-      </p>
-    </div>
-  <% end %>
-</div>
+<table class="table table-bordered">
+  <thead class="thead-light">
+    <tr>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Sexe</th>
+      <th>Date de Naissance</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @joueurs.each do |joueur| %>
+      <tr>
+        <td><%= joueur.nom %></td>
+        <td><%= joueur.prénom %></td>
+        <td><%= joueur.sexe.capitalize %></td>
+        <td><%= joueur.date_naissance %></td>
+        <td>
+          <%= link_to "Show", joueur, class: "btn btn-secondary btn-sm" %>
+          <%= link_to "Edit", edit_joueur_path(joueur), class: "btn btn-primary btn-sm" %>
+          <%= link_to "Delete", joueur, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <p>
   <%= link_to "New joueur", new_joueur_path, class: "btn btn-success" %>

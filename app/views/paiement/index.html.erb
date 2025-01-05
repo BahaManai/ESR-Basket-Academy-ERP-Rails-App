@@ -4,34 +4,27 @@
 
 <h1>Paiements</h1>
 
-<div id="paiements">
-  <% @paiements.each do |paiement| %>
-    <div id="<%= dom_id paiement %>">
-  <p>
-    <strong>montant:</strong>
-    <%= paiement.montant %>
-  </p>
-
-  <p>
-    <strong>date_abonnement:</strong>
-    <%= paiement.date_abonnement %>
-  </p>
-
-  <p>
-    <strong>date_encaissement:</strong>
-    <%= paiement.date_encaissement %>
-  </p>
-
-  <p>
-    <strong>etat_abonnement:</strong>
-    <%= paiement.etat_abonnement %>
-  </p>
-
-  <p>
-    <strong>Joueur:</strong>
-    <%= paiement.joueur.prénom %>
-  </p>
-
-</div>
-  <% end %>
-</div>
+<table class="table table-bordered">
+  <thead class="thead-light">
+    <tr>
+      <th>Nom du Joueur</th>
+      <th>Date d'Abonnement</th>
+      <th>Date d'Encaissement</th>
+      <th>Expire</th>
+      <th>Paiement</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @paiements.each do |paiement| %>
+      <tr id="<%= dom_id paiement %>">
+        <td><%= paiement.joueur ? "#{paiement.joueur.prénom} #{paiement.joueur.nom}" : "Joueur inconnu" %></td>
+        <td><%= paiement.date_abonnement.strftime("%d %b, %Y") if paiement.date_abonnement %></td>
+        <td><%= paiement.date_encaissement.strftime("%d %b, %Y") if paiement.date_encaissement %></td>
+        <td>
+          <%= (paiement.date_abonnement + 30.days).strftime("%d %b, %Y") if paiement.date_encaissement %>
+        </td>
+        <td><%= paiement.montant %>&nbspDT</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

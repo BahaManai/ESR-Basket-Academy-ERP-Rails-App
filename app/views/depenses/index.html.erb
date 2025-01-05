@@ -1,16 +1,33 @@
 <p style="color: green"><%= notice %></p>
 
-<% content_for :title, "Depenses" %>
+<% content_for :title, "Dépenses" %>
 
 <h1>Dépenses</h1>
 
-<div id="depenses">
-  <% @depenses.each do |depense| %>
-    <%= render depense %>
-    <p>
-      <%= link_to "Show this depense", depense %>
-    </p>
-  <% end %>
-</div>
+<table class="table table-bordered">
+  <thead class="thead-light">
+    <tr>
+      <th>Désignation</th>
+      <th>Prix (Dt)</th>
+      <th>Date de dépense</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @depenses.each do |depense| %>
+      <tr id="<%= dom_id depense %>">
+        <td><%= depense.designation %></td>
+        <td><%= depense.prix %></td>
+        <td><%= depense.date_depense.strftime("%d %b, %Y") %></td>
+        <td>
+          <%= link_to "Edit", edit_depense_path(depense), class: "btn btn-primary btn-sm" %>
+          <%= button_to "Delete", depense, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<%= link_to "New depense", new_depense_path %>
+<p>
+  <%= link_to "New dépense", new_depense_path, class: "btn btn-success" %>
+</p>

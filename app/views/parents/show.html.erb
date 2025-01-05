@@ -5,7 +5,7 @@
 </div>
 
 <div class="actions">
-  <%= link_to "Edit this parent", edit_parent_path(@parent), class: "btn btn-warning" %> |
-  <%= link_to "Back to parents", parents_path, class: "btn btn-secondary" %>
-  <%= button_to "Destroy this parent", @parent, method: :delete, class: "btn btn-danger" %>
+  <%= link_to "Edit this parent", edit_parent_path(@parent) %> |
+  <%= link_to "Back to parents", parents_path %>
+  <%= button_to "Destroy this parent", @parent, method: :delete %>
 </div>

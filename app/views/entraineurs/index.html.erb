@@ -1,16 +1,42 @@
 <p style="color: green"><%= notice %></p>
 
-<% content_for :title, "Entraineurs" %>
+<% content_for :title, "Entraîneurs" %>
 
 <h1>Entraîneurs</h1>
 
-<div id="entraineurs">
-  <% @entraineurs.each do |entraineur| %>
-    <%= render entraineur %>
-    <p>
-      <%= link_to "Show this entraineur", entraineur %>
-    </p>
-  <% end %>
-</div>
+<table class="table table-bordered">
+  <thead class="thead-light">
+    <tr>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Téléphone</th>
+      <th>Salaires</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @entraineurs.each do |entraineur| %>
+      <tr id="<%= dom_id entraineur %>">
+        <td><%= entraineur.nom %></td>
+        <td><%= entraineur.prénom %></td>
+        <td><%= entraineur.téléphone %></td>
+        <td>
+          <ul>
+            <% entraineur.salaires.each do |salaire| %>
+              <li><%= "#{salaire.annee} - #{salaire.mois} : #{salaire.salaire} Dt" %></li>
+            <% end %>
+          </ul>
+        </td>
 
-<%= link_to "New entraineur", new_entraineur_path %>
+        <td>
+          <%= link_to "Edit", edit_entraineur_path(entraineur), class: "btn btn-primary btn-sm" %>
+          <%= button_to "Delete", entraineur, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
+  <%= link_to "New entraîneur", new_entraineur_path, class: "btn btn-success" %>
+</p>

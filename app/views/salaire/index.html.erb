@@ -1,2 +1,26 @@
-<h1>Salaire#index</h1>
-<p>Find me in app/views/salaire/index.html.erb</p>
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Salaires" %>
+
+<h1>Salaires</h1>
+
+<table class="table table-bordered">
+  <thead class="thead-light">
+    <tr>
+      <th>Entraineur</th>
+      <th>Année</th>
+      <th>Mois</th>
+      <th>Salaire</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @salaires.each do |salaire| %>
+      <tr id="<%= dom_id salaire %>">
+        <td><%= salaire.entraineur ? "#{salaire.entraineur.prénom} #{salaire.entraineur.nom}" : "Entraîneur inconnu" %></td>
+        <td><%= salaire.annee %></td>
+        <td><%= salaire.mois %></td>
+        <td><%= salaire.salaire %>&nbspDT</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

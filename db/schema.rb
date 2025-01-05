@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_03_111432) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_05_185233) do
   create_table "achats", force: :cascade do |t|
     t.string "designation"
     t.float "prix"
@@ -116,6 +116,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_111432) do
     t.integer "annee"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "entraineur_id", null: false
+    t.index ["entraineur_id"], name: "index_salaires_on_entraineur_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -132,4 +134,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_111432) do
   add_foreign_key "credits", "joueurs"
   add_foreign_key "joueurs", "groupes"
   add_foreign_key "joueurs", "parents"
+  add_foreign_key "salaires", "entraineurs"
 end
