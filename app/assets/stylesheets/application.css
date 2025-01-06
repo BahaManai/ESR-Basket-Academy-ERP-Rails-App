@@ -109,3 +109,9 @@
     font-weight: bold;
     margin-bottom: 15px;
 }
+
+.hideForm {
+    border: 1px solid #ccc;
+    padding: 20px;
+    display: none;
+}

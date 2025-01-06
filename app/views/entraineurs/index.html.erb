@@ -7,6 +7,7 @@
 <table class="table table-bordered">
   <thead class="thead-light">
     <tr>
+      <th>ID</th>
       <th>Nom</th>
       <th>Prénom</th>
       <th>Téléphone</th>
@@ -17,6 +18,7 @@
   <tbody>
     <% @entraineurs.each do |entraineur| %>
       <tr id="<%= dom_id entraineur %>">
+        <td><%= entraineur.id %></td>
         <td><%= entraineur.nom %></td>
         <td><%= entraineur.prénom %></td>
         <td><%= entraineur.téléphone %></td>

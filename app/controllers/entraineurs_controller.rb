@@ -6,6 +6,11 @@ class EntraineursController < ApplicationController
     @entraineurs = Entraineur.all
   end
 
+  def show
+    @entraineur = Entraineur.find(params[:id])
+    @salaires = @entraineur.salaires
+  end
+
   # GET /entraineurs/new
   def new
     @entraineur = Entraineur.new
@@ -13,6 +18,8 @@ class EntraineursController < ApplicationController
 
   # GET /entraineurs/1/edit
   def edit
+    @entraineur = Entraineur.find(params[:id])
+    @salaire = Salaire.new
   end
 
   # POST /entraineurs or /entraineurs.json

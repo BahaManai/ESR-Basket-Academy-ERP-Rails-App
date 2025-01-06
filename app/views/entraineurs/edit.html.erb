@@ -1,11 +1,113 @@
+
 <% content_for :title, "Editing entraineur" %>
-
-<h1>Editing entraineur</h1>
-
-<%= render "form", entraineur: @entraineur %>
-
-<br>
-
 <div>
-  <%= link_to "Back to entraineurs", entraineurs_path %>
+  <%= link_to "Entraîneurs >", entraineurs_path %>
 </div>
+<p style="color: green"><%= notice %></p>
+
+<h1>Modifier un entraîneur</h1>
+
+<div style="display: flex; justify-content: space-between; gap: 20px;">
+  <div style="flex: 1; border: 1px solid #ccc; padding: 20px;">
+    <h3>Informations personnelles</h3>
+    <%= form_with(model: @entraineur) do |form| %>
+      <div>
+        <%= form.submit "Enregistrer", class:"btn btn-primary", style: "float:right" %>
+      </div>
+
+      <% if @entraineur.errors.any? %>
+        <div style="color: red">
+          <h2><%= pluralize(@entraineur.errors.count, "error") %> prohibited this entraineur from being saved:</h2>
+          <ul>
+            <% @entraineur.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div>
+        <%= form.label :nom, style: "display: block" %>
+        <%= form.text_field :nom %>
+      </div>
+
+      <div>
+        <%= form.label :prénom, style: "display: block" %>
+        <%= form.text_field :prénom %>
+      </div>
+
+      <div>
+        <%= form.label :téléphone, style: "display: block" %>
+        <%= form.number_field :téléphone %>
+      </div>
+
+    <% end %>
+  </div>
+
+  <div style="flex: 1; border: 1px solid #ccc; padding: 20px;">
+        <h3>Salaire</h3>
+        <p>
+          <button id="btnAjout" class="btn btn-success">Ajouter salaire</button>
+
+        </p>
+
+    <div class="hideForm" id="salaireForm">
+      <button id="btnAnnuler" class="btn btn-secondary" style="float:right">Annuler</button>
+      <%= form_with(model: @salaire, html: { id: "salaireFormElement" }) do |form| %>
+        <% if @salaire.errors.any? %>
+          <div style="color: red">
+            <h2><%= pluralize(@salaire.errors.count, "error") %> prohibited this salaire from being saved:</h2>
+            <ul>
+              <% @salaire.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div style="display: none">
+          <%= form.label :entraineur_id, style: "display: none" %>
+          <%= form.number_field :entraineur_id, value: @entraineur.id , style: "display: none" %>
+        </div>
+
+        <div>
+          <%= form.label :salaire, style: "display: block" %>
+          <%= form.text_field :salaire %>
+        </div>
+
+        <div>
+          <%= form.label :mois_et_annee, "Mois et Année", style: "display: block" %>
+          <input type="month" id="monthPicker" style="display: block">
+        </div>
+
+        <%= form.hidden_field :mois, id: "moisField" %>
+        <%= form.hidden_field :annee, id: "anneeField" %>
+
+        <div>
+          <%= form.submit "Ajouter", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+
+
+    <table class="table table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th>Salaire</th>
+          <th>Mois</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @entraineur.salaires.each do |salaire| %>
+          <tr id="<%= dom_id salaire %>">
+            <td><%= salaire.salaire %>&nbspDT</td>
+            <td><%= "#{Date::MONTHNAMES[salaire.mois]}  #{salaire.annee}" %></td>       
+            <td>
+              <%= button_to 'Delete', salaire_path(salaire), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>

@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
-  get "salaire/index"
   get "groupe/index"
   get "credit/index"
   get "achat/index"
   get "assurance/index"
   get "paiement/index"
+
+  get "salaires", to: "salaire#index", as: "salaires"
+  delete "salaires/:id", to: "salaire#destroy", as: "salaire"
+  get "/salaires/new", to: "salaire#new", as: "new_salaire"
+  post "/salaires", to: "salaire#create"
+
   resources :saisons
   resources :users
   resources :parents
