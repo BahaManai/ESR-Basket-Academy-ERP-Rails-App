@@ -25,20 +25,25 @@
           </ul>
         </div>
       <% end %>
-
+      <br>
       <div>
         <%= form.label :nom, style: "display: block" %>
-        <%= form.text_field :nom %>
+        <%= form.text_field :nom ,class: "form-control" %>
       </div>
 
       <div>
         <%= form.label :prénom, style: "display: block" %>
-        <%= form.text_field :prénom %>
+        <%= form.text_field :prénom ,class: "form-control" %>
       </div>
 
       <div>
         <%= form.label :téléphone, style: "display: block" %>
-        <%= form.number_field :téléphone %>
+        <%= form.number_field :téléphone ,class: "form-control" %>
+      </div>
+
+      <div>
+        <%= form.label :salaire, style: "display: block" %>
+        <%= form.number_field :salaire  ,class: "form-control"%>
       </div>
 
     <% end %>
@@ -64,22 +69,22 @@
             </ul>
           </div>
         <% end %>
-
+        <br>
         <div style="display: none">
           <%= form.label :entraineur_id, style: "display: none" %>
           <%= form.number_field :entraineur_id, value: @entraineur.id , style: "display: none" %>
         </div>
 
-        <div>
-          <%= form.label :salaire, style: "display: block" %>
-          <%= form.text_field :salaire %>
+        <div style="display: none">
+          <%= form.label :salaire, style: "display: none" %>
+          <%= form.text_field :salaire, value: @entraineur.salaire, style: "display: none" %>
         </div>
 
         <div>
           <%= form.label :mois_et_annee, "Mois et Année", style: "display: block" %>
-          <input type="month" id="monthPicker" style="display: block">
+          <input type="month" id="monthPicker" style="display: block" class="form-control">
         </div>
-
+        <br>
         <%= form.hidden_field :mois, id: "moisField" %>
         <%= form.hidden_field :annee, id: "anneeField" %>
 

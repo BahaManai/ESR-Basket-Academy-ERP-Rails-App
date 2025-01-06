@@ -6,11 +6,6 @@ class EntraineursController < ApplicationController
     @entraineurs = Entraineur.all
   end
 
-  def show
-    @entraineur = Entraineur.find(params[:id])
-    @salaires = @entraineur.salaires
-  end
-
   # GET /entraineurs/new
   def new
     @entraineur = Entraineur.new
@@ -68,6 +63,6 @@ class EntraineursController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def entraineur_params
-      params.expect(entraineur: [ :nom, :prénom, :téléphone ])
+      params.expect(entraineur: [ :nom, :prénom, :téléphone, :salaire ])
     end
 end
