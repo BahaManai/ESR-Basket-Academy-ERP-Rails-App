@@ -1,9 +1,38 @@
-<div >
-    <h1>Dashbord</h1>
-    <p><strong>Total des dépenses : </strong><%= @total_depenses %> DT</p>
-    <p><strong>Total des salaires : </strong><%= @total_salaires %> DT</p>  
-    <p><strong>Total des salaires en 2025 : </strong><%= @total_salaires_2025 %> DT</p> 
-    <p><strong>Total des salaires en Février 2025 : </strong><%= @total_salaires_2025_2 %> DT</p>
-    <p><strong>Nombre total des joueurs : </strong><%= @nb_joueurs %></p>
-    <p><strong>Nombre des nouveaux joueurs en 2025 : </strong><%= @nb_joueurs_2025 %></p>
+<div class="container my-4">
+  <h1 class="mb-4">Dashbord</h1>
+  
+  <table class="table table-bordered">
+    <thead class="thead-light">
+      <tr>
+        <th>Catégorie</th>
+        <th>Valeur</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Total des dépenses</strong></td>
+        <td><%= @total_depenses %> DT</td>
+      </tr>
+      <tr>
+        <td><strong>Total des salaires</strong></td>
+        <td><%= @total_salaires %> DT</td>
+      </tr>
+      <tr>
+        <td><strong>Total des salaires en 2025</strong></td>
+        <td><%= @total_salaires_2025 %> DT</td>
+      </tr>
+      <tr>
+        <td><strong>Total des salaires en Février 2025</strong></td>
+        <td><%= @total_salaires_2025_2 %> DT</td>
+      </tr>
+      <tr>
+        <td><strong>Nombre total des joueurs</strong></td>
+        <td><%= @nb_joueurs %></td>
+      </tr>
+      <tr>
+        <td><strong>Nombre des nouveaux joueurs en 2025</strong></td>
+        <td><%= @nb_joueurs_2025 %></td>
+      </tr>
+    </tbody>
+  </table>
 </div>

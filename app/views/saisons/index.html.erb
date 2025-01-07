@@ -4,13 +4,31 @@
 
 <h1>Saisons</h1>
 
-<div id="saisons">
-  <% @saisons.each do |saison| %>
-    <%= render saison %>
-    <p>
-      <%= link_to "Show this saison", saison %>
-    </p>
-  <% end %>
-</div>
+<table class="table table-bordered">
+  <thead class="thead-light">
+    <tr>
+      <th>ID</th>
+      <th>Date Début</th>
+      <th>Date Fin</th>
+      <th>Montant Abonnement (DT)</th>
+      <th>Montant Assurance (DT)</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @saisons.each do |saison| %>
+      <tr id="<%= dom_id saison %>">
+        <td><%= saison.id %></td>
+        <td><%= saison.date_debut.strftime("%d %b, %Y") if saison.date_debut %></td>
+        <td><%= saison.date_fin.strftime("%d %b, %Y") if saison.date_fin %></td>
+        <td><%= saison.montant_abonnement %></td>
+        <td><%= saison.montant_assurance %></td>
+        <td>
+          <%= link_to "Afficher", saison, class: "btn btn-primary btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<%= link_to "New saison", new_saison_path %>
+<%= link_to "Nouvelle saison", new_saison_path, class: "btn btn-success" %>

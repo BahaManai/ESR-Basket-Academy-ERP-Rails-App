@@ -4,24 +4,23 @@
 
 <h1>Assurances</h1>
 
-<div id="assurances">
-  <% @assurances.each do |assurance| %>
-    <div id="<%= dom_id assurance %>">
-  <p>
-    <strong>montant:</strong>
-    <%= assurance.montant %>
-  </p>
-
-  <p>
-    <strong>date_paiement:</strong>
-    <%= assurance.date_paiement %>
-  </p>
-
-  <p>
-    <strong>Joueur:</strong>
-    <%= assurance.joueur.prénom %>
-  </p>
-
-</div>
-  <% end %>
-</div>
+<table class="table table-bordered">
+  <thead class="thead-light">
+    <tr>
+      <th>Saison</th>
+      <th>Montant</th>
+      <th>Date de Paiement</th>
+      <th>Nom du Joueur</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @assurances.each do |assurance| %>
+      <tr id="<%= dom_id assurance %>">
+        <td><%= assurance.saison.id %></td>
+        <td><%= assurance.montant %>&nbspDT</td>
+        <td><%= assurance.date_paiement.strftime("%d %b, %Y") if assurance.date_paiement %></td>
+        <td><%= assurance.joueur ? "#{assurance.joueur.prénom} #{assurance.joueur.nom}" : "Joueur inconnu" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

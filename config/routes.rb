@@ -15,6 +15,11 @@ Rails.application.routes.draw do
   get "/paiements/new", to: "paiement#new", as: "new_paiement"
   post "/paiements", to: "paiement#create"
 
+  get "assurances", to: "assurance#index", as: "assurances"
+  delete "assurances/:id", to: "assurance#destroy", as: "assurance"
+  get "/assurances/new", to: "assurance#new", as: "new_assurance"
+  post "/assurances", to: "assurance#create"
+
   resources :saisons
   resources :users
   resources :parents
