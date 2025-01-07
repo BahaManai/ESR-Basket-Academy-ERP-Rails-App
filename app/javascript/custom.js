@@ -3,9 +3,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function initializeSalaireForm() {
-    document.getElementById("btnAjout").addEventListener("click", showForm);
-    document.getElementById("btnAnnuler").addEventListener("click", hideForm);
+    document.getElementById("btnAjout").addEventListener("click", () => toggleForm("salaireForm", true));
+    document.getElementById("btnAnnuler").addEventListener("click", () => toggleForm("salaireForm", false));
+
     const form = document.getElementById("salaireFormElement");
+
     const monthPicker = document.getElementById("monthPicker");
     const moisField = document.getElementById("moisField");
     const anneeField = document.getElementById("anneeField");
@@ -23,15 +25,22 @@ function initializeSalaireForm() {
         });
     }
 }
-function showForm() {
-    console.log("works");
-    document.getElementById("salaireForm").style.display = "block";
+
+function initializePaiementForm() {
+    document.getElementById("btnAjout2").addEventListener("click", () => toggleForm("paiementForm", true));
+    document.getElementById("btnAnnuler2").addEventListener("click", () => toggleForm("paiementForm", false));
 }
 
-function hideForm() {
-    document.getElementById("salaireForm").style.display = "none";
+function toggleForm(formId, show) {
+    const form = document.getElementById(formId);
+    if (form) {
+        form.style.display = show ? "block" : "none";
+    }
 }
 
 document.addEventListener("DOMContentLoaded", initializeSalaireForm);
 document.addEventListener("turbo:frame-load", initializeSalaireForm);
 document.addEventListener("turbo:load", initializeSalaireForm);
+document.addEventListener("DOMContentLoaded", initializePaiementForm);
+document.addEventListener("turbo:frame-load", initializePaiementForm);
+document.addEventListener("turbo:load", initializePaiementForm);

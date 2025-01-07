@@ -22,6 +22,17 @@
   </div>
 
   <div>
+    <%= form.label :montant_abonnement, "Montant Abonnement", style: "display: block" %>
+    <%= form.number_field :montant_abonnement, step: 0.01 %>
+  </div>
+
+  <div>
+    <%= form.label :montant_assurance, "Montant Assurance" , style: "display: block"%>
+    <%= form.number_field :montant_assurance, step: 0.01 %>
+  </div>
+
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

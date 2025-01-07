@@ -65,6 +65,6 @@ class SaisonsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def saison_params
-      params.expect(saison: [ :date_debut, :date_fin ])
+      params.expect(saison: [ :date_debut, :date_fin, :montant_abonnement, :montant_assurance ])
     end
 end

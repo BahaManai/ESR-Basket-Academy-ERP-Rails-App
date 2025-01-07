@@ -1,12 +1,139 @@
-<% content_for :title, "Editing joueur" %>
-
-<h1>Editing joueur</h1>
-
-<%= render "form", joueur: @joueur %>
-
-<br>
+<% content_for :title, "Modifier un joueur" %>
 
 <div>
-  <%= link_to "Show this joueur", @joueur %> |
-  <%= link_to "Back to joueurs", joueurs_path %>
+  <%= link_to "Joueurs >", joueurs_path %>
+</div>
+<p style="color: green"><%= notice %></p>
+
+<h1>Modifier un joueur</h1>
+
+<div style="display: flex; justify-content: space-between; gap: 20px;">
+  <div style="flex: 1; border: 1px solid #ccc; padding: 20px;">
+    <h3>Informations personnelles</h3>
+    <%= form_with(model: @joueur) do |form| %>
+      <div>
+        <%= form.submit "Enregistrer", class:"btn btn-primary", style: "float:right" %>
+      </div>
+
+      <% if @joueur.errors.any? %>
+        <div style="color: red">
+          <h2><%= pluralize(@joueur.errors.count, "erreur") %> empêchent ce joueur d'être sauvegardé :</h2>
+          <ul>
+            <% @joueur.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <br>
+
+      <div>
+        <%= form.label :nom, style: "display: block" %>
+        <%= form.text_field :nom ,class: "form-control" %>
+      </div>
+
+      <div>
+        <%= form.label :prénom, style: "display: block" %>
+        <%= form.text_field :prénom ,class: "form-control" %>
+      </div>
+
+      <div>
+        <%= form.label :sexe, style: "display: block" %>
+        <%= form.text_field :sexe ,class: "form-control" %>
+      </div>
+
+      <div>
+        <%= form.label :date_naissance, style: "display: block" %>
+        <%= form.date_field :date_naissance, class: "form-control" %>
+      </div>
+
+      <div>
+        <%= form.label :parent_id, style: "display: block" %>
+        <%= form.select :parent_id, Parent.pluck(:nom, :id), prompt: "Choisir un parent", class: "form-control" %>
+      </div>
+      <br>
+
+      <div>
+        <%= form.label :note, style: "display: block" %>
+        <%= form.text_area :note, class: "form-control" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div style="flex: 1; border: 1px solid #ccc; padding: 20px;">
+    <h3>Abonnement</h3>
+    <p>
+      <button id="btnAjout2" class="btn btn-success">Ajouter un paiement</button>
+    </p>
+
+    <div class="hideForm" id="paiementForm">
+      <button id="btnAnnuler2" class="btn btn-secondary" style="float:right">Annuler</button>
+      <%= form_with(model: @paiement) do |form| %>
+        <% if @paiement.errors.any? %>
+          <div style="color: red">
+            <h2><%= pluralize(@paiement.errors.count, "erreur") %> empêchent ce paiement d'être sauvegardé :</h2>
+            <ul>
+              <% @paiement.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <br>
+
+        <div style="display: none">
+          <%= form.hidden_field :joueur_id, value: @joueur.id %>
+        </div>
+
+        <div>
+          <%= form.label :montant, "Paiement", style: "display: block" %>
+          <%= number_field_tag :montant, default_payment_value(@joueur), class: "form-control", disabled: true %>
+        </div>
+
+        <div style="display: none">
+          <%= form.label :montant, "Paiement", style: "display: block" %>
+          <%= form.number_field :montant, class: "form-control", value: default_payment_value(@joueur) %>
+        </div>
+        <div>
+          <%= form.label :date_abonnement, "Date d'abonnement", style: "display: block" %>
+          <%= form.date_field :date_abonnement, class: "form-control" %>
+        </div>
+        <div>
+          <%= form.label :date_encaissement, "Date d'encaissement", style: "display: block" %>
+          <%= form.date_field :date_encaissement, class: "form-control" %>
+        </div>
+
+        <br>
+
+        <div>
+          <%= form.submit "Ajouter", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+
+    <table class="table table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th>Paiement</th>
+          <th>Date d'abonnement</th>
+          <th>Date d'encaissement</th>
+          <th>Expire</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @joueur.paiements.each do |paiement| %>
+          <tr id="<%= dom_id paiement %>">
+            <td><%= paiement.montant %>&nbspDT</td>
+            <td><%= paiement.date_abonnement.strftime("%d %b, %Y") if paiement.date_abonnement %></td>
+            <td><%= paiement.date_encaissement.strftime("%d %b, %Y") if paiement.date_encaissement %></td>
+            <td><%= (paiement.date_abonnement + 30.days).strftime("%d %b, %Y") if paiement.date_abonnement %></td>
+            <td>
+              <%= button_to 'Supprimer', paiement_path(paiement), method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: "btn btn-danger btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

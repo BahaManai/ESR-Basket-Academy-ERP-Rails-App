@@ -2,7 +2,55 @@
 
 <h1>New joueur</h1>
 
-<%= render "form", joueur: @joueur %>
+<%= form_with(model: @joueur) do |form| %>
+  <% if @joueur.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@joueur.errors.count, "error") %> prohibited this joueur from being saved:</h2>
+
+      <ul>
+        <% @joueur.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :nom, style: "display: block" %>
+    <%= form.text_field :nom %>
+  </div>
+
+  <div>
+    <%= form.label :prénom, style: "display: block" %>
+    <%= form.text_field :prénom %>
+  </div>
+
+  <div>
+    <%= form.label :sexe, style: "display: block" %>
+    <%= form.text_field :sexe %>
+  </div>
+
+  <div>
+    <%= form.label :date_naissance, style: "display: block" %>
+    <%= form.date_field :date_naissance %>
+  </div>
+
+  
+  <div>
+    <%= form.label :parent_id, style: "display: block" %>
+    <%= form.select :parent_id, Parent.pluck(:nom, :id), prompt: "Choisir un parent" %>
+    <%= link_to "New parent", new_parent_path, class: "btn btn-success" %>
+  </div><br>
+
+  <div>
+    <%= form.label :note, style: "display: block" %>
+    <%= form.textarea :note %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
 
 <br>
 

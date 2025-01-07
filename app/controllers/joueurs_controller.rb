@@ -1,22 +1,21 @@
 class JoueursController < ApplicationController
-  before_action :set_joueur, only: %i[ show edit update destroy ]
+  before_action :set_joueur, only: %i[ edit update destroy ]
 
   # GET /joueurs or /joueurs.json
   def index
     @joueurs = Joueur.all
   end
 
-  # GET /joueurs/1 or /joueurs/1.json
-  def show
-  end
-
   # GET /joueurs/new
   def new
     @joueur = Joueur.new
+    @parent = Parent.new
   end
 
   # GET /joueurs/1/edit
   def edit
+    @joueur = Joueur.find(params[:id])
+    @paiement = Paiement.new
   end
 
   # POST /joueurs or /joueurs.json
@@ -25,7 +24,7 @@ class JoueursController < ApplicationController
 
     respond_to do |format|
       if @joueur.save
-        format.html { redirect_to @joueur, notice: "Joueur was successfully created." }
+        format.html { redirect_to joueurs_path, notice: "Joueur was successfully created." }
         format.json { render :show, status: :created, location: @joueur }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +37,7 @@ class JoueursController < ApplicationController
   def update
     respond_to do |format|
       if @joueur.update(joueur_params)
-        format.html { redirect_to @joueur, notice: "Joueur was successfully updated." }
+        format.html { redirect_to joueurs_path, notice: "Joueur was successfully updated." }
         format.json { render :show, status: :ok, location: @joueur }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -65,6 +64,6 @@ class JoueursController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def joueur_params
-      params.expect(joueur: [ :nom, :prénom, :sexe, :date_naissance, :note ])
+      params.expect(joueur: [ :nom, :prénom, :sexe, :date_naissance, :note, :parent_id ])
     end
 end

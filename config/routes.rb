@@ -10,6 +10,11 @@ Rails.application.routes.draw do
   get "/salaires/new", to: "salaire#new", as: "new_salaire"
   post "/salaires", to: "salaire#create"
 
+  get "paiements", to: "paiement#index", as: "paiements"
+  delete "paiements/:id", to: "paiement#destroy", as: "paiement"
+  get "/paiements/new", to: "paiement#new", as: "new_paiement"
+  post "/paiements", to: "paiement#create"
+
   resources :saisons
   resources :users
   resources :parents

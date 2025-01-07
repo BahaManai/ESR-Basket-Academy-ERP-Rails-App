@@ -7,24 +7,40 @@
 <table class="table table-bordered">
   <thead class="thead-light">
     <tr>
-      <th>Nom</th>
-      <th>Prénom</th>
-      <th>Sexe</th>
-      <th>Date de Naissance</th>
+      <th>ID</th>
+      <th>Nom du joueur</th>
+      <th>Date de naissance</th>
+      <th>Parent</th>
+      <th>Paiements</th>
+      <th>Expire</th>
+      <th>Crédit</th>
+      <th>Créé le</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <% @joueurs.each do |joueur| %>
       <tr>
-        <td><%= joueur.nom %></td>
-        <td><%= joueur.prénom %></td>
-        <td><%= joueur.sexe.capitalize %></td>
+        <td><%= joueur.id %></td>
+        <td><%= "#{joueur.prénom} #{joueur.nom}" %></td>
         <td><%= joueur.date_naissance %></td>
+        <td><%="#{joueur.parent.nom} #{joueur.parent.prénom}" if joueur.parent%>
+          <br><%= link_to "View Parent", "/parents/#{joueur.parent_id}", class: "btn btn-primary btn-sm"  %></td>
+        <td><ul>
+            <% joueur.paiements.each do |paiement| %>
+              <li><%= "#{paiement.date_abonnement.strftime("%d %b, %Y")} : #{paiement.montant} DT" %></li>
+            <% end %>
+          </ul></td>
+          <td><ul>
+            <% joueur.paiements.each do |paiement| %>
+              <li><%= (paiement.date_abonnement + 30.days).strftime("%d %b, %Y") if paiement.date_abonnement %></li>
+            <% end %>
+          </ul></td>
+          <td></td>
+          <td><%= joueur.created_at.strftime("%d %b, %Y %H:%M") %></td>
         <td>
-          <%= link_to "Show", joueur, class: "btn btn-secondary btn-sm" %>
           <%= link_to "Edit", edit_joueur_path(joueur), class: "btn btn-primary btn-sm" %>
-          <%= link_to "Delete", joueur, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+          <%= button_to "Delete", joueur, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
         </td>
       </tr>
     <% end %>

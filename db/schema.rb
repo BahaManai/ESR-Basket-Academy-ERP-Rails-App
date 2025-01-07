@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_06_215513) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_07_152525) do
   create_table "achats", force: :cascade do |t|
     t.string "designation"
     t.float "prix"
@@ -109,6 +109,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_06_215513) do
     t.date "date_fin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "montant_abonnement"
+    t.float "montant_assurance"
   end
 
   create_table "salaires", force: :cascade do |t|

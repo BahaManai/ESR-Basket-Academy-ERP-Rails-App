@@ -21,7 +21,7 @@
         <td><%= paiement.date_abonnement.strftime("%d %b, %Y") if paiement.date_abonnement %></td>
         <td><%= paiement.date_encaissement.strftime("%d %b, %Y") if paiement.date_encaissement %></td>
         <td>
-          <%= (paiement.date_abonnement + 30.days).strftime("%d %b, %Y") if paiement.date_encaissement %>
+          <%= (paiement.date_abonnement + 30.days).strftime("%d %b, %Y") if paiement.date_abonnement %>
         </td>
         <td><%= paiement.montant %>&nbspDT</td>
       </tr>
