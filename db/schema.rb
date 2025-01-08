@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_08_141506) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_08_151642) do
   create_table "achats", force: :cascade do |t|
     t.string "designation"
     t.float "prix"
@@ -18,6 +18,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_08_141506) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "joueur_id", null: false
+    t.string "etat_paiement", default: "Non crédit"
     t.index ["joueur_id"], name: "index_achats_on_joueur_id"
   end
 
@@ -27,6 +28,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_08_141506) do
     t.datetime "updated_at", null: false
     t.integer "joueur_id", null: false
     t.integer "saison_id", null: false
+    t.string "etat_paiement", default: "Non crédit"
     t.index ["joueur_id"], name: "index_assurances_on_joueur_id"
     t.index ["saison_id"], name: "index_assurances_on_saison_id"
   end
@@ -79,7 +81,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_08_141506) do
     t.float "montant"
     t.date "date_abonnement"
     t.date "date_encaissement"
-    t.string "etat_abonnement"
+    t.string "etat_abonnement", default: "Active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["joueur_id"], name: "index_paiements_on_joueur_id"

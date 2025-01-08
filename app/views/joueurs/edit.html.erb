@@ -83,7 +83,10 @@
           </div>
         <% end %>
         <br>
-
+        <div>
+          <%= form.check_box :etat_abonnement, { checked: false }, 'Crédit', nil %>
+          <%= form.label :etat_abonnement, "Marquer comme Crédit" %>
+        </div>
         <div style="display: none">
           <%= form.hidden_field :joueur_id, value: @joueur.id %>
         </div>
@@ -126,7 +129,7 @@
       </thead>
       <tbody>
         <% @joueur.paiements.each do |paiement| %>
-          <tr id="<%= dom_id paiement %>">
+          <tr id="<%= dom_id paiement %>" class="<%= 'etat_abonnement' if paiement.etat_abonnement == 'Crédit' %>">
             <td><%= paiement.montant %>&nbspDT</td>
             <td><%= paiement.date_abonnement.strftime("%d %b, %Y") if paiement.date_abonnement %></td>
             <td><%= paiement.date_encaissement.strftime("%d %b, %Y") if paiement.date_encaissement %></td>
@@ -159,7 +162,10 @@
           </div>
         <% end %>
         <br>
-
+        <div>
+          <%= form.check_box :etat_paiement, { checked: false }, 'Crédit', nil %>
+          <%= form.label :etat_paiement, "Marquer comme Crédit" %>
+        </div>
         <div style="display: none">
           <%= form.hidden_field :joueur_id, value: @joueur.id %>
         </div>
@@ -195,7 +201,7 @@
       </thead>
       <tbody>
         <% @joueur.assurances.each do |assurance| %>
-          <tr id="<%= dom_id assurance %>">
+          <tr id="<%= dom_id assurance %>" class="<%= 'etat_paiement' if assurance.etat_paiement == 'Crédit' %>">
             <td><%= assurance.saison.montant_assurance%>&nbspDT</td>
             <td><%= assurance.date_paiement.strftime("%d %b, %Y") if assurance.date_paiement %></td>
             <td><%= "#{assurance.saison.date_debut.strftime("%d %b %Y")} à #{assurance.saison.date_fin.strftime("%d %b %Y")}" %></td>
@@ -228,7 +234,10 @@
           </div>
         <% end %>
         <br>
-
+        <div>
+          <%= form.check_box :etat_paiement, { checked: false }, 'Crédit', nil %>
+          <%= form.label :etat_paiement, "Marquer comme Crédit" %>
+        </div>
         <div style="display: none">
           <%= form.hidden_field :joueur_id, value: @joueur.id %>
         </div>
@@ -268,7 +277,7 @@
       </thead>
       <tbody>
         <% @joueur.achats.each do |achat| %>
-          <tr id="<%= dom_id achat %>">
+          <tr id="<%= dom_id achat %>" class="<%= 'etat_paiement' if achat.etat_paiement == 'Crédit' %>">
             <td><%= achat.prix %>&nbspDT</td>
             <td><%= achat.date_achat.strftime("%d %b, %Y") if achat.date_achat %></td>
             <td><%= achat.designation %></td>

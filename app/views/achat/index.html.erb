@@ -11,17 +11,21 @@
       <th>Désignation</th>
       <th>Prix</th>
       <th>Date d'Achat</th>
+      <th>Etat de paiement</th>
+
     </tr>
   </thead>
   <tbody>
     <% @achats.each do |achat| %>
-      <tr id="<%= dom_id achat %>">
+      <tr id="<%= dom_id achat %>" class="<%= 'etat_paiement' if achat.etat_paiement == 'Crédit' %>">
         <td>
           <%= achat.joueur ? "#{achat.joueur.prénom} #{achat.joueur.nom}" : "Joueur inconnu" %>
         </td>
         <td><%= achat.designation %></td>
         <td><%= achat.prix %>&nbspDT</td>
         <td><%= achat.date_achat.strftime("%d %b, %Y") if achat.date_achat %></td>
+        <td><%= achat.etat_paiement %></td>
+
       </tr>
     <% end %>
   </tbody>

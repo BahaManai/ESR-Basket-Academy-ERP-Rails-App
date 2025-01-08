@@ -11,15 +11,17 @@
       <th>Montant</th>
       <th>Date de Paiement</th>
       <th>Nom du Joueur</th>
+      <th>Etat de paiement</th>
     </tr>
   </thead>
   <tbody>
     <% @assurances.each do |assurance| %>
-      <tr id="<%= dom_id assurance %>">
+      <tr id="<%= dom_id assurance %>" class="<%= 'etat_paiement' if assurance.etat_paiement == 'Crédit' %>">
         <td><%= assurance.saison.id %></td>
         <td><%= assurance.saison.montant_assurance %>&nbspDT</td>
         <td><%= assurance.date_paiement.strftime("%d %b, %Y") if assurance.date_paiement %></td>
         <td><%= assurance.joueur ? "#{assurance.joueur.prénom} #{assurance.joueur.nom}" : "Joueur inconnu" %></td>
+        <td><%= assurance.etat_paiement %></td>
       </tr>
     <% end %>
   </tbody>

@@ -12,11 +12,12 @@
       <th>Date d'Encaissement</th>
       <th>Expire</th>
       <th>Paiement</th>
+      <th>Etat d'abonnement</th>
     </tr>
   </thead>
   <tbody>
     <% @paiements.each do |paiement| %>
-      <tr id="<%= dom_id paiement %>">
+      <tr id="<%= dom_id paiement %>" class="<%= 'etat_paiement' if paiement.etat_abonnement == 'Crédit' %>">
         <td><%= paiement.joueur ? "#{paiement.joueur.prénom} #{paiement.joueur.nom}" : "Joueur inconnu" %></td>
         <td><%= paiement.date_abonnement.strftime("%d %b, %Y") if paiement.date_abonnement %></td>
         <td><%= paiement.date_encaissement.strftime("%d %b, %Y") if paiement.date_encaissement %></td>
@@ -24,6 +25,7 @@
           <%= (paiement.date_abonnement + 30.days).strftime("%d %b, %Y") if paiement.date_abonnement %>
         </td>
         <td><%= paiement.montant %>&nbspDT</td>
+        <td><%= paiement.etat_abonnement %></td>
       </tr>
     <% end %>
   </tbody>

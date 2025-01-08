@@ -37,6 +37,7 @@ class AchatController < ApplicationController
   end
 
   def achat_params
-    params.require(:achat).permit(:designation, :prix, :date_achat, :joueur_id)
+    params.require(:achat).permit(:designation, :prix, :date_achat,  :etat_paiement, :joueur_id)
   end
 end
+
