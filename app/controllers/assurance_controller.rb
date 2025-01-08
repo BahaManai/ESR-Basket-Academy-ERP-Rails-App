@@ -1,15 +1,11 @@
 class AssuranceController < ApplicationController
-  before_action :set_assurance, only: %i[show destroy]
+  before_action :set_assurance, only: %i[destroy]
 
   def index
     @assurances = Assurance.all
   end
 
   def show
-  end
-
-  def new
-    @assurance = Assurance.new
   end
 
   def create

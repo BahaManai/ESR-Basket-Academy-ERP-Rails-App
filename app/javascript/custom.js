@@ -31,6 +31,11 @@ function initializePaiementForm() {
     document.getElementById("btnAnnuler2").addEventListener("click", () => toggleForm("paiementForm", false));
 }
 
+function initializeAssuranceForm() {
+    document.getElementById("btnAjout3").addEventListener("click", () => toggleForm("assuranceForm", true));
+    document.getElementById("btnAnnuler3").addEventListener("click", () => toggleForm("assuranceForm", false));
+}
+
 function toggleForm(formId, show) {
     const form = document.getElementById(formId);
     if (form) {
@@ -41,6 +46,11 @@ function toggleForm(formId, show) {
 document.addEventListener("DOMContentLoaded", initializeSalaireForm);
 document.addEventListener("turbo:frame-load", initializeSalaireForm);
 document.addEventListener("turbo:load", initializeSalaireForm);
+
 document.addEventListener("DOMContentLoaded", initializePaiementForm);
 document.addEventListener("turbo:frame-load", initializePaiementForm);
 document.addEventListener("turbo:load", initializePaiementForm);
+
+document.addEventListener("DOMContentLoaded", initializeAssuranceForm);
+document.addEventListener("turbo:frame-load", initializeAssuranceForm);
+document.addEventListener("turbo:load", initializeAssuranceForm);

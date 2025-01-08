@@ -48,8 +48,11 @@
       </div>
 
       <div>
-        <%= form.label :parent_id, style: "display: block" %>
-        <%= form.select :parent_id, Parent.pluck(:nom, :id), prompt: "Choisir un parent", class: "form-control" %>
+        <%= form.label :parent_id, "Parent", style: "display: block" %>
+        <%= form.select :parent_id, 
+              Parent.all.map { |parent| ["#{parent.prénom} #{parent.nom}", parent.id] }, 
+              prompt: "Choisir un parent existant", 
+              class: "form-control" %>
       </div>
       <br>
 
@@ -135,5 +138,82 @@
         <% end %>
       </tbody>
     </table>
+    <!--************************ASSURANCE*******************************-->
+    <hr>
+    <h3>Assurance</h3>
+    <p>
+      <button id="btnAjout3" class="btn btn-success">Ajouter une assurance</button>
+    </p>
+
+    <div class="hideForm" id="assuranceForm">
+      <button id="btnAnnuler3" class="btn btn-secondary" style="float:right">Annuler</button>
+      <%= form_with(model: @assurance) do |form| %>
+        <% if @assurance.errors.any? %>
+          <div style="color: red">
+            <h2><%= pluralize(@assurance.errors.count, "erreur") %> empêchent cette assurance d'être sauvegardé :</h2>
+            <ul>
+              <% @assurance.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <br>
+
+        <div style="display: none">
+          <%= form.hidden_field :joueur_id, value: @joueur.id %>
+        </div>
+        <div>
+          <%= form.label :saison_id, "Saison", style: "display: block" %>
+          <%= form.select :saison_id, 
+              Saison.all.map { |saison| ["#{saison.date_debut.strftime('%d %B %Y')} à #{saison.date_fin.strftime('%d %B %Y')}", saison.id] }, 
+              prompt: "Choisir une saison", 
+              class: "form-control" %>
+        </div>
+        <br>
+        <div>
+          <%= form.label :montant, "Paiement", style: "display: block" %>
+          <%= number_field_tag :montant, 70, class: "form-control", disabled: true %>
+        </div>
+        <div style="display: none">
+          <%= form.label :montant, "Paiement", style: "display: block" %>
+          <%= form.number_field :montant, class: "form-control", value: 70 %>
+        </div>
+
+        <div>
+          <%= form.label :date_paiement, "Date de paiement", style: "display: block" %>
+          <%= form.date_field :date_paiement, class: "form-control" %>
+        </div>
+        <br>
+
+        <div>
+          <%= form.submit "Ajouter", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+
+    <table class="table table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th>Paiement</th>
+          <th>Date de paiement</th>
+          <th>Saison</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @joueur.assurances.each do |assurance| %>
+          <tr id="<%= dom_id assurance %>">
+            <td><%= assurance.montant %>&nbspDT</td>
+            <td><%= assurance.date_paiement.strftime("%d %b, %Y") if assurance.date_paiement %></td>
+            <td><%= "#{assurance.saison.date_debut.strftime("%d %b %Y")} à #{assurance.saison.date_fin.strftime("%d %b %Y")}" %></td>
+            <td>
+              <%= button_to 'Supprimer', assurance_path(assurance), method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: "btn btn-danger btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
+
 </div>

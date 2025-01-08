@@ -35,12 +35,15 @@
     <%= form.date_field :date_naissance %>
   </div>
 
-  
-  <div>
-    <%= form.label :parent_id, style: "display: block" %>
-    <%= form.select :parent_id, Parent.pluck(:nom, :id), prompt: "Choisir un parent" %>
-    <%= link_to "New parent", new_parent_path, class: "btn btn-success" %>
-  </div><br>
+      <div>
+        <%= form.label :parent_id, "Parent", style: "display: block" %>
+        <%= form.select :parent_id, 
+              Parent.all.map { |parent| ["#{parent.prénom} #{parent.nom}", parent.id] }, 
+              prompt: "Choisir un parent existant", 
+              class: "form-control" %>
+        <%= link_to "New parent", new_parent_path, class: "btn btn-success" %>
+      </div>
+  <br>
 
   <div>
     <%= form.label :note, style: "display: block" %>
