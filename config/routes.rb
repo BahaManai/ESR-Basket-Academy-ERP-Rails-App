@@ -20,6 +20,11 @@ Rails.application.routes.draw do
   get "/assurances/new", to: "assurance#new", as: "new_assurance"
   post "/assurances", to: "assurance#create"
 
+  get "achats", to: "achat#index", as: "achats"
+  delete "achats/:id", to: "achat#destroy", as: "achat"
+  get "/achats/new", to: "achat#new", as: "new_achat"
+  post "/achats", to: "achat#create"
+
   resources :saisons
   resources :users
   resources :parents

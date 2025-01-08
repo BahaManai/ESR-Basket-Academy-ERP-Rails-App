@@ -17,6 +17,7 @@ class JoueursController < ApplicationController
     @joueur = Joueur.find(params[:id])
     @paiement = Paiement.new
     @assurance = Assurance.new
+    @achat = Achat.new
   end
 
   # POST /joueurs or /joueurs.json

@@ -4,28 +4,25 @@
 
 <h1>Achats</h1>
 
-<div id="achats">
-  <% @achats.each do |achat| %>
-    <div id="<%= dom_id achat %>">
-  <p>
-    <strong>Désignation:</strong>
-    <%= achat.designation %>
-  </p>
-  <p>
-    <strong>prix:</strong>
-    <%= achat.prix %>
-  </p>
-
-  <p>
-    <strong>date_achat:</strong>
-    <%= achat.date_achat %>
-  </p>
-
-  <p>
-    <strong>Joueur:</strong>
-    <%= achat.joueur.prénom %>
-  </p>
-
-</div>
-  <% end %>
-</div>
+<table class="table table-bordered">
+  <thead class="thead-light">
+    <tr>
+      <th>Nom du Joueur</th>
+      <th>Désignation</th>
+      <th>Prix</th>
+      <th>Date d'Achat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @achats.each do |achat| %>
+      <tr id="<%= dom_id achat %>">
+        <td>
+          <%= achat.joueur ? "#{achat.joueur.prénom} #{achat.joueur.nom}" : "Joueur inconnu" %>
+        </td>
+        <td><%= achat.designation %></td>
+        <td><%= achat.prix %>&nbspDT</td>
+        <td><%= achat.date_achat.strftime("%d %b, %Y") if achat.date_achat %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

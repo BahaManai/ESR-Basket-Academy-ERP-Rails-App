@@ -214,6 +214,80 @@
         <% end %>
       </tbody>
     </table>
+
+    <!--************************ACHATS*******************************-->
+    <hr>
+    <h3>Achats</h3>
+    <p>
+      <button id="btnAjout4" class="btn btn-success">Ajouter un achat</button>
+    </p>
+
+    <div class="hideForm" id="achatForm">
+      <button id="btnAnnuler4" class="btn btn-secondary" style="float:right">Annuler</button>
+      <%= form_with(model: @achat) do |form| %>
+        <% if @achat.errors.any? %>
+          <div style="color: red">
+            <h2><%= pluralize(@achat.errors.count, "erreur") %> empêchent cet achat d'être sauvegardé :</h2>
+            <ul>
+              <% @achat.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <br>
+
+        <div style="display: none">
+          <%= form.hidden_field :joueur_id, value: @joueur.id %>
+        </div>
+
+        <div>
+          <%= form.label :designation, "Désignation", style: "display: block" %>
+          <%= form.text_field :designation, class: "form-control" %>
+        </div>
+        <br>
+
+        <div>
+          <%= form.label :prix, "Prix", style: "display: block" %>
+          <%= form.number_field :prix, class: "form-control", step: 0.01 %>
+        </div>
+        <br>
+
+        <div>
+          <%= form.label :date_achat, "Date d'achat", style: "display: block" %>
+          <%= form.date_field :date_achat, class: "form-control" %>
+        </div>
+        <br>
+
+        <div>
+          <%= form.submit "Ajouter", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+
+    <table class="table table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th>Prix</th>
+          <th>Date d'achat</th>
+          <th>Désignation</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @joueur.achats.each do |achat| %>
+          <tr id="<%= dom_id achat %>">
+            <td><%= achat.prix %>&nbspDT</td>
+            <td><%= achat.date_achat.strftime("%d %b, %Y") if achat.date_achat %></td>
+            <td><%= achat.designation %></td>
+            <td>
+              <%= button_to 'Supprimer', achat_path(achat), method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: "btn btn-danger btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
   </div>
 
 </div>

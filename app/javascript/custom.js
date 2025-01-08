@@ -36,6 +36,11 @@ function initializeAssuranceForm() {
     document.getElementById("btnAnnuler3").addEventListener("click", () => toggleForm("assuranceForm", false));
 }
 
+function initializeAchatForm() {
+    document.getElementById("btnAjout4").addEventListener("click", () => toggleForm("achatForm", true));
+    document.getElementById("btnAnnuler4").addEventListener("click", () => toggleForm("achatForm", false));
+}
+
 function toggleForm(formId, show) {
     const form = document.getElementById(formId);
     if (form) {
@@ -54,3 +59,7 @@ document.addEventListener("turbo:load", initializePaiementForm);
 document.addEventListener("DOMContentLoaded", initializeAssuranceForm);
 document.addEventListener("turbo:frame-load", initializeAssuranceForm);
 document.addEventListener("turbo:load", initializeAssuranceForm);
+
+document.addEventListener("DOMContentLoaded", initializeAchatForm);
+document.addEventListener("turbo:frame-load", initializeAchatForm);
+document.addEventListener("turbo:load", initializeAchatForm);
