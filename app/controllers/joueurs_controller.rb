@@ -18,6 +18,7 @@ class JoueursController < ApplicationController
     @paiement = Paiement.new
     @assurance = Assurance.new
     @achat = Achat.new
+    @saison = Saison.actuelle
   end
 
   # POST /joueurs or /joueurs.json
@@ -62,6 +63,10 @@ class JoueursController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_joueur
       @joueur = Joueur.find(params.expect(:id))
+    end
+
+    def latest_saison
+      Saison.last || Saison.new
     end
 
     # Only allow a list of trusted parameters through.
