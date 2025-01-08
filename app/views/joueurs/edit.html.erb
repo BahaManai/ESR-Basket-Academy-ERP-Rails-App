@@ -171,14 +171,6 @@
               class: "form-control" %>
         </div>
         <br>
-        <div>
-          <%= form.label :montant, "Paiement", style: "display: block" %>
-          <%= number_field_tag :montant, 70, class: "form-control", disabled: true %>
-        </div>
-        <div style="display: none">
-          <%= form.label :montant, "Paiement", style: "display: block" %>
-          <%= form.number_field :montant, class: "form-control", value: 70 %>
-        </div>
 
         <div>
           <%= form.label :date_paiement, "Date de paiement", style: "display: block" %>
@@ -204,7 +196,7 @@
       <tbody>
         <% @joueur.assurances.each do |assurance| %>
           <tr id="<%= dom_id assurance %>">
-            <td><%= assurance.montant %>&nbspDT</td>
+            <td><%= assurance.saison.montant_assurance%>&nbspDT</td>
             <td><%= assurance.date_paiement.strftime("%d %b, %Y") if assurance.date_paiement %></td>
             <td><%= "#{assurance.saison.date_debut.strftime("%d %b %Y")} à #{assurance.saison.date_fin.strftime("%d %b %Y")}" %></td>
             <td>

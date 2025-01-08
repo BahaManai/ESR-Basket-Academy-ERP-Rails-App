@@ -41,6 +41,11 @@ function initializeAchatForm() {
     document.getElementById("btnAnnuler4").addEventListener("click", () => toggleForm("achatForm", false));
 }
 
+function initializeCreditForm() {
+    document.getElementById("btnAjout5").addEventListener("click", () => toggleForm("creditForm", true));
+    document.getElementById("btnAnnuler5").addEventListener("click", () => toggleForm("creditForm", false));
+}
+
 function toggleForm(formId, show) {
     const form = document.getElementById(formId);
     if (form) {
@@ -63,3 +68,7 @@ document.addEventListener("turbo:load", initializeAssuranceForm);
 document.addEventListener("DOMContentLoaded", initializeAchatForm);
 document.addEventListener("turbo:frame-load", initializeAchatForm);
 document.addEventListener("turbo:load", initializeAchatForm);
+
+document.addEventListener("DOMContentLoaded", initializeCreditForm);
+document.addEventListener("turbo:frame-load", initializeCreditForm);
+document.addEventListener("turbo:load", initializeCreditForm);

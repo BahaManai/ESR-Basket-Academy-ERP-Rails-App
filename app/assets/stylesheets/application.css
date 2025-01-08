@@ -69,16 +69,11 @@
     overflow-y: auto;
 }
 
-.nav-section {
-    margin-top: 1rem;
-}
-
 .nav-label {
     font-size: 1.1rem;
     font-weight: bold;
-    margin-bottom: 0.5rem;
     display: block;
-    color: #444;
+    color: #0023b5;
 }
 
 .nav-list {

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_07_160246) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_08_141506) do
   create_table "achats", force: :cascade do |t|
     t.string "designation"
     t.float "prix"
@@ -22,7 +22,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_07_160246) do
   end
 
   create_table "assurances", force: :cascade do |t|
-    t.float "montant"
     t.date "date_paiement"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -30,18 +29,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_07_160246) do
     t.integer "saison_id", null: false
     t.index ["joueur_id"], name: "index_assurances_on_joueur_id"
     t.index ["saison_id"], name: "index_assurances_on_saison_id"
-  end
-
-  create_table "credits", force: :cascade do |t|
-    t.string "type_credit"
-    t.float "montant"
-    t.string "statut"
-    t.date "date_credit"
-    t.text "note"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "joueur_id", null: false
-    t.index ["joueur_id"], name: "index_credits_on_joueur_id"
   end
 
   create_table "depenses", force: :cascade do |t|
@@ -137,7 +124,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_07_160246) do
   add_foreign_key "achats", "joueurs"
   add_foreign_key "assurances", "joueurs"
   add_foreign_key "assurances", "saisons"
-  add_foreign_key "credits", "joueurs"
   add_foreign_key "joueurs", "groupes"
   add_foreign_key "joueurs", "parents"
   add_foreign_key "salaires", "entraineurs"

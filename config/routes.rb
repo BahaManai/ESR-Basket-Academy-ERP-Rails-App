@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   get "groupe/index"
-  get "credit/index"
   get "achat/index"
   get "assurance/index"
   get "paiement/index"
