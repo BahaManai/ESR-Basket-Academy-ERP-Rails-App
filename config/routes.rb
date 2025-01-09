@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   delete "assurances/:id", to: "assurance#destroy", as: "assurance"
   get "/assurances/new", to: "assurance#new", as: "new_assurance"
   post "/assurances", to: "assurance#create"
+  patch "assurances/:id", to: "assurance#update", as: "update_assurance"
 
   get "achats", to: "achat#index", as: "achats"
   delete "achats/:id", to: "achat#destroy", as: "achat"

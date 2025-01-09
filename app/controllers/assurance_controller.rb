@@ -1,5 +1,5 @@
 class AssuranceController < ApplicationController
-  before_action :set_assurance, only: %i[destroy]
+  before_action :set_assurance, only: %i[destroy update]
 
   def index
     @assurances = Assurance.all
@@ -21,6 +21,14 @@ class AssuranceController < ApplicationController
       end
     end
   end
+
+  def update
+    if @assurance.update(assurance_params)
+      redirect_to assurances_path, notice: 'L\'état de paiement a été mis à jour.'
+    else
+      redirect_to assurances_path, alert: 'Une erreur est survenue lors de la mise à jour.'
+    end
+  end  
 
   def destroy
     @assurance.destroy!
