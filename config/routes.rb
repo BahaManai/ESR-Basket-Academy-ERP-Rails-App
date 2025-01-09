@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   delete "achats/:id", to: "achat#destroy", as: "achat"
   get "/achats/new", to: "achat#new", as: "new_achat"
   post "/achats", to: "achat#create"
+  patch "achats/:id", to: "achat#update", as: "update_achat"
 
   resources :saisons
   resources :users

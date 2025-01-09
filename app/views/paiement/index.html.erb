@@ -12,18 +12,43 @@
       <th>Date d'Encaissement</th>
       <th>Expire</th>
       <th>Paiement</th>
-      <th>Etat d'abonnement</th>
     </tr>
   </thead>
   <tbody>
-    <% @paiements.each do |paiement| %>
-      <tr id="<%= dom_id paiement %>" class="<%= 'etat_paiement' if paiement.etat_abonnement == 'Crédit' %>">
+    <% @paiements.reverse.each do |paiement| %>
+        <tr id="<%= dom_id paiement %>" 
+          class="<%= 
+            if paiement == paiement.joueur.paiements.last
+              if paiement.etat_abonnement == 'Crédit'
+                'etat_crédit'
+              elsif paiement.etat_abonnement == 'Expiré'
+                'etat_expiré'
+              else
+                ''
+              end
+            elsif paiement.etat_abonnement == 'Crédit'
+              'etat_crédit'
+            else
+              'etat_passé'
+            end
+          %>">
         <td><%= paiement.joueur ? "#{paiement.joueur.prénom} #{paiement.joueur.nom}" : "Joueur inconnu" %></td>
         <td><%= paiement.date_abonnement.strftime("%d %b, %Y") if paiement.date_abonnement %></td>
         <td><%= paiement.date_encaissement.strftime("%d %b, %Y") if paiement.date_encaissement %></td>
-        <td>
-          <%= (paiement.date_abonnement + 30.days).strftime("%d %b, %Y") if paiement.date_abonnement %>
+        <td> 
+          <% expiration_date = paiement.date_abonnement + 30.days %>
+          <%= expiration_date.strftime("%d %b, %Y") %>
+          <br><strong>
+            <% if paiement == paiement.joueur.paiements.last %>
+              <% if (expiration_date - Date.today).to_i > 0 %>
+                reste : <%= (expiration_date - Date.today).to_i %> jours
+              <% else %>
+                <% paiement.update(etat_abonnement: 'Expiré') %>
+              <% end %>
+            <% end %>
+          </strong>
         </td>
+
         <td><%= paiement.montant %>&nbspDT</td>
         <td><%= paiement.etat_abonnement %></td>
       </tr>

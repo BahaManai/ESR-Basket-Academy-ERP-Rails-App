@@ -128,14 +128,40 @@
         </tr>
       </thead>
       <tbody>
-        <% @joueur.paiements.each do |paiement| %>
-          <tr id="<%= dom_id paiement %>" class="<%= 'etat_abonnement' if paiement.etat_abonnement == 'Crédit' %>">
+        <% @joueur.paiements.reverse.each do |paiement| %>
+          <tr id="<%= dom_id paiement %>" class="<%= 
+            if paiement == paiement.joueur.paiements.last
+              if paiement.etat_abonnement == 'Crédit'
+                'etat_crédit'
+              elsif paiement.etat_abonnement == 'Expiré'
+                'etat_expiré'
+              else
+                ''
+              end
+            elsif paiement.etat_abonnement == 'Crédit'
+              'etat_crédit'
+            else
+              'etat_passé'
+            end
+          %>">
             <td><%= paiement.montant %>&nbspDT</td>
             <td><%= paiement.date_abonnement.strftime("%d %b, %Y") if paiement.date_abonnement %></td>
             <td><%= paiement.date_encaissement.strftime("%d %b, %Y") if paiement.date_encaissement %></td>
-            <td><%= (paiement.date_abonnement + 30.days).strftime("%d %b, %Y") if paiement.date_abonnement %></td>
+            <td> 
+          <% expiration_date = paiement.date_abonnement + 30.days %>
+          <%= expiration_date.strftime("%d %b, %Y") %>
+          <br><strong>
+            <% if paiement == paiement.joueur.paiements.last %>
+              <% if (expiration_date - Date.today).to_i > 0 %>
+                reste : <%= (expiration_date - Date.today).to_i %> jours
+              <% else %>
+                <% paiement.update(etat_abonnement: 'Expiré') %>
+              <% end %>
+            <% end %>
+          </strong>
+        </td>
             <td>
-              <%= button_to 'Supprimer', paiement_path(paiement), method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: "btn btn-danger btn-sm" %>
+              <%= button_to 'Delete', paiement_path(paiement), method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: "btn btn-danger btn-sm" %>
             </td>
           </tr>
         <% end %>
@@ -201,7 +227,7 @@
       </thead>
       <tbody>
         <% @joueur.assurances.each do |assurance| %>
-          <tr id="<%= dom_id assurance %>" class="<%= 'etat_paiement' if assurance.etat_paiement == 'Crédit' %>">
+          <tr id="<%= dom_id assurance %>" class="<%= 'etat_crédit' if assurance.etat_paiement == 'Crédit' %>">
             <td><%= assurance.saison.montant_assurance%>&nbspDT</td>
             <td><%= assurance.date_paiement.strftime("%d %b, %Y") if assurance.date_paiement %></td>
             <td><%= "#{assurance.saison.date_debut.strftime("%d %b %Y")} à #{assurance.saison.date_fin.strftime("%d %b %Y")}" %></td>
@@ -277,7 +303,7 @@
       </thead>
       <tbody>
         <% @joueur.achats.each do |achat| %>
-          <tr id="<%= dom_id achat %>" class="<%= 'etat_paiement' if achat.etat_paiement == 'Crédit' %>">
+          <tr id="<%= dom_id achat %>" class="<%= 'etat_crédit' if achat.etat_paiement == 'Crédit' %>">
             <td><%= achat.prix %>&nbspDT</td>
             <td><%= achat.date_achat.strftime("%d %b, %Y") if achat.date_achat %></td>
             <td><%= achat.designation %></td>

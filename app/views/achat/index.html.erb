@@ -17,14 +17,27 @@
   </thead>
   <tbody>
     <% @achats.each do |achat| %>
-      <tr id="<%= dom_id achat %>" class="<%= 'etat_paiement' if achat.etat_paiement == 'Crédit' %>">
+      <tr id="<%= dom_id achat %>" class="<%= 'etat_crédit' if achat.etat_paiement == 'Crédit' %>">
         <td>
           <%= achat.joueur ? "#{achat.joueur.prénom} #{achat.joueur.nom}" : "Joueur inconnu" %>
         </td>
         <td><%= achat.designation %></td>
         <td><%= achat.prix %>&nbspDT</td>
         <td><%= achat.date_achat.strftime("%d %b, %Y") if achat.date_achat %></td>
-        <td><%= achat.etat_paiement %></td>
+        <td>
+        <% if achat.etat_paiement == 'Crédit' %>
+          <%= form_with(model: achat, method: :patch, local: true) do |form| %>
+            <%= form.hidden_field :joueur_id, value: achat.joueur_id %>
+            <%= form.hidden_field :designation, value: achat.designation %>
+            <%= form.hidden_field :prix, value: achat.prix %>
+            <%= form.hidden_field :date_achat, value: achat.date_achat %>
+            <%= form.hidden_field :etat_paiement, value: 'Non crédit' %>
+            <%= form.submit 'Payer', class: "btn btn-success" %>
+          <% end %>
+        <% else %>
+        <button class="btn btn-secondary" disabled>Payé</button>
+        <% end %>
+      </td>
 
       </tr>
     <% end %>

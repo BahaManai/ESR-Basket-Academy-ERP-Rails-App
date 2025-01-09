@@ -115,6 +115,15 @@
     background-color: #ffff99;
 }
 
-.etat_paiement {
+.etat_crédit {
     background-color: #ffff99;
+}
+
+.etat_expiré {
+    background-color: #fab2b2;
+}
+
+.etat_passé {
+    background-color: #f0f0f0;
+    color: #7a7a7a;
 }

@@ -11,33 +11,60 @@
       <th>Nom du joueur</th>
       <th>Date de naissance</th>
       <th>Parent</th>
-      <th>Paiements</th>
+      <th>Dernier paiement</th>
       <th>Expire</th>
-      <th>Crédit</th>
+      <th>Crédits</th>
       <th>Créé le</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <% @joueurs.each do |joueur| %>
-      <tr>
+      <tr class="<%= 
+        if joueur.paiements.any?
+          if joueur.paiements.last.etat_abonnement == 'Crédit'
+            'etat_crédit'
+          elsif joueur.paiements.last.etat_abonnement == 'Expiré'
+            'etat_expiré'
+          else
+            ''
+          end
+        end
+      %>">
         <td><%= joueur.id %></td>
         <td><%= "#{joueur.prénom} #{joueur.nom}" %></td>
         <td><%= joueur.date_naissance %></td>
-        <td><%="#{joueur.parent.nom} #{joueur.parent.prénom}" if joueur.parent%>
-          <br><%= link_to "View Parent", "/parents/#{joueur.parent_id}", class: "btn btn-primary btn-sm"  %></td>
-        <td><ul>
-            <% joueur.paiements.each do |paiement| %>
-              <li><%= "#{paiement.date_abonnement.strftime("%d %b, %Y")} : #{paiement.montant} DT" %></li>
-            <% end %>
-          </ul></td>
-          <td><ul>
-            <% joueur.paiements.each do |paiement| %>
-              <li><%= (paiement.date_abonnement + 30.days).strftime("%d %b, %Y") if paiement.date_abonnement %></li>
-            <% end %>
-          </ul></td>
-          <td></td>
-          <td><%= joueur.created_at.strftime("%d %b, %Y %H:%M") %></td>
+        <td>
+          <% if joueur.parent %>
+            <%= "#{joueur.parent.nom} #{joueur.parent.prénom}" %><br>
+            <%= link_to "View Parent", parent_path(joueur.parent_id), class: "btn btn-secondary btn-sm" %>
+          <% end %>
+        </td>
+        <td>
+          <% if joueur.paiements.any? %>
+            <%= "#{joueur.paiements.last.date_abonnement.strftime("%d %b, %Y")}"%><br><strong><%= "(#{joueur.paiements.last.montant.to_i} DT)" %></strong>
+          <% else %>
+            Aucun paiement
+          <% end %>
+        </td>
+        <td>
+          <% if joueur.paiements.any? %>
+            <% expiration_date = joueur.paiements.last.date_abonnement + 30.days %>
+            <%= expiration_date.strftime("%d %b, %Y") %>
+            <br><strong>
+              <% if (expiration_date - Date.today).to_i > 0 %>
+              reste : <%= (expiration_date - Date.today).to_i %> jours
+            </strong>
+              <% else
+              joueur.paiements.last.update(etat_abonnement: 'Expiré')
+              end
+               %>
+          <% else %>
+            -
+          <% end %>
+        </td>
+        <td><%= joueur.somme_des_credits %>&nbsp;DT</td>
+        <td><%= joueur.created_at.strftime("%d %b, %Y %H:%M") %></td>
         <td>
           <%= link_to "Edit", edit_joueur_path(joueur), class: "btn btn-primary btn-sm" %>
           <%= button_to "Delete", joueur, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
@@ -46,6 +73,7 @@
     <% end %>
   </tbody>
 </table>
+
 
 <p>
   <%= link_to "New joueur", new_joueur_path, class: "btn btn-success" %>

@@ -1,5 +1,5 @@
 class AchatController < ApplicationController
-  before_action :set_achat, only: %i[destroy]
+  before_action :set_achat, only: %i[destroy update]
 
   def index
     @achats = Achat.all
@@ -21,6 +21,14 @@ class AchatController < ApplicationController
       end
     end
   end
+
+  def update
+    if @achat.update(achat_params)
+      redirect_to achats_path, notice: 'L\'état de paiement a été mis à jour.'
+    else
+      redirect_to achats_path, alert: 'Une erreur est survenue lors de la mise à jour.'
+    end
+  end  
 
   def destroy
     @achat.destroy!

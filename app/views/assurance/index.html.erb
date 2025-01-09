@@ -16,7 +16,7 @@
   </thead>
   <tbody>
     <% @assurances.each do |assurance| %>
-      <tr id="<%= dom_id assurance %>" class="<%= 'etat_paiement' if assurance.etat_paiement == 'Crédit' %>">
+      <tr id="<%= dom_id assurance %>" class="<%= 'etat_crédit' if assurance.etat_paiement == 'Crédit' %>">
         <td><%= assurance.saison.id %></td>
         <td><%= assurance.saison.montant_assurance %>&nbspDT</td>
         <td><%= assurance.date_paiement.strftime("%d %b, %Y") if assurance.date_paiement %></td>
