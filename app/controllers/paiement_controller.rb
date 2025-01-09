@@ -1,5 +1,5 @@
 class PaiementController < ApplicationController
-  before_action :set_paiement, only: %i[ destroy ]
+  before_action :set_paiement, only: %i[ destroy update]
   def index
     @paiements = Paiement.all
   end
@@ -20,6 +20,14 @@ class PaiementController < ApplicationController
       end
     end
   end
+
+  def update
+    if @paiement.update(paiement_params)
+      redirect_to paiements_path, notice: 'L\'état de paiement a été mis à jour.'
+    else
+      redirect_to paiements_path, alert: 'Une erreur est survenue lors de la mise à jour.'
+    end
+  end  
 
   def destroy
     @paiement.destroy!

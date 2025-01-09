@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   delete "paiements/:id", to: "paiement#destroy", as: "paiement"
   get "/paiements/new", to: "paiement#new", as: "new_paiement"
   post "/paiements", to: "paiement#create"
+  patch "paiements/:id", to: "paiement#update", as: "update_paiement"
 
   get "assurances", to: "assurance#index", as: "assurances"
   delete "assurances/:id", to: "assurance#destroy", as: "assurance"

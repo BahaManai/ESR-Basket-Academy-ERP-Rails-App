@@ -12,6 +12,7 @@
       <th>Date d'Encaissement</th>
       <th>Expire</th>
       <th>Paiement</th>
+      <th colspan = 2>Etat de paiement</th>
     </tr>
   </thead>
   <tbody>
@@ -51,6 +52,21 @@
 
         <td><%= paiement.montant %>&nbspDT</td>
         <td><%= paiement.etat_abonnement %></td>
+        <td>
+          <% if paiement.etat_abonnement == 'Crédit' %>
+            <%= form_with(model: paiement, method: :patch, local: true) do |form| %>
+              <%= form.hidden_field :joueur_id, value: paiement.joueur_id %>
+              <%= form.hidden_field :montant, value: paiement.montant %>
+              <%= form.hidden_field :date_abonnement, value: paiement.date_abonnement %>
+              <%= form.hidden_field :date_encaissement, value: paiement.date_encaissement %>
+              <%= form.hidden_field :etat_abonnement, value: 'Active' %>
+              <%= form.submit 'Payer', class: "btn btn-success btn-sm" %>
+            <% end %>
+          <% else %>
+            <button class="btn btn-secondary btn-sm" disabled>Payé</button>
+          <% end %>
+        </td>
+
       </tr>
     <% end %>
   </tbody>
