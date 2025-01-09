@@ -133,8 +133,6 @@
             if paiement == paiement.joueur.paiements.last
               if paiement.etat_abonnement == 'Crédit'
                 'etat_crédit'
-              elsif paiement.etat_abonnement == 'Expiré'
-                'etat_expiré'
               else
                 ''
               end
@@ -153,12 +151,16 @@
           <br><strong>
             <% if paiement == paiement.joueur.paiements.last %>
               <% if (expiration_date - Date.today).to_i > 0 %>
-                reste : <%= (expiration_date - Date.today).to_i %> jours
-              <% else %>
-                <% paiement.update(etat_abonnement: 'Expiré') %>
-              <% end %>
+              reste : <%= (expiration_date - Date.today).to_i %> jours
+              <% elsif (expiration_date - Date.today).to_i == 0 %>
+              Aujourd'hui
+              <% else
+              %>
+              </strong>
+              <span style="color:red">(Expiré)</span>
+              <%end
+               %>
             <% end %>
-          </strong>
         </td>
             <td>
               <div class="d-flex align-items-center">

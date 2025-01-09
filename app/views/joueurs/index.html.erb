@@ -22,9 +22,9 @@
     <% @joueurs.each do |joueur| %>
       <tr class="<%= 
         if joueur.paiements.any?
-          if joueur.paiements.last.etat_abonnement == 'Crédit'
-            'etat_crédit'
-          elsif joueur.paiements.last.etat_abonnement == 'Expiré'
+          expiration_date = joueur.paiements.last.date_abonnement + 30.days
+
+          if (expiration_date - Date.today).to_i < 0
             'etat_expiré'
           else
             ''
@@ -54,16 +54,25 @@
             <br><strong>
               <% if (expiration_date - Date.today).to_i > 0 %>
               reste : <%= (expiration_date - Date.today).to_i %> jours
-            </strong>
+              <% elsif (expiration_date - Date.today).to_i == 0 %>
+              Aujourd'hui
               <% else
-              joueur.paiements.last.update(etat_abonnement: 'Expiré')
-              end
+              %>
+              </strong>
+              <span style="color:red">(Expiré)</span>
+              <%end
                %>
           <% else %>
             -
           <% end %>
         </td>
-        <td><%= joueur.somme_des_credits %>&nbsp;DT</td>
+        <td class="<%= 
+        if joueur.somme_des_credits > 0
+          'etat_crédit'
+        else
+          ''
+        end
+      %>"><%= joueur.somme_des_credits %>&nbsp;DT</td>
         <td><%= joueur.created_at.strftime("%d %b, %Y %H:%M") %></td>
         <td>
           <%= link_to "Edit", edit_joueur_path(joueur), class: "btn btn-primary btn-sm" %>

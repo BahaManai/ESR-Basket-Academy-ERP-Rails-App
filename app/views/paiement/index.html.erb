@@ -12,7 +12,7 @@
       <th>Date d'Encaissement</th>
       <th>Expire</th>
       <th>Paiement</th>
-      <th colspan = 2>Etat de paiement</th>
+      <th>Etat de paiement</th>
     </tr>
   </thead>
   <tbody>
@@ -20,15 +20,11 @@
         <tr id="<%= dom_id paiement %>" 
           class="<%= 
             if paiement == paiement.joueur.paiements.last
-              if paiement.etat_abonnement == 'Crédit'
-                'etat_crédit'
-              elsif paiement.etat_abonnement == 'Expiré'
+              if (paiement.joueur.paiements.last.date_abonnement + 30.days - Date.today).to_i < 0
                 'etat_expiré'
               else
                 ''
               end
-            elsif paiement.etat_abonnement == 'Crédit'
-              'etat_crédit'
             else
               'etat_passé'
             end
@@ -42,17 +38,39 @@
           <br><strong>
             <% if paiement == paiement.joueur.paiements.last %>
               <% if (expiration_date - Date.today).to_i > 0 %>
-                reste : <%= (expiration_date - Date.today).to_i %> jours
-              <% else %>
-                <% paiement.update(etat_abonnement: 'Expiré') %>
-              <% end %>
+              reste : <%= (expiration_date - Date.today).to_i %> jours
+              <% elsif (expiration_date - Date.today).to_i == 0 %>
+              Aujourd'hui
+              <% else
+              %>
+              </strong>
+              <span style="color:red">(Expiré)</span>
+              <%end
+               %>
             <% end %>
-          </strong>
         </td>
 
-        <td><%= paiement.montant %>&nbspDT</td>
-        <td><%= paiement.etat_abonnement %></td>
-        <td>
+        <td class="<%= 
+        if paiement.etat_abonnement == 'Crédit'
+          'etat_crédit'
+        else
+          ''
+        end
+      %>"><%= paiement.montant %>&nbspDT</td>
+        <td class="<%= 
+        if paiement.etat_abonnement == 'Crédit'
+          'etat_crédit'
+        else
+          ''
+        end
+      %>"><%= paiement.etat_abonnement %></td>
+        <td class="<%= 
+        if paiement.etat_abonnement == 'Crédit'
+          'etat_crédit'
+        else
+          ''
+        end
+      %>">
           <% if paiement.etat_abonnement == 'Crédit' %>
             <%= form_with(model: paiement, method: :patch, local: true) do |form| %>
               <%= form.hidden_field :joueur_id, value: paiement.joueur_id %>

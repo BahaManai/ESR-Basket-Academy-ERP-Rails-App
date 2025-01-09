@@ -116,7 +116,7 @@
 }
 
 .etat_crédit {
-    background-color: #ffff99;
+    background-color: #ffff99 !important;
 }
 
 .etat_expiré {
@@ -124,6 +124,6 @@
 }
 
 .etat_passé {
-    background-color: #f0f0f0;
-    color: #7a7a7a;
+    background-color: #e0e0e0;
+    color: #6d6c6c;
 }
