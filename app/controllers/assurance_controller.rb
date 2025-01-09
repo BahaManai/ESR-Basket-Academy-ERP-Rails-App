@@ -14,21 +14,22 @@ class AssuranceController < ApplicationController
     respond_to do |format|
       if @assurance.save
         format.html { redirect_to "/joueurs/#{@assurance.joueur_id}/edit", notice: "L'assurance a été créée avec succès." }
-        format.json { render :show, status: :created, location: @assurance }
+        format.json { render json: @assurance, status: :created }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to assurances_path, alert: "Échec de la création de l'assurance." }
         format.json { render json: @assurance.errors, status: :unprocessable_entity }
       end
     end
   end
 
+
   def update
     if @assurance.update(assurance_params)
-      redirect_to assurances_path, notice: 'L\'état de paiement a été mis à jour.'
+      redirect_to assurances_path, notice: "L'état de paiement a été mis à jour."
     else
-      redirect_to assurances_path, alert: 'Une erreur est survenue lors de la mise à jour.'
+      redirect_to assurances_path, alert: "Une erreur est survenue lors de la mise à jour."
     end
-  end  
+  end
 
   def destroy
     @assurance.destroy!

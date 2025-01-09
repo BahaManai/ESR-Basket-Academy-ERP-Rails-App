@@ -13,9 +13,9 @@ class PaiementController < ApplicationController
     respond_to do |format|
       if @paiement.save
         format.html { redirect_to "/joueurs/#{@paiement.joueur_id}/edit", notice: "Paiement was successfully created." }
-        format.json { render :show, status: :created, location: @paiement }
+        format.json { render json: @paiement, status: :created }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to paiements_path, alert: "Failed to create Paiement." }
         format.json { render json: @paiement.errors, status: :unprocessable_entity }
       end
     end
@@ -23,11 +23,11 @@ class PaiementController < ApplicationController
 
   def update
     if @paiement.update(paiement_params)
-      redirect_to paiements_path, notice: 'L\'état de paiement a été mis à jour.'
+      redirect_to paiements_path, notice: "L'état de paiement a été mis à jour."
     else
-      redirect_to paiements_path, alert: 'Une erreur est survenue lors de la mise à jour.'
+      redirect_to paiements_path, alert: "Une erreur est survenue lors de la mise à jour."
     end
-  end  
+  end
 
   def destroy
     @paiement.destroy!

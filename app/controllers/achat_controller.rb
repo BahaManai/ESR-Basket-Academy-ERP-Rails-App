@@ -14,21 +14,22 @@ class AchatController < ApplicationController
     respond_to do |format|
       if @achat.save
         format.html { redirect_to "/joueurs/#{@achat.joueur_id}/edit", notice: "Achat was successfully created." }
-        format.json { render :show, status: :created, location: @achat }
+        format.json { render json: @achat, status: :created }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to achats_path, alert: "Failed to create Achat." }
         format.json { render json: @achat.errors, status: :unprocessable_entity }
       end
     end
   end
 
+
   def update
     if @achat.update(achat_params)
-      redirect_to achats_path, notice: 'L\'état de paiement a été mis à jour.'
+      redirect_to achats_path, notice: "L'état de paiement a été mis à jour."
     else
-      redirect_to achats_path, alert: 'Une erreur est survenue lors de la mise à jour.'
+      redirect_to achats_path, alert: "Une erreur est survenue lors de la mise à jour."
     end
-  end  
+  end
 
   def destroy
     @achat.destroy!
@@ -48,4 +49,3 @@ class AchatController < ApplicationController
     params.require(:achat).permit(:designation, :prix, :date_achat,  :etat_paiement, :joueur_id)
   end
 end
-

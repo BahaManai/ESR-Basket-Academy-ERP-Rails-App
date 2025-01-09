@@ -133,6 +133,8 @@
             if paiement == paiement.joueur.paiements.last
               if paiement.etat_abonnement == 'Crédit'
                 'etat_crédit'
+              elsif (paiement.joueur.paiements.last.date_abonnement + 30.days - Date.today).to_i < 0
+                'etat_expiré'
               else
                 ''
               end
@@ -171,7 +173,7 @@
                     <%= form.hidden_field :montant, value: paiement.montant %>
                     <%= form.hidden_field :date_abonnement, value: paiement.date_abonnement %>
                     <%= form.hidden_field :date_encaissement, value: paiement.date_encaissement %>
-                    <%= form.hidden_field :etat_abonnement, value: 'Active' %>
+                    <%= form.hidden_field :etat_abonnement, value: 'Non crédit' %>
                     <%= form.submit 'Payer', class: "btn btn-success btn-sm" %>
                   <% end %>
                 <% else %>

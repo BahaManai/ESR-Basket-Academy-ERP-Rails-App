@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_08_151642) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_09_222421) do
   create_table "achats", force: :cascade do |t|
     t.string "designation"
     t.float "prix"
@@ -81,7 +81,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_08_151642) do
     t.float "montant"
     t.date "date_abonnement"
     t.date "date_encaissement"
-    t.string "etat_abonnement", default: "Active"
+    t.string "etat_abonnement", default: "Non crédit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["joueur_id"], name: "index_paiements_on_joueur_id"
