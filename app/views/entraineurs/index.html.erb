@@ -1,18 +1,32 @@
-<p style="color: green"><%= notice %></p>
+<% selected_year = params[:annee].presence || Date.today.year %>
+<% selected_month = params[:mois].presence || Date.today.month %>
+
+<p class="text-success"><%= notice %></p>
 
 <% content_for :title, "Entraîneurs" %>
 
-<h1>Entraîneurs</h1>
+<h1 class="mb-4">Entraîneurs</h1>
 
-<table class="table table-bordered">
+<div class="mb-3">
+  <%= form_with url: entraineurs_path, method: :get, local: true, class: "form-inline" do %>
+    <div class="form-group me-2">
+      <%= label_tag :mois_et_annee, "Mois :", class: "form-label me-2" %>&nbsp;
+      <input type="month" id="monthPicker2" class="form-control" value="<%= "#{selected_year}-#{selected_month.to_s.rjust(2, '0')}" %>">
+    </div>
+    <%= hidden_field_tag :mois, selected_month, id: "mois2" %> 
+    <%= hidden_field_tag :annee, selected_year, id: "annee2" %> 
+    <%= submit_tag "Filtrer", class: "btn btn-primary" %>
+  <% end %>
+</div>
+
+<table class="table table-striped table-bordered">
   <thead class="thead-light">
     <tr>
       <th>ID</th>
-      <th>Nom</th>
-      <th>Prénom</th>
+      <th>Nom de l'entraîneur</th>
       <th>Téléphone</th>
-      <th>Salaire</th>
-      <th>Salaires</th>
+      <th>Salaire (Dt)</th>
+      <th>État du salaire (<%= "#{Date::MONTHNAMES[selected_month.to_i]} #{selected_year}" %>)</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -20,21 +34,20 @@
     <% @entraineurs.each do |entraineur| %>
       <tr id="<%= dom_id entraineur %>">
         <td><%= entraineur.id %></td>
-        <td><%= entraineur.nom %></td>
-        <td><%= entraineur.prénom %></td>
+        <td><%= "#{entraineur.prénom} #{entraineur.nom}" %></td>
         <td><%= entraineur.téléphone %></td>
-        <td><%= entraineur.salaire %></td>
+        <td><%= number_to_currency(entraineur.salaire, unit: "", delimiter: " ") %></td>
         <td>
-          <ul>
-            <% entraineur.salaires.each do |salaire| %>
-              <li><%= "#{salaire.annee} - #{salaire.mois} : #{salaire.salaire} Dt" %></li>
-            <% end %>
-          </ul>
+          <% salaire_paye = entraineur.salaires.find { |s| s.annee == selected_year.to_i && s.mois == selected_month.to_i } %>
+          <% if salaire_paye %>
+            <span class="badge bg-success">Payé : <%= "#{salaire_paye.salaire} Dt" %></span>
+          <% else %>
+            <span class="badge bg-danger">Non payé</span>
+          <% end %>
         </td>
-
         <td>
-          <%= link_to "Edit", edit_entraineur_path(entraineur), class: "btn btn-primary btn-sm" %>
-          <%= button_to "Delete", entraineur, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+          <%= link_to "Modifier", edit_entraineur_path(entraineur), class: "btn btn-primary btn-sm me-2" %>
+          <%= button_to "Supprimer", entraineur, method: :delete, data: { confirm: "Êtes-vous sûr ?" }, class: "btn btn-danger btn-sm" %>
         </td>
       </tr>
     <% end %>
@@ -42,5 +55,5 @@
 </table>
 
 <p>
-  <%= link_to "New entraîneur", new_entraineur_path, class: "btn btn-success" %>
+  <%= link_to "Nouvel entraîneur", new_entraineur_path, class: "btn btn-success" %>
 </p>

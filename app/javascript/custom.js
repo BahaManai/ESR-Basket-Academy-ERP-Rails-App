@@ -1,6 +1,3 @@
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("Custom JavaScript loaded!");
-});
 
 function initializeSalaireForm() {
     document.getElementById("btnAjout").addEventListener("click", () => toggleForm("salaireForm", true));
@@ -22,6 +19,20 @@ function initializeSalaireForm() {
                 alert("Veuillez sélectionner un mois et une année.");
                 event.preventDefault();
             }
+        });
+    }
+}
+
+function initializeEntraineurForm() {
+    const monthPicker2 = document.getElementById("monthPicker2");
+    const moisField2 = document.getElementById("mois2");
+    const anneeField2 = document.getElementById("annee2");
+
+    if (monthPicker2) {
+        monthPicker2.addEventListener("change", function () {
+            const [year2, month2] = monthPicker2.value.split("-");
+            moisField2.value = parseInt(month2, 10);
+            anneeField2.value = year2;
         });
     }
 }
@@ -72,3 +83,7 @@ document.addEventListener("turbo:load", initializeAchatForm);
 document.addEventListener("DOMContentLoaded", initializeCreditForm);
 document.addEventListener("turbo:frame-load", initializeCreditForm);
 document.addEventListener("turbo:load", initializeCreditForm);
+
+document.addEventListener("DOMContentLoaded", initializeEntraineurForm);
+document.addEventListener("turbo:frame-load", initializeEntraineurForm);
+document.addEventListener("turbo:load", initializeEntraineurForm);
