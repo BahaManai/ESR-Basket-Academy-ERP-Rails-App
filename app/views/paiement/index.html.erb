@@ -3,12 +3,11 @@
 <% content_for :title, "Paiements" %>
 
 <h1>Paiements</h1>
-
 <div class="mb-3">
-  <button class="btn btn-primary" id="filter-all">Tous</button>
-  <button class="btn btn-success" id="filter-active">Active</button>
-  <button class="btn btn-danger" id="filter-expired">Expiré</button>
-  <button class="btn btn-warning" id="filter-credit">Crédit</button>
+  <%= link_to 'Tous', paiements_path, class: 'btn btn-primary' %>
+  <%= link_to 'Active', paiements_path(filter: 'active'), class: 'btn btn-success' %>
+  <%= link_to 'Expiré', paiements_path(filter: 'expired'), class: 'btn btn-danger' %>
+  <%= link_to 'Crédit', paiements_path(filter: 'credit'), class: 'btn btn-warning' %>
 </div>
 
 <table class="table table-bordered">
@@ -24,7 +23,7 @@
   </thead>
   <tbody>
     <% @paiements.reverse.each do |paiement| %>
-        <tr id="<%= dom_id paiement %>" 
+        <tr id="<%= dom_id paiement %>"
           class="<%= 
             if paiement == paiement.joueur.paiements.last
               if (paiement.joueur.paiements.last.date_abonnement + 30.days - Date.today).to_i < 0
@@ -84,7 +83,7 @@
               <%= form.hidden_field :montant, value: paiement.montant %>
               <%= form.hidden_field :date_abonnement, value: paiement.date_abonnement %>
               <%= form.hidden_field :date_encaissement, value: paiement.date_encaissement %>
-              <%= form.hidden_field :etat_abonnement, value: 'Active' %>
+              <%= form.hidden_field :etat_abonnement, value: 'Non crédit' %>
               <%= form.submit 'Payer', class: "btn btn-success btn-sm" %>
             <% end %>
           <% else %>

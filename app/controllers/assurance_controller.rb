@@ -2,7 +2,12 @@ class AssuranceController < ApplicationController
   before_action :set_assurance, only: %i[destroy update]
 
   def index
-    @assurances = Assurance.all
+    @assurances = case params[:filter]
+    when "credit"
+      Assurance.where(etat_paiement: "Crédit")
+    else
+      Assurance.all
+    end
   end
 
   def show

@@ -3,8 +3,34 @@ class JoueursController < ApplicationController
 
   # GET /joueurs or /joueurs.json
   def index
-    @joueurs = Joueur.all
+    @joueurs = case params[:filter]
+    when "active"
+      Joueur.joins(:paiements).where(
+        "date(paiements.date_abonnement, '+30 days') >= ? AND paiements.id = (
+          SELECT MAX(p2.id) FROM paiements p2 WHERE p2.joueur_id = joueurs.id
+        )",
+        Date.today
+      )
+    when "expired"
+      Joueur.joins(:paiements).where(
+        "date(paiements.date_abonnement, '+30 days') < ? AND paiements.id = (
+          SELECT MAX(p2.id) FROM paiements p2 WHERE p2.joueur_id = joueurs.id
+        )",
+        Date.today
+      )
+    when "credit"
+      Joueur.joins(paiements: [], assurances: :saison, achats: [])
+            .group("joueurs.id")
+            .having(
+              "SUM(CASE WHEN paiements.etat_abonnement = 'Crédit' THEN paiements.montant ELSE 0 END) +
+               SUM(CASE WHEN assurances.etat_paiement = 'Crédit' THEN saisons.montant_assurance ELSE 0 END) +
+               SUM(CASE WHEN achats.etat_paiement = 'Crédit' THEN achats.prix ELSE 0 END) > 0"
+            )
+    else
+      Joueur.all
+    end
   end
+
 
   # GET /joueurs/new
   def new

@@ -1,8 +1,29 @@
 class PaiementController < ApplicationController
   before_action :set_paiement, only: %i[ destroy update]
   def index
-    @paiements = Paiement.all
+    # trouver l'identifiant maximum du dernier paiement (MAX(p2.id)) pour chaque joueur.
+    @paiements = case params[:filter]
+    when "active"
+      Paiement.joins(:joueur).where(
+        "date(paiements.date_abonnement, '+30 days') >= ? AND paiements.id = (
+          SELECT MAX(p2.id) FROM paiements p2 WHERE p2.joueur_id = paiements.joueur_id
+        )",
+        Date.today
+        )
+    when "expired"
+      Paiement.joins(:joueur).where(
+        "date(paiements.date_abonnement, '+30 days') < ? AND paiements.id = (
+          SELECT MAX(p2.id) FROM paiements p2 WHERE p2.joueur_id = paiements.joueur_id
+        )",
+        Date.today
+        )
+    when "credit"
+      Paiement.where(etat_abonnement: "Crédit")
+    else
+      Paiement.all
+    end
   end
+
 
   def show
   end

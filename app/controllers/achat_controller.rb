@@ -5,6 +5,15 @@ class AchatController < ApplicationController
     @achats = Achat.all
   end
 
+  def index
+    @achats = case params[:filter]
+    when "credit"
+      Achat.where(etat_paiement: "Crédit")
+    else
+      Achat.all
+    end
+  end
+
   def show
   end
 
