@@ -1,3 +1,14 @@
+function initializeDataTables() {
+    const table = document.querySelector("#achats");
+    if (table && !$.fn.dataTable.isDataTable(table)) {
+        new DataTable(table, {
+            paging: true,
+            searching: true,
+            ordering: true,
+            info: true,
+        });
+    }
+}
 
 function initializeSalaireForm() {
     document.getElementById("btnAjout").addEventListener("click", () => toggleForm("salaireForm", true));
@@ -87,3 +98,7 @@ document.addEventListener("turbo:load", initializeCreditForm);
 document.addEventListener("DOMContentLoaded", initializeEntraineurForm);
 document.addEventListener("turbo:frame-load", initializeEntraineurForm);
 document.addEventListener("turbo:load", initializeEntraineurForm);
+
+document.addEventListener("DOMContentLoaded", initializeDataTables);
+document.addEventListener("turbo:frame-load", initializeDataTables);
+document.addEventListener("turbo:load", initializeDataTables); 

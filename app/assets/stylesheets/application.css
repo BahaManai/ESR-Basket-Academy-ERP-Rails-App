@@ -11,9 +11,11 @@
 
 /*
  *= require bootstrap.min
+ *= require datatables
  *= require_self
  *= require_tree .
  */
+
 .image_logo {
     width: 270px;
 }
