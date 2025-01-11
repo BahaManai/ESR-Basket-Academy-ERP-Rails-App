@@ -11,7 +11,7 @@
 
 /*
  *= require bootstrap.min
- *= require datatables
+ *= require datatables.min
  *= require_self
  *= require_tree .
  */

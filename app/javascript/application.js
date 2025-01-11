@@ -3,5 +3,5 @@ import "@hotwired/turbo-rails"
 import "controllers"
 //= require bootstrap.bundle.min
 import "jquery";
-import "datatables";
+import "datatables.min";
 import "custom";
