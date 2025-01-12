@@ -1,14 +1,18 @@
 function initializeDataTables() {
-    const table = document.querySelector("#achats");
-    if (table && !$.fn.dataTable.isDataTable(table)) {
-        new DataTable(table, {
-            paging: true,
-            searching: true,
-            ordering: true,
-            info: true,
-        });
-    }
+    const tables = document.querySelectorAll(".datatable");
+
+    tables.forEach(table => {
+        if (table && !$.fn.dataTable.isDataTable(table)) {
+            new DataTable(table, {
+                paging: true,
+                searching: true,
+                ordering: true,
+                info: true,
+            });
+        }
+    });
 }
+
 
 function initializeSalaireForm() {
     document.getElementById("btnAjout").addEventListener("click", () => toggleForm("salaireForm", true));

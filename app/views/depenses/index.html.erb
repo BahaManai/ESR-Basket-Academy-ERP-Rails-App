@@ -1,23 +1,44 @@
+<% selected_year = (params[:annee] || Date.today.year).to_i %>
+<% selected_month = (params[:mois] || Date.today.month).to_i %>
+
 <p style="color: green"><%= notice %></p>
 
 <% content_for :title, "Dépenses" %>
 
 <h1>Dépenses</h1>
 
-<table class="table table-bordered">
+<div class="mb-3 d-flex align-items-center">
+  <label for="monthPicker2" class="form-label me-2">Mois :&nbsp;</label>
+  <input 
+    type="month" 
+    id="monthPicker2" 
+    class="form-control" 
+    style="width: 20%;" 
+    value="<%= "#{selected_year}-#{selected_month.to_s.rjust(2, '0')}" %>" 
+    onchange="redirectToMonth(this)">&nbsp;
+    <%= link_to "Ce mois", depenses_path, class: "btn btn-secondary" %>
+</div>
+
+<table class="table table-bordered datatable">
   <thead class="thead-light">
     <tr>
+      <th>ID</th>
       <th>Désignation</th>
-      <th>Prix (Dt)</th>
+      <th>Prix</th>
       <th>Date de dépense</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-    <% @depenses.each do |depense| %>
+    <% filtered_depenses = @depenses.select do |depense| 
+         depense.date_depense.year == selected_year && 
+         depense.date_depense.month == selected_month 
+       end %>
+    <% filtered_depenses.each do |depense| %>
       <tr id="<%= dom_id depense %>">
+        <td><%= depense.id %></td>
         <td><%= depense.designation %></td>
-        <td><%= depense.prix %></td>
+        <td><%= "#{depense.prix} DT" %></td>
         <td><%= depense.date_depense.strftime("%d %b, %Y") %></td>
         <td>
           <%= link_to "Edit", edit_depense_path(depense), class: "btn btn-primary btn-sm" %>
@@ -31,3 +52,13 @@
 <p>
   <%= link_to "New dépense", new_depense_path, class: "btn btn-success" %>
 </p>
+
+<script>
+  function redirectToMonth(input) {
+    const [year, month] = input.value.split('-');
+    const url = new URL(window.location.href);
+    url.searchParams.set('annee', year);
+    url.searchParams.set('mois', month);
+    window.location.href = url.toString();
+  }
+</script>

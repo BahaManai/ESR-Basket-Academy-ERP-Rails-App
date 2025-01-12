@@ -92,11 +92,6 @@
         </div>
 
         <div>
-          <%= form.label :montant, "Paiement (selon la saison actuelle et le nb d'enfants de parents)", style: "display: block" %>
-          <%= number_field_tag :montant, default_payment_value(@joueur,@saison), class: "form-control", disabled: true %>
-        </div>
-
-        <div style="display: none">
           <%= form.label :montant, "Paiement", style: "display: block" %>
           <%= form.number_field :montant, class: "form-control", value: default_payment_value(@joueur,@saison) %>
         </div>
