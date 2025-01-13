@@ -79,6 +79,18 @@ function toggleForm(formId, show) {
     }
 }
 
+function onChangeSaisonMontant() {
+    const saisonSelect = document.getElementById("assurance_saison_id");
+    const montantField = document.getElementById("montant-field");
+    if (saisonSelect && montantField) {
+        saisonSelect.addEventListener("change", function () {
+            const selectedOption = saisonSelect.options[saisonSelect.selectedIndex];
+            const montantAssurance = selectedOption.dataset.montant;
+            montantField.value = montantAssurance || "";
+        });
+    }
+}
+
 document.addEventListener("DOMContentLoaded", initializeSalaireForm);
 document.addEventListener("turbo:frame-load", initializeSalaireForm);
 document.addEventListener("turbo:load", initializeSalaireForm);
@@ -105,4 +117,8 @@ document.addEventListener("turbo:load", initializeEntraineurForm);
 
 document.addEventListener("DOMContentLoaded", initializeDataTables);
 document.addEventListener("turbo:frame-load", initializeDataTables);
-document.addEventListener("turbo:load", initializeDataTables); 
+document.addEventListener("turbo:load", initializeDataTables);
+
+document.addEventListener("DOMContentLoaded", onChangeSaisonMontant);
+document.addEventListener("turbo:frame-load", onChangeSaisonMontant);
+document.addEventListener("turbo:load", onChangeSaisonMontant); 

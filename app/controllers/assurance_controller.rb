@@ -51,6 +51,6 @@ class AssuranceController < ApplicationController
   end
 
   def assurance_params
-    params.require(:assurance).permit(:date_paiement,  :etat_paiement, :joueur_id, :saison_id)
+    params.require(:assurance).permit(:date_paiement,  :etat_paiement, :joueur_id, :saison_id, :montant)
   end
 end

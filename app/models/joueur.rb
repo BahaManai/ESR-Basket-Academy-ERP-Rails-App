@@ -7,7 +7,7 @@ class Joueur < ApplicationRecord
 
   def somme_des_credits
     credits_paiements = paiements.where(etat_abonnement: "Crédit").sum(:montant).to_i
-    credits_assurances = assurances.joins(:saison).where(etat_paiement: "Crédit").sum("saisons.montant_assurance").to_i
+    credits_assurances = assurances.where(etat_paiement: "Crédit").sum(:montant).to_i
     credits_achats = achats.where(etat_paiement: "Crédit").sum(:prix).to_i
 
     credits_paiements + credits_assurances + credits_achats

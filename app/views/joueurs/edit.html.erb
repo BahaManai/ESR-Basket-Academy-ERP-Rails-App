@@ -209,12 +209,19 @@
         <div style="display: none">
           <%= form.hidden_field :joueur_id, value: @joueur.id %>
         </div>
+
         <div>
           <%= form.label :saison_id, "Saison", style: "display: block" %>
           <%= form.select :saison_id, 
-              Saison.all.map { |saison| ["#{saison.date_debut.strftime('%d %B %Y')} à #{saison.date_fin.strftime('%d %B %Y')}", saison.id] }, 
-              prompt: "Choisir une saison", 
+              Saison.all.map { |saison| ["#{saison.date_debut.strftime('%d %B %Y')} à #{saison.date_fin.strftime('%d %B %Y')}", saison.id, { "data-montant" => saison.montant_assurance }] }, 
+              prompt: "Choisir une saison",  
               class: "form-control" %>
+        </div>
+        <br>
+
+        <div>
+          <%= form.label :montant, "Montant", style: "display: block" %>
+          <%= form.number_field :montant, class: "form-control", id: "montant-field", value: "" %>
         </div>
         <br>
 
@@ -240,9 +247,9 @@
         </tr>
       </thead>
       <tbody>
-        <% @joueur.assurances.each do |assurance| %>
+        <% @joueur.assurances.reverse.each do |assurance| %>
           <tr id="<%= dom_id assurance %>" class="<%= 'etat_crédit' if assurance.etat_paiement == 'Crédit' %>">
-            <td><%= assurance.saison.montant_assurance%>&nbspDT</td>
+            <td><%= assurance.montant%>&nbspDT</td>
             <td><%= assurance.date_paiement.strftime("%d %b, %Y") if assurance.date_paiement %></td>
             <td><%= "#{assurance.saison.date_debut.strftime("%d %b %Y")} à #{assurance.saison.date_fin.strftime("%d %b %Y")}" %></td>
             <td>
@@ -252,6 +259,7 @@
                   <%= form_with(model: assurance, method: :patch, local: true) do |form| %>
                     <%= form.hidden_field :joueur_id, value: assurance.joueur_id %>
                     <%= form.hidden_field :saison_id, value: assurance.saison_id %>
+                    <%= form.hidden_field :montant, value: assurance.montant %>
                     <%= form.hidden_field :date_paiement, value: assurance.date_paiement %>
                     <%= form.hidden_field :etat_paiement, value: 'Non crédit' %>
                     <%= form.submit 'Payer', class: "btn btn-success btn-sm" %>
@@ -330,7 +338,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @joueur.achats.each do |achat| %>
+        <% @joueur.achats.reverse.each do |achat| %>
           <tr id="<%= dom_id achat %>" class="<%= 'etat_crédit' if achat.etat_paiement == 'Crédit' %>">
             <td><%= achat.prix %>&nbspDT</td>
             <td><%= achat.date_achat.strftime("%d %b, %Y") if achat.date_achat %></td>

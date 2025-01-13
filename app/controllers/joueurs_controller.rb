@@ -19,11 +19,11 @@ class JoueursController < ApplicationController
         Date.today
       )
     when "credit"
-      Joueur.joins(paiements: [], assurances: :saison, achats: [])
+      Joueur.joins(paiements: [], assurances: [], achats: [])
             .group("joueurs.id")
             .having(
               "SUM(CASE WHEN paiements.etat_abonnement = 'Crédit' THEN paiements.montant ELSE 0 END) +
-               SUM(CASE WHEN assurances.etat_paiement = 'Crédit' THEN saisons.montant_assurance ELSE 0 END) +
+               SUM(CASE WHEN assurances.etat_paiement = 'Crédit' THEN assurances.montant ELSE 0 END) +
                SUM(CASE WHEN achats.etat_paiement = 'Crédit' THEN achats.prix ELSE 0 END) > 0"
             )
     else

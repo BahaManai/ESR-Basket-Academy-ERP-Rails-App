@@ -24,13 +24,14 @@
       <tr id="<%= dom_id assurance %>" class="<%= 'etat_crédit' if assurance.etat_paiement == 'Crédit' %>">
         <td><%= assurance.joueur ? "#{assurance.joueur.prénom} #{assurance.joueur.nom}" : "Joueur inconnu" %></td>
         <td><%= "#{assurance.saison.date_debut.strftime("%d %b %Y")} à #{assurance.saison.date_fin.strftime("%d %b %Y")}" %></td>
-        <td><%= assurance.saison.montant_assurance %>&nbspDT</td>
+        <td><%= assurance.montant %>&nbspDT</td>
         <td><%= assurance.date_paiement.strftime("%d %b, %Y") if assurance.date_paiement %></td>
         <td>
           <% if assurance.etat_paiement == 'Crédit' %>
             <%= form_with(model: assurance, method: :patch, local: true) do |form| %>
               <%= form.hidden_field :joueur_id, value: assurance.joueur_id %>
               <%= form.hidden_field :saison_id, value: assurance.saison_id %>
+              <%= form.hidden_field :montant, value: assurance.montant %>
               <%= form.hidden_field :date_paiement, value: assurance.date_paiement %>
               <%= form.hidden_field :etat_paiement, value: 'Non crédit' %>
               <%= form.submit 'Payer', class: "btn btn-success btn-sm" %>
