@@ -1,6 +1,23 @@
+<% selected_year = (params[:annee] || Date.today.year).to_i %>
+<% selected_month = (params[:mois] || Date.today.month).to_i %>
+
 <div class="container my-4">
-  <h1 class="mb-4">Dashbord</h1>
-  
+  <h1 class="mb-4">Tableau de bord</h1>
+  <h5>Par année :</h5>
+  <div class="mb-3 d-flex align-items-center">
+    <select 
+        class="form-control" 
+        style="width: 20%;" 
+        onchange="redirectToYearDashbord(this)">
+      <% (2024..Date.today.year).each do |year| %>
+        <option value="<%= year %>" <%= 'selected' if year == selected_year %>>
+          <%= year %>
+        </option>
+      <% end %>
+    </select>
+    &nbsp;
+    <%= link_to "Cette année", root_path, class: "btn btn-secondary" %>
+</div>
   <table class="table table-bordered">
     <thead class="thead-light">
       <tr>
@@ -10,29 +27,105 @@
     </thead>
     <tbody>
       <tr>
-        <td><strong>Total des dépenses</strong></td>
-        <td><%= @total_depenses %> DT</td>
+        <th>Nouveaux joueurs</th>
+        <td><%= @nb_joueurs_for_year %></td>
       </tr>
       <tr>
-        <td><strong>Total des salaires</strong></td>
-        <td><%= @total_salaires %> DT</td>
+        <th>Recette Abonnements</th>
+        <td><%= @total_abonnements_for_year %> DT</td>
       </tr>
       <tr>
-        <td><strong>Total des salaires en 2025</strong></td>
-        <td><%= @total_salaires_2025 %> DT</td>
+        <th>Assurances</th>
+        <td><%= @total_assurances_for_year %> DT</td>
       </tr>
       <tr>
-        <td><strong>Total des salaires en Février 2025</strong></td>
-        <td><%= @total_salaires_2025_2 %> DT</td>
+        <th>Recette Achats</th>
+        <td><%= @total_achats_for_year %> DT</td>
       </tr>
       <tr>
-        <td><strong>Nombre total des joueurs</strong></td>
-        <td><%= @nb_joueurs %></td>
+        <th>Total</th>
+        <td><%= @total_for_year %> DT</td>
       </tr>
       <tr>
-        <td><strong>Nombre des nouveaux joueurs en 2025</strong></td>
-        <td><%= @nb_joueurs_2025 %></td>
+        <th>Crédits</th>
+        <td><%= @total_crédits_for_year %> DT</td>
+      </tr>
+    </tbody>
+  </table>
+  <hr>
+  <h5>Par mois :</h5>
+  <div class="mb-3 d-flex align-items-center">
+    <select 
+      class="form-control" 
+      style="width: 20%;" 
+      onchange="redirectToMonthDashbord(this)">
+      <% Date::MONTHNAMES.each_with_index do |month, index| %>
+        <% next if index == 0 %>
+        <option value="<%= index %>" <%= 'selected' if index == selected_month %>>
+          <%= month %>
+        </option>
+      <% end %>
+    </select>&nbsp;
+    <%= link_to "Ce mois", root_path, class: "btn btn-secondary" %>
+  </div>
+
+  <table class="table table-bordered">
+    <thead class="thead-light">
+      <tr>
+        <th>Catégorie</th>
+        <th>Valeur</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>Nouveaux joueurs</th>
+        <td><%= @nb_joueurs_for_month %></td>
+      </tr>
+      <tr>
+        <th>Recette Abonnements</th>
+        <td><%= @total_abonnements_for_month %> DT</td>
+      </tr>
+      <tr>
+        <th>Assurances</th>
+        <td><%= @total_assurances_for_month %> DT</td>
+      </tr>
+      <tr>
+        <th>Recette Achats</th>
+        <td><%= @total_achats_for_month %></td>
+      </tr>
+      <tr>
+        <th>Total</th>
+        <td><%= @total_for_month %> DT</td>
+      </tr>
+      <tr>
+        <th>Crédits</th>
+        <td><%= @total_crédits_for_month %> DT</td>
+      </tr>
+        <tr>
+        <th>Total des salaires</th>
+        <td><%= @total_salaires_for_month %> DT</td>
+      </tr>
+        <th>Total des dépenses</th>
+        <td><%= @total_depenses_for_month %> DT</td>
+      </tr>
+      <tr>
+        <th>Surplus / Déficit</th>
+        <td><%= @surplus_déficit_month %> DT</td>
       </tr>
     </tbody>
   </table>
 </div>
+<script>
+  function redirectToMonthDashbord(select) {
+    const month = select.value;
+    const url = new URL(window.location.href);
+    url.searchParams.set('mois', month);
+    window.location.href = url.toString();
+  }
+  function redirectToYearDashbord(select) {
+    const year = select.value;
+    const url = new URL(window.location.href);
+    url.searchParams.set('annee', year);
+    window.location.href = url.toString();
+  }
+</script>
