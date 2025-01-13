@@ -17,41 +17,66 @@
     </select>
     &nbsp;
     <%= link_to "Cette année", root_path, class: "btn btn-secondary" %>
-</div>
-  <table class="table table-bordered">
-    <thead class="thead-light">
-      <tr>
-        <th>Catégorie</th>
-        <th>Valeur</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th>Nouveaux joueurs</th>
-        <td><%= @nb_joueurs_for_year %></td>
-      </tr>
-      <tr>
-        <th>Recette Abonnements</th>
-        <td><%= @total_abonnements_for_year %> DT</td>
-      </tr>
-      <tr>
-        <th>Assurances</th>
-        <td><%= @total_assurances_for_year %> DT</td>
-      </tr>
-      <tr>
-        <th>Recette Achats</th>
-        <td><%= @total_achats_for_year %> DT</td>
-      </tr>
-      <tr>
-        <th>Total</th>
-        <td><%= @total_for_year %> DT</td>
-      </tr>
-      <tr>
-        <th>Crédits</th>
-        <td><%= @total_crédits_for_year %> DT</td>
-      </tr>
-    </tbody>
-  </table>
+  </div>
+
+  <div class="container my-4">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col-3 mt-3">
+        <div class="card border-info text-center">
+          <div class="card-header">Nouveaux joueurs</div>
+          <div class="card-body">
+            <h5 class="card-title"><%= @nb_joueurs_for_year %></h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-3 mt-3">
+        <div class="card border-success text-center">
+          <div class="card-header">Recette Abonnements</div>
+          <div class="card-body">
+            <h5 class="card-title"><%= @total_abonnements_for_year %> DT</h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-3 mt-3">
+        <div class="card border-success text-center">
+          <div class="card-header">Assurances</div>
+          <div class="card-body">
+            <h5 class="card-title"><%= @total_assurances_for_year %> DT</h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-3 mt-3">
+        <div class="card border-success text-center">
+          <div class="card-header">Recette Achats</div>
+          <div class="card-body">
+            <h5 class="card-title"><%= @total_achats_for_year %> DT</h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-3 mt-3">
+        <div class="card border-primary text-center">
+          <div class="card-header">Total</div>
+          <div class="card-body">
+            <h5 class="card-title"><%= @total_for_year %> DT</h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-3 mt-3">
+        <div class="card border-warning text-center">
+          <div class="card-header">Crédits</div>
+          <div class="card-body">
+            <h5 class="card-title"><%= @total_crédits_for_year %> DT</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <hr>
   <h5>Par mois :</h5>
   <div class="mb-3 d-flex align-items-center">
@@ -69,51 +94,92 @@
     <%= link_to "Ce mois", root_path, class: "btn btn-secondary" %>
   </div>
 
-  <table class="table table-bordered">
-    <thead class="thead-light">
-      <tr>
-        <th>Catégorie</th>
-        <th>Valeur</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th>Nouveaux joueurs</th>
-        <td><%= @nb_joueurs_for_month %></td>
-      </tr>
-      <tr>
-        <th>Recette Abonnements</th>
-        <td><%= @total_abonnements_for_month %> DT</td>
-      </tr>
-      <tr>
-        <th>Assurances</th>
-        <td><%= @total_assurances_for_month %> DT</td>
-      </tr>
-      <tr>
-        <th>Recette Achats</th>
-        <td><%= @total_achats_for_month %></td>
-      </tr>
-      <tr>
-        <th>Total</th>
-        <td><%= @total_for_month %> DT</td>
-      </tr>
-      <tr>
-        <th>Crédits</th>
-        <td><%= @total_crédits_for_month %> DT</td>
-      </tr>
-        <tr>
-        <th>Total des salaires</th>
-        <td><%= @total_salaires_for_month %> DT</td>
-      </tr>
-        <th>Total des dépenses</th>
-        <td><%= @total_depenses_for_month %> DT</td>
-      </tr>
-      <tr>
-        <th>Surplus / Déficit</th>
-        <td><%= @surplus_déficit_month %> DT</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="container my-4">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    
+    <div class="col-3 mt-3">
+      <div class="card border-info text-center">
+        <div class="card-header">Nouveaux joueurs</div>
+        <div class="card-body">
+          <h5 class="card-title"><%= @nb_joueurs_for_month %></h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-3 mt-3">
+      <div class="card border-success text-center">
+        <div class="card-header">Recette Abonnements</div>
+        <div class="card-body">
+          <h5 class="card-title"><%= @total_abonnements_for_month %> DT</h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-3 mt-3">
+      <div class="card border-success text-center">
+        <div class="card-header">Assurances</div>
+        <div class="card-body">
+          <h5 class="card-title"><%= @total_assurances_for_month %> DT</h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-3 mt-3">
+      <div class="card border-success text-center">
+        <div class="card-header">Recette Achats</div>
+        <div class="card-body">
+          <h5 class="card-title"><%= @total_achats_for_month %> DT</h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-3 mt-3">
+      <div class="card border-primary text-center">
+        <div class="card-header">Total</div>
+        <div class="card-body">
+          <h5 class="card-title"><%= @total_for_month %> DT</h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-3 mt-3">
+      <div class="card border-warning text-center">
+        <div class="card-header">Crédits</div>
+        <div class="card-body">
+          <h5 class="card-title"><%= @total_crédits_for_month %> DT</h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-3 mt-3">
+      <div class="card border-danger text-center">
+        <div class="card-header">Total des salaires</div>
+        <div class="card-body">
+          <h5 class="card-title"><%= @total_salaires_for_month %> DT</h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-3 mt-3">
+      <div class="card border-danger text-center">
+        <div class="card-header">Total des dépenses</div>
+        <div class="card-body">
+          <h5 class="card-title"><%= @total_depenses_for_month %> DT</h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-3 mt-3">
+      <div class="card border-secondary text-center">
+        <div class="card-header">Surplus / Déficit</div>
+        <div class="card-body">
+          <h5 class="card-title"><%= @surplus_déficit_month %> DT</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div>
 <script>
   function redirectToMonthDashbord(select) {
