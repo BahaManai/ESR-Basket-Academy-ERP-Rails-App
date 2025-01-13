@@ -65,6 +65,6 @@ class PaiementController < ApplicationController
   end
 
   def paiement_params
-    params.require(:paiement).permit(:montant, :date_abonnement, :date_encaissement,  :etat_abonnement, :joueur_id)
+    params.require(:paiement).permit(:montant, :date_abonnement, :date_encaissement,  :etat_abonnement, :num_recu, :joueur_id)
   end
 end

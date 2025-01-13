@@ -19,7 +19,9 @@ class JoueursController < ApplicationController
         Date.today
       )
     when "credit"
-      Joueur.joins(paiements: [], assurances: [], achats: [])
+      Joueur.joins("LEFT JOIN paiements ON paiements.joueur_id = joueurs.id")
+            .joins("LEFT JOIN assurances ON assurances.joueur_id = joueurs.id")
+            .joins("LEFT JOIN achats ON achats.joueur_id = joueurs.id")
             .group("joueurs.id")
             .having(
               "SUM(CASE WHEN paiements.etat_abonnement = 'Crédit' THEN paiements.montant ELSE 0 END) +

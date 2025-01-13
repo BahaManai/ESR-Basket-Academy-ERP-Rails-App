@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_13_080001) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_13_214110) do
   create_table "achats", force: :cascade do |t|
     t.string "designation"
     t.float "prix"
@@ -61,6 +61,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_13_080001) do
     t.integer "age_max"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "entraineur_id", null: false
+    t.index ["entraineur_id"], name: "index_groupes_on_entraineur_id"
   end
 
   create_table "joueurs", force: :cascade do |t|
@@ -85,6 +87,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_13_080001) do
     t.string "etat_abonnement", default: "Non crédit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "num_recu"
     t.index ["joueur_id"], name: "index_paiements_on_joueur_id"
   end
 
@@ -127,6 +130,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_13_080001) do
   add_foreign_key "achats", "joueurs"
   add_foreign_key "assurances", "joueurs"
   add_foreign_key "assurances", "saisons"
+  add_foreign_key "groupes", "entraineurs"
   add_foreign_key "joueurs", "groupes"
   add_foreign_key "joueurs", "parents"
   add_foreign_key "salaires", "entraineurs"

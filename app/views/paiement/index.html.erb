@@ -18,6 +18,7 @@
       <th>Date d'Encaissement</th>
       <th>Expire</th>
       <th>Paiement</th>
+      <th>N° reçu</th>
       <th>Etat de paiement</th>
       <th>Payer</th>
     </tr>
@@ -56,7 +57,6 @@
                %>
             <% end %>
         </td>
-
         <td class="<%= 
         if paiement.etat_abonnement == 'Crédit'
           'etat_crédit'
@@ -64,6 +64,13 @@
           ''
         end
       %>"><%= paiement.montant %>&nbspDT</td>
+        <td style="text-align:center" class="<%= 
+        if paiement.etat_abonnement == 'Crédit'
+          'etat_crédit'
+        else
+          ''
+        end
+      %>"><%= paiement.num_recu %></td>
         <td class="<%= 
         if paiement.etat_abonnement == 'Crédit'
           'etat_crédit'
