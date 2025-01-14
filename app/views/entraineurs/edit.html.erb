@@ -47,6 +47,8 @@
       </div>
 
     <% end %>
+    <hr>
+    <%= button_to "Supprimer cet entraîneur", @entraineur, method: :delete, data: { confirm: "Êtes-vous sûr ?" }, class: "btn btn-danger" %>
   </div>
 
   <div style="flex: 1; border: 1px solid #ccc; padding: 20px;">
@@ -109,7 +111,7 @@
             <td><%= salaire.salaire %>&nbspDT</td>
             <td><%= "#{Date::MONTHNAMES[salaire.mois]}  #{salaire.annee}" %></td>       
             <td>
-              <%= button_to 'Delete', salaire_path(salaire), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+              <%= button_to 'Supprimer', salaire_path(salaire), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
             </td>
           </tr>
         <% end %>

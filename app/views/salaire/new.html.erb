@@ -1,46 +1,55 @@
 <% content_for :title, "New salaire" %>
 
-<h1>New salaire</h1>
+<div>
+  <%= link_to "Entraîneurs >", entraineurs_path, class: "btn btn-link" %>
+</div>
 
-<%= form_with(model: @salaire) do |form| %>
+<%= form_with(model: @salaire, class: "new_forms", local: true) do |form| %>
+  <h1>Ajouter salaire :</h1><br>
+  
   <% if @salaire.errors.any? %>
-    <div style="color: red">
+    <div class="alert alert-danger">
       <h2><%= pluralize(@salaire.errors.count, "error") %> prohibited this salaire from being saved:</h2>
-
       <ul>
-        <% @salaire.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% @salaire.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
-  <div>
-    <%= form.label :entraineur_id, style: "display: block" %>
-    <%= form.select :entraineur_id, Entraineur.pluck(:nom, :id), prompt: "Choisir un entraîneur" %>
-  </div><br>
 
-  <div>
-    <%= form.label :salaire, style: "display: block" %>
-    <%= form.text_field :salaire %>
+  <div class="mb-3">
+    <%= form.label :entraineur_id, "Entraîneur", class: "form-label" %>
+    <%= form.select :entraineur_id, 
+          Entraineur.all.map { |e| ["#{e.prénom} #{e.nom}", e.id, { "data-salaire" => e.salaire }] }, 
+          { prompt: "Choisir un entraîneur" }, 
+          { class: "custom-select" } %>
   </div>
 
-  <div>
-    <%= form.label :mois, style: "display: block" %>
-    <%= form.number_field :mois %>
+  <div class="mb-3">
+    <%= form.label :salaire, "Salaire (DT)", class: "form-label" %>
+    <%= form.text_field :salaire, class: "form-control", placeholder: "Entrez le salaire", id: "salaire-field" %>
   </div>
 
-  <div>
-    <%= form.label :annee, style: "display: block" %>
-    <%= form.number_field :annee %>
+  <div class="mb-3">
+    <%= form.label :mois_et_annee, "Mois et année", class: "form-label" %>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" style="background-color:rgba(119, 169, 223, 0.35)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-week" viewBox="0 0 16 16" style="color: #0069d9;">
+            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
+            <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5zM11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+        </span>
+      </div>
+      <input type="month" id="monthPicker3" class="form-control" placeholder="Mois et année">
+    </div>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <%= form.hidden_field :mois, id: "moisField3" %>
+  <%= form.hidden_field :annee, id: "anneeField3" %>
+
+  <div class="mb-3">
+    <%= form.submit "Ajouter", class: "btn btn-primary" %>
   </div>
 <% end %>
-
-<br>
-
-<div>
-  <%= link_to "Back to salaires", salaires_path %>
-</div>

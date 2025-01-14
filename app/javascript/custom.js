@@ -57,6 +57,20 @@ function initializeEntraineurForm() {
     }
 }
 
+function initializeNewSalaireForm2() {
+    const monthPicker3 = document.getElementById("monthPicker3");
+    const moisField3 = document.getElementById("moisField3");
+    const anneeField3 = document.getElementById("anneeField3");
+
+    if (monthPicker3) {
+        monthPicker3.addEventListener("change", function () {
+            const [year3, month3] = monthPicker3.value.split("-");
+            moisField3.value = parseInt(month3, 10);
+            anneeField3.value = year3;
+        });
+    }
+}
+
 function initializePaiementForm() {
     document.getElementById("btnAjout2").addEventListener("click", () => toggleForm("paiementForm", true));
     document.getElementById("btnAnnuler2").addEventListener("click", () => toggleForm("paiementForm", false));
@@ -96,6 +110,19 @@ function onChangeSaisonMontant() {
     }
 }
 
+function initializeNewSalaireForm() {
+    const entraineurSelect = document.getElementById("salaire_entraineur_id");
+    const salaireField = document.getElementById("salaire-field");
+
+    if (entraineurSelect && salaireField) {
+        entraineurSelect.addEventListener("change", function () {
+            const selectedOption = entraineurSelect.options[entraineurSelect.selectedIndex];
+            const salaire = selectedOption.dataset.salaire;
+            salaireField.value = salaire || "";
+        });
+    }
+}
+
 document.addEventListener("DOMContentLoaded", initializeSalaireForm);
 document.addEventListener("turbo:frame-load", initializeSalaireForm);
 document.addEventListener("turbo:load", initializeSalaireForm);
@@ -131,3 +158,11 @@ document.addEventListener("turbo:load", onChangeSaisonMontant);
 document.addEventListener("DOMContentLoaded", initializeFlatpickr);
 document.addEventListener("turbo:frame-load", initializeFlatpickr);
 document.addEventListener("turbo:load", initializeFlatpickr);
+
+document.addEventListener("DOMContentLoaded", initializeNewSalaireForm);
+document.addEventListener("turbo:frame-load", initializeNewSalaireForm);
+document.addEventListener("turbo:load", initializeNewSalaireForm);
+
+document.addEventListener("DOMContentLoaded", initializeNewSalaireForm2);
+document.addEventListener("turbo:frame-load", initializeNewSalaireForm2);
+document.addEventListener("turbo:load", initializeNewSalaireForm2);
