@@ -23,7 +23,7 @@ class EntraineursController < ApplicationController
 
     respond_to do |format|
       if @entraineur.save
-        format.html { redirect_to entraineurs_path, notice: "Entraineur was successfully created." }
+        format.html { redirect_to "/entraineurs/#{@entraineur.id}/edit", notice: "Entraineur was successfully created." }
         format.json { render :show, status: :created, location: @entraineur }
       else
         format.html { render :new, status: :unprocessable_entity }

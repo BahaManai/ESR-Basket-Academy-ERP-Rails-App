@@ -12,7 +12,7 @@
   <input 
     type="month" 
     id="monthPicker2" 
-    class="form-control" 
+    class="form-control"
     style="width: 20%;" 
     value="<%= "#{selected_year}-#{selected_month.to_s.rjust(2, '0')}" %>" 
     onchange="redirectToMonth(this)">&nbsp;<%= link_to "Ce mois", entraineurs_path, class: "btn btn-secondary" %>

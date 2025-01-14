@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_13_214110) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_13_235049) do
   create_table "achats", force: :cascade do |t|
     t.string "designation"
     t.float "prix"
     t.date "date_achat"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "joueur_id", null: false
+    t.integer "joueur_id"
     t.string "etat_paiement", default: "Non crédit"
     t.index ["joueur_id"], name: "index_achats_on_joueur_id"
   end
@@ -26,7 +26,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_13_214110) do
     t.date "date_paiement"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "joueur_id", null: false
+    t.integer "joueur_id"
     t.integer "saison_id", null: false
     t.string "etat_paiement", default: "Non crédit"
     t.float "montant"

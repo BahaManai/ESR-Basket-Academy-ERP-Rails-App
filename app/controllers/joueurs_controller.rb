@@ -55,7 +55,7 @@ class JoueursController < ApplicationController
 
     respond_to do |format|
       if @joueur.save
-        format.html { redirect_to joueurs_path, notice: "Joueur was successfully created." }
+        format.html { redirect_to "/joueurs/#{@joueur.id}/edit", notice: "Joueur was successfully created." }
         format.json { render :show, status: :created, location: @joueur }
       else
         format.html { render :new, status: :unprocessable_entity }

@@ -38,22 +38,26 @@
       </div>
 
       <div>
-        <%= form.label :sexe, style: "display: block" %>
-        <%= form.text_field :sexe ,class: "form-control" %>
+        <%= form.label :sexe, class: "form-label" %>
+        <%= form.select :sexe, [["Mâle", "male"], ["Femelle", "femelle"]], 
+            { prompt: "Sélectionnez le sexe" }, 
+            { class: "custom-select" } 
+        %>
       </div>
 
       <div>
         <%= form.label :date_naissance, style: "display: block" %>
-        <%= form.date_field :date_naissance, class: "form-control" %>
+        <%= form.text_field :date_naissance, class: "form-control datepicker" %>
       </div>
 
       <div>
         <%= form.label :parent_id, "Parent", style: "display: block" %>
         <%= form.select :parent_id, 
               Parent.all.map { |parent| ["#{parent.prénom} #{parent.nom}", parent.id] }, 
-              prompt: "Choisir un parent existant", 
-              class: "form-control" %>
+              { prompt: "Choisir un parent existant" }, 
+              { class: "custom-select" } %>
       </div>
+
       <br>
 
       <div>
@@ -97,11 +101,11 @@
         </div>
         <div>
           <%= form.label :date_abonnement, "Date d'abonnement", style: "display: block" %>
-          <%= form.date_field :date_abonnement, class: "form-control" %>
+          <%= form.date_field :date_abonnement, class: "form-control datepicker" %>
         </div>
         <div>
           <%= form.label :date_encaissement, "Date d'encaissement", style: "display: block" %>
-          <%= form.date_field :date_encaissement, class: "form-control" %>
+          <%= form.date_field :date_encaissement, class: "form-control datepicker" %>
         </div>
         <div>
           <%= form.label :num_recu, "Numéro de reçu", style: "display: block" %>
@@ -230,7 +234,7 @@
 
         <div>
           <%= form.label :date_paiement, "Date de paiement", style: "display: block" %>
-          <%= form.date_field :date_paiement, class: "form-control" %>
+          <%= form.date_field :date_paiement, class: "form-control datepicker" %>
         </div>
         <br>
 
@@ -321,7 +325,7 @@
 
         <div>
           <%= form.label :date_achat, "Date d'achat", style: "display: block" %>
-          <%= form.date_field :date_achat, class: "form-control" %>
+          <%= form.date_field :date_achat, class: "form-control datepicker" %>
         </div>
         <br>
 

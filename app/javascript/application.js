@@ -4,4 +4,5 @@ import "controllers"
 //= require bootstrap.bundle.min
 import "jquery";
 import "datatables.min";
+import "flatpickr";
 import "custom";

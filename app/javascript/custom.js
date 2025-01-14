@@ -13,6 +13,11 @@ function initializeDataTables() {
     });
 }
 
+function initializeFlatpickr() {
+    flatpickr(".datepicker", {
+        dateFormat: "Y-m-d",
+    });
+}
 
 function initializeSalaireForm() {
     document.getElementById("btnAjout").addEventListener("click", () => toggleForm("salaireForm", true));
@@ -121,4 +126,8 @@ document.addEventListener("turbo:load", initializeDataTables);
 
 document.addEventListener("DOMContentLoaded", onChangeSaisonMontant);
 document.addEventListener("turbo:frame-load", onChangeSaisonMontant);
-document.addEventListener("turbo:load", onChangeSaisonMontant); 
+document.addEventListener("turbo:load", onChangeSaisonMontant);
+
+document.addEventListener("DOMContentLoaded", initializeFlatpickr);
+document.addEventListener("turbo:frame-load", initializeFlatpickr);
+document.addEventListener("turbo:load", initializeFlatpickr);
