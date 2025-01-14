@@ -1,11 +1,40 @@
 <% content_for :title, "New parent" %>
 
-<h1>New parent</h1>
-
-<%= render "form", parent: @parent %>
-
-<br>
-
 <div>
-  <%= link_to "Back to parents", parents_path %>
+  <%= link_to "Parents >", parents_path %>
 </div>
+
+<%= form_with(model: @parent, class: "new_forms", local: true) do |form| %>
+  <h1>Nouveau parent :</h1><br>
+
+  <% if @parent.errors.any? %>
+    <div class="alert alert-danger">
+      <h2><%= pluralize(@parent.errors.count, "error") %> prohibited this parent from being saved:</h2>
+      <ul>
+        <% @parent.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :nom, class: "form-label" %>
+    <%= form.text_field :nom, class: "form-control", placeholder: "Entrez le nom" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :prénom, class: "form-label" %>
+    <%= form.text_field :prénom, class: "form-control", placeholder: "Entrez le prénom" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :téléphone, class: "form-label" %>
+    <%= form.number_field :téléphone, class: "form-control", placeholder: "Entrez le téléphone" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit "Créer parent", class: "btn btn-primary" %>
+  </div>
+
+<% end %>

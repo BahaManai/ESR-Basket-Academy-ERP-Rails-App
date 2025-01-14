@@ -5,13 +5,13 @@
 <h1>Parents</h1>
 
 <div id="parents">
-  <table class="table table-bordered">
+  <table class="table table-bordered datatable">
     <thead class="thead-light">
       <tr>
         <th>ID</th>
         <th>Nom</th>
-        <th>Prénom</th>
         <th>Téléphone</th>
+        <th>Enfants</th>
         <th>Créé le</th>
         <th>Actions</th>
       </tr>
@@ -20,12 +20,17 @@
       <% @parents.each do |parent| %>
         <tr id="<%= dom_id parent %>">
           <td><%= parent.id %></td>
-          <td><%= parent.nom %></td>
-          <td><%= parent.prénom %></td>
+          <td><%= "#{parent.prénom} #{parent.nom}" %></td>
           <td><%= parent.téléphone %></td>
+          <td><% if parent.joueurs %>
+            <ul><% parent.joueurs.each do |enfant|%>
+              <li>  <%= link_to "#{enfant.prénom}", edit_joueur_path(enfant) %></li>
+              <% end %></ul>
+            <% end %>
+          </td>
           <td><%= parent.created_at.strftime("%d %b, %Y %H:%M") %></td>
           <td>
-            <%= link_to "Show", parent, class: "btn btn-primary btn-sm" %>
+            <%= link_to "Modifier", edit_parent_path(parent), class: "btn btn-primary btn-sm" %>
           </td>
         </tr>
       <% end %>
@@ -34,5 +39,5 @@
 </div>
 
 <p>
-  <%= link_to "New parent", new_parent_path, class: "btn btn-success" %>
+  <%= link_to "Nouveau parent", new_parent_path, class: "btn btn-success" %>
 </p>

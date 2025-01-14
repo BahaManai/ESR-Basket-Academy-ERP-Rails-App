@@ -1,12 +1,44 @@
-<% content_for :title, "Editing parent" %>
-
-<h1>Editing parent</h1>
-
-<%= render "form", parent: @parent %>
-
-<br>
+<% content_for :title, "Editing Parent" %>
 
 <div>
-  <%= link_to "Show this parent", @parent %> |
-  <%= link_to "Back to parents", parents_path %>
+  <%= link_to "Parents >", parents_path %>
+</div>
+
+<%= form_with(model: @parent, class: "new_forms", local: true) do |form| %>
+  <h1>Modifier le parent :</h1><br>
+  
+  <% if @parent.errors.any? %>
+    <div class="alert alert-danger">
+      <h2><%= pluralize(@parent.errors.count, "error") %> prohibited this parent from being saved:</h2>
+      <ul>
+        <% @parent.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :prénom, "Prénom", class: "form-label" %>
+    <%= form.text_field :prénom, class: "form-control", placeholder: "Entrez le prénom" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :nom, "Nom", class: "form-label" %>
+    <%= form.text_field :nom, class: "form-control", placeholder: "Entrez le nom" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :téléphone, class: "form-label" %>
+    <%= form.number_field :téléphone, class: "form-control", placeholder: "Entrez le téléphone" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit "Enregistrer", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<div class="new_forms">
+  <hr>
+  <%= button_to "Supprimer ce parent", @parent, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger", style: "float:right" %>
 </div>

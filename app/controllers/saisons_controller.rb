@@ -1,13 +1,9 @@
 class SaisonsController < ApplicationController
-  before_action :set_saison, only: %i[ show edit update destroy ]
+  before_action :set_saison, only: %i[ edit update destroy ]
 
   # GET /saisons or /saisons.json
   def index
     @saisons = Saison.all
-  end
-
-  # GET /saisons/1 or /saisons/1.json
-  def show
   end
 
   # GET /saisons/new
@@ -25,7 +21,7 @@ class SaisonsController < ApplicationController
 
     respond_to do |format|
       if @saison.save
-        format.html { redirect_to @saison, notice: "Saison was successfully created." }
+        format.html { redirect_to saisons_path, notice: "Saison was successfully created." }
         format.json { render :show, status: :created, location: @saison }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +34,7 @@ class SaisonsController < ApplicationController
   def update
     respond_to do |format|
       if @saison.update(saison_params)
-        format.html { redirect_to @saison, notice: "Saison was successfully updated." }
+        format.html { redirect_to saisons_path, notice: "Saison was successfully updated." }
         format.json { render :show, status: :ok, location: @saison }
       else
         format.html { render :edit, status: :unprocessable_entity }

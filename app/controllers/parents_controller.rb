@@ -1,13 +1,9 @@
 class ParentsController < ApplicationController
-  before_action :set_parent, only: %i[ show edit update destroy ]
+  before_action :set_parent, only: %i[ edit update destroy ]
 
   # GET /parents or /parents.json
   def index
     @parents = Parent.all
-  end
-
-  # GET /parents/1 or /parents/1.json
-  def show
   end
 
   # GET /parents/new
@@ -25,7 +21,7 @@ class ParentsController < ApplicationController
 
     respond_to do |format|
       if @parent.save
-        format.html { redirect_to @parent, notice: "Parent was successfully created." }
+        format.html { redirect_to new_joueur_path, notice: "Parent was successfully created." }
         format.json { render :show, status: :created, location: @parent }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +34,7 @@ class ParentsController < ApplicationController
   def update
     respond_to do |format|
       if @parent.update(parent_params)
-        format.html { redirect_to @parent, notice: "Parent was successfully updated." }
+        format.html { redirect_to parents_path, notice: "Parent was successfully updated." }
         format.json { render :show, status: :ok, location: @parent }
       else
         format.html { render :edit, status: :unprocessable_entity }

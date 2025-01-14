@@ -1,14 +1,15 @@
 <p style="color: green"><%= notice %></p>
 
 <% content_for :title, "Salaires" %>
-
-<h1>Salaires</h1>
+<div>
+  <%= link_to "Entraîneurs >", entraineurs_path %>
+</div>
+<h1>Journal des salaires</h1>
 
 <table class="table table-bordered datatable">
   <thead class="thead-light">
     <tr>
       <th>Entraineur</th>
-      <th>Année</th>
       <th>Mois</th>
       <th>Salaire</th>
       <th>Actions</th>
@@ -17,18 +18,13 @@
   <tbody>
     <% @salaires.each do |salaire| %>
       <tr id="<%= dom_id salaire %>">
-
         <td><%= salaire.entraineur ? "#{salaire.entraineur.prénom} #{salaire.entraineur.nom}" : "Entraîneur inconnu" %></td>
-        <td><%= salaire.annee %></td>
-        <td><%= Date::MONTHNAMES[salaire.mois] %></td>
+        <td><%= "#{Date::MONTHNAMES[salaire.mois]} #{salaire.annee}" %></td>
         <td><%= salaire.salaire %>&nbspDT</td>
         <td>
-          <%= button_to 'Delete', salaire_path(salaire), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+          <%= button_to 'Supprimer', salaire_path(salaire), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<p>
-  <%= link_to "New salaire", new_salaire_path, class: "btn btn-success" %>
-</p>

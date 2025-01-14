@@ -26,23 +26,23 @@
         </div>
       <% end %>
       <br>
-      <div>
+      <div class="mb-3">
         <%= form.label :nom, style: "display: block" %>
         <%= form.text_field :nom ,class: "form-control" %>
       </div>
 
-      <div>
+      <div class="mb-3">
         <%= form.label :prénom, style: "display: block" %>
         <%= form.text_field :prénom ,class: "form-control" %>
       </div>
 
-      <div>
+      <div class="mb-3">
         <%= form.label :téléphone, style: "display: block" %>
         <%= form.number_field :téléphone ,class: "form-control" %>
       </div>
 
-      <div>
-        <%= form.label :salaire, style: "display: block" %>
+      <div class="mb-3">
+        <%= form.label :salaire, "Salaire (DT)", style: "display: block" %>
         <%= form.number_field :salaire  ,class: "form-control"%>
       </div>
 
@@ -81,7 +81,7 @@
         </div>
 
         <div>
-          <%= form.label :mois_et_annee, "Mois et Année", style: "display: block" %>
+          <%= form.label :mois_et_annee, "Mois et année", style: "display: block" %>
           <input type="month" id="monthPicker" style="display: block" class="form-control">
         </div>
         <br>

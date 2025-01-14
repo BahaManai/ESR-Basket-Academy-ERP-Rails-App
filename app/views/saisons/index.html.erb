@@ -24,7 +24,7 @@
         <td><%= saison.montant_abonnement %></td>
         <td><%= saison.montant_assurance %></td>
         <td>
-          <%= link_to "Afficher", saison, class: "btn btn-primary btn-sm" %>
+          <%= link_to "Modifier", edit_saison_path(saison), class: "btn btn-primary btn-sm" %>
         </td>
       </tr>
     <% end %>
