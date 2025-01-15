@@ -38,11 +38,11 @@
             end
           %>">
         <td><%= paiement.joueur ? "#{paiement.joueur.prénom} #{paiement.joueur.nom}" : "Joueur inconnu" %></td>
-        <td><%= paiement.date_abonnement.strftime("%d %b, %Y") if paiement.date_abonnement %></td>
-        <td><%= paiement.date_encaissement.strftime("%d %b, %Y") if paiement.date_encaissement %></td>
+        <td><%= "#{paiement.date_abonnement.strftime('%d')} #{I18n.t('date.month_names_short')[paiement.date_abonnement.month]}, #{paiement.date_abonnement.strftime('%Y')}" if paiement.date_abonnement %></td>
+        <td><%= "#{paiement.date_encaissement.strftime('%d')} #{I18n.t('date.month_names_short')[paiement.date_encaissement.month]}, #{paiement.date_encaissement.strftime('%Y')}" if paiement.date_encaissement %></td>
         <td> 
           <% expiration_date = paiement.date_abonnement + 30.days %>
-          <%= expiration_date.strftime("%d %b, %Y") %>
+          <%= "#{expiration_date.strftime('%d')} #{I18n.t('date.month_names_short')[expiration_date.month]}, #{expiration_date.strftime('%Y')}" %>
           <br><strong>
             <% if paiement == paiement.joueur.paiements.last %>
               <% if (expiration_date - Date.today).to_i > 0 %>

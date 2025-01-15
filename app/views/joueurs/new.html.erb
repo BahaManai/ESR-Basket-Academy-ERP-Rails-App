@@ -4,11 +4,11 @@
   <%= link_to "Joueurs >", joueurs_path %>
 </div>
 
-<%= form_with(model: @joueur, class: "new_forms", local: true) do |form| %>
+<%= form_with(model: @joueur, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |form| %>
 <h1>Nouveau joueur :</h1><br>
   <% if @joueur.errors.any? %>
     <div class="alert alert-danger">
-      <h2><%= pluralize(@joueur.errors.count, "error") %> prohibited this joueur from being saved:</h2>
+      <h2><%= pluralize(@joueur.errors.count, "erreurs") %> :</h2>
       <ul>
         <% @joueur.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -29,7 +29,10 @@
 
   <div class="mb-3">
     <%= form.label :nom, class: "form-label" %>
-    <%= form.text_field :nom, class: "form-control", placeholder: "Entrez le nom" %>
+    <%= form.text_field :nom, class: "form-control", placeholder: "Entrez le nom" , required: true%>
+    <div class="invalid-feedback">
+        Name is required !
+      </div>
   </div>
 
   <div class="mb-3">

@@ -23,9 +23,11 @@
     <% @assurances.each do |assurance| %>
       <tr id="<%= dom_id assurance %>" class="<%= 'etat_crédit' if assurance.etat_paiement == 'Crédit' %>">
         <td><%= assurance.joueur ? "#{assurance.joueur.prénom} #{assurance.joueur.nom}" : "Joueur inconnu" %></td>
-        <td><%= "#{assurance.saison.date_debut.strftime("%d %b %Y")} à #{assurance.saison.date_fin.strftime("%d %b %Y")}" %></td>
+        <td><%= "#{assurance.saison.date_debut.strftime('%d')} #{I18n.t('date.month_names_short')[assurance.saison.date_debut.month]} #{assurance.saison.date_debut.strftime('%Y')} à #{assurance.saison.date_fin.strftime('%d')} #{I18n.t('date.month_names_short')[assurance.saison.date_fin.month]} #{assurance.saison.date_fin.strftime('%Y')}" %></td>
+
         <td><%= assurance.montant %>&nbspDT</td>
-        <td><%= assurance.date_paiement.strftime("%d %b, %Y") if assurance.date_paiement %></td>
+        <td><%= "#{assurance.date_paiement.strftime('%d')} #{I18n.t('date.month_names_short')[assurance.date_paiement.month]}, #{assurance.date_paiement.strftime('%Y')}" if assurance.date_paiement %></td>
+
         <td>
           <% if assurance.etat_paiement == 'Crédit' %>
             <%= form_with(model: assurance, method: :patch, local: true) do |form| %>

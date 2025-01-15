@@ -16,7 +16,7 @@
     <tr>
       <th>ID</th>
       <th>Nom du joueur</th>
-      <th>Date de naissance</th>
+      <th>Age</th>
       <th>Parent</th>
       <th>Dernier paiement</th>
       <th>Expire</th>
@@ -40,7 +40,7 @@
       %>">
         <td><%= joueur.id %></td>
         <td><%= "#{joueur.prénom} #{joueur.nom}" %></td>
-        <td><%= "#{joueur.date_naissance.strftime('%d')} #{I18n.t('date.month_names_short')[joueur.date_naissance.month]}, #{joueur.date_naissance.strftime('%Y')}" %></td>
+        <td style="text-align:center"><%= ((Date.today - joueur.date_naissance).to_i/ 365.25).to_i if joueur.date_naissance %></td>
         <td>
           <% if joueur.parent %>
             <%= "#{joueur.parent.prénom} #{joueur.parent.nom}" %><br>

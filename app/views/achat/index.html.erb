@@ -28,7 +28,7 @@
         </td>
         <td><%= achat.designation %></td>
         <td><%= achat.prix %>&nbspDT</td>
-        <td><%= achat.date_achat.strftime("%d %b, %Y") if achat.date_achat %></td>
+        <td><%= "#{achat.date_achat.strftime('%d')} #{I18n.t('date.month_names_short')[achat.date_achat.month]}, #{achat.date_achat.strftime('%Y')}" if achat.date_achat %></td>
         <td>
         <% if achat.etat_paiement == 'Crédit' %>
           <%= form_with(model: achat, method: :patch, local: true) do |form| %>

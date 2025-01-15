@@ -135,6 +135,25 @@ function initializeNewSalaireForm() {
     }
 }
 
+function bootstrapValidation() {
+    'use strict'
+
+    var forms = document.querySelectorAll('.needs-validation')
+
+    Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+}
+
+
 document.addEventListener("DOMContentLoaded", initializeSalaireForm);
 document.addEventListener("turbo:frame-load", initializeSalaireForm);
 document.addEventListener("turbo:load", initializeSalaireForm);
@@ -178,3 +197,7 @@ document.addEventListener("turbo:load", initializeNewSalaireForm);
 document.addEventListener("DOMContentLoaded", initializeNewSalaireForm2);
 document.addEventListener("turbo:frame-load", initializeNewSalaireForm2);
 document.addEventListener("turbo:load", initializeNewSalaireForm2);
+
+document.addEventListener("DOMContentLoaded", bootstrapValidation);
+document.addEventListener("turbo:frame-load", bootstrapValidation);
+document.addEventListener("turbo:load", bootstrapValidation);

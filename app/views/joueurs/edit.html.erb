@@ -191,25 +191,27 @@
             end
           %>">
             <td><%= paiement.montant %>&nbspDT</td>
-            <td><%= paiement.date_abonnement.strftime("%d %b, %Y") if paiement.date_abonnement %></td>
-            <td><%= paiement.date_encaissement.strftime("%d %b, %Y") if paiement.date_encaissement %></td>
+            <td>
+              <%= "#{paiement.date_abonnement.strftime('%d')} #{I18n.t('date.month_names_short')[paiement.date_abonnement.month]}, #{paiement.date_abonnement.strftime('%Y')}" if paiement.date_abonnement %>
+            </td>
+            <td>
+              <%= "#{paiement.date_encaissement.strftime('%d')} #{I18n.t('date.month_names_short')[paiement.date_encaissement.month]}, #{paiement.date_encaissement.strftime('%Y')}" if paiement.date_encaissement %>
+            </td>
             <td> 
-          <% expiration_date = paiement.date_abonnement + 30.days %>
-          <%= expiration_date.strftime("%d %b, %Y") %>
-          <br><strong>
-            <% if paiement == paiement.joueur.paiements.last %>
-              <% if (expiration_date - Date.today).to_i > 0 %>
-              reste : <%= (expiration_date - Date.today).to_i %> jours
-              <% elsif (expiration_date - Date.today).to_i == 0 %>
-              Aujourd'hui
-              <% else
-              %>
-              </strong>
-              <span style="color:red">(Expiré)</span>
-              <%end
-               %>
-            <% end %>
-        </td>
+              <% expiration_date = paiement.date_abonnement + 30.days %>
+              <%= "#{expiration_date.strftime('%d')} #{I18n.t('date.month_names_short')[expiration_date.month]}, #{expiration_date.strftime('%Y')}" %>
+              <br><strong>
+                <% if paiement == paiement.joueur.paiements.last %>
+                  <% if (expiration_date - Date.today).to_i > 0 %>
+                    reste : <%= (expiration_date - Date.today).to_i %> jours
+                  <% elsif (expiration_date - Date.today).to_i == 0 %>
+                    Aujourd'hui
+                  <% else %>
+                    </strong>
+                    <span style="color:red">(Expiré)</span>
+                  <% end %>
+                <% end %>
+            </td>
             <td>
               <div class="d-flex align-items-center">
                 <%= button_to 'Delete', paiement_path(paiement), method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: "btn btn-danger btn-sm me-2" %>&nbsp
@@ -266,7 +268,11 @@
         <div class="mb-3">
           <%= form.label :saison_id, "Saison", style: "display: block" %>
           <%= form.select :saison_id, 
-                Saison.all.map { |saison| ["#{saison.date_debut.strftime('%d %B %Y')} à #{saison.date_fin.strftime('%d %B %Y')}", saison.id, { "data-montant" => saison.montant_assurance }] }, 
+                Saison.all.map { |saison| 
+                  start_date = "#{saison.date_debut.strftime('%d')} #{I18n.t('date.month_names_short')[saison.date_debut.month]} #{saison.date_debut.strftime('%Y')}"
+                  end_date = "#{saison.date_fin.strftime('%d')} #{I18n.t('date.month_names_short')[saison.date_fin.month]} #{saison.date_fin.strftime('%Y')}"
+                  ["#{start_date} à #{end_date}", saison.id, { "data-montant" => saison.montant_assurance }]
+                }, 
                 { prompt: "Choisir une saison" }, 
                 { class: "custom-select" } %>
         </div>
@@ -311,8 +317,9 @@
         <% @joueur.assurances.reverse.each do |assurance| %>
           <tr id="<%= dom_id assurance %>" class="<%= 'etat_crédit' if assurance.etat_paiement == 'Crédit' %>">
             <td><%= assurance.montant%>&nbspDT</td>
-            <td><%= assurance.date_paiement.strftime("%d %b, %Y") if assurance.date_paiement %></td>
-            <td><%= "#{assurance.saison.date_debut.strftime("%d %b %Y")} à #{assurance.saison.date_fin.strftime("%d %b %Y")}" %></td>
+            <td><%= assurance.date_paiement.strftime("%d #{I18n.t('date.month_names_short')[assurance.date_paiement.month]}, %Y") if assurance.date_paiement %></td>
+            <td><%= "#{assurance.saison.date_debut.strftime('%d')} #{I18n.t('date.month_names_short')[assurance.saison.date_debut.month]} #{assurance.saison.date_debut.strftime('%Y')} à #{assurance.saison.date_fin.strftime('%d')} #{I18n.t('date.month_names_short')[assurance.saison.date_fin.month]} #{assurance.saison.date_fin.strftime('%Y')}" %></td>
+
             <td>
               <div class="d-flex align-items-center">
                 <%= button_to 'Delete', assurance_path(assurance), method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: "btn btn-danger btn-sm me-2" %>&nbsp
@@ -412,7 +419,7 @@
         <% @joueur.achats.reverse.each do |achat| %>
           <tr id="<%= dom_id achat %>" class="<%= 'etat_crédit' if achat.etat_paiement == 'Crédit' %>">
             <td><%= achat.prix %>&nbspDT</td>
-            <td><%= achat.date_achat.strftime("%d %b, %Y") if achat.date_achat %></td>
+            <td><%= achat.date_achat.strftime("%d #{I18n.t('date.month_names_short')[achat.date_achat.month]}, %Y") if achat.date_achat %></td>
             <td><%= achat.designation %></td>
             <td>
               <div class="d-flex align-items-center">

@@ -25,7 +25,7 @@ class AchatController < ApplicationController
         format.html { redirect_to "/joueurs/#{@achat.joueur_id}/edit", notice: "Achat was successfully created." }
         format.json { render json: @achat, status: :created }
       else
-        format.html { redirect_to achats_path, alert: "Failed to create Achat." }
+        format.html { redirect_to "/joueurs/#{@achat.joueur_id}/edit", alert: "Failed to create Achat." }
         format.json { render json: @achat.errors, status: :unprocessable_entity }
       end
     end

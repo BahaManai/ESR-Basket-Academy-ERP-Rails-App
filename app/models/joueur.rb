@@ -8,8 +8,8 @@ class Joueur < ApplicationRecord
   validates :nom, presence: true
   validates :prénom, presence: true
   validates :sexe, presence: true
-  validates :date_naissance, presence: true
   validates :parent_id, presence: true
+  validates :date_naissance, comparison: { less_than: Date.today }, allow_blank: true
 
   def somme_des_credits
     credits_paiements = paiements.where(etat_abonnement: "Crédit").sum(:montant).to_i
