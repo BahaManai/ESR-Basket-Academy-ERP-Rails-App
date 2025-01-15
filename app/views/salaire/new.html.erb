@@ -5,7 +5,7 @@
 </div>
 
 <%= form_with(model: @salaire, class: "new_forms", local: true) do |form| %>
-  <h1>Ajouter salaire :</h1><br>
+  <h1>Ajouter un salaire :</h1><br>
   
   <% if @salaire.errors.any? %>
     <div class="alert alert-danger">
@@ -42,7 +42,7 @@
           </svg>
         </span>
       </div>
-      <input type="month" id="monthPicker3" class="form-control" placeholder="Mois et année">
+      <input type="text" id="monthPicker3" class="form-control monthpicker" placeholder="Mois et année">
     </div>
   </div>
 

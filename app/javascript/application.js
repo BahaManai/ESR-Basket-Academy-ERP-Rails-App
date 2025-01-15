@@ -5,4 +5,6 @@ import "controllers"
 import "jquery";
 import "datatables.min";
 import "flatpickr";
+import "flatpickr/plugins/monthSelect";
+import "flatpickr/dist/l10n/fr";
 import "custom";

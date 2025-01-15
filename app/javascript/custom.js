@@ -16,6 +16,18 @@ function initializeDataTables() {
 function initializeFlatpickr() {
     flatpickr(".datepicker", {
         dateFormat: "Y-m-d",
+        locale: "fr",
+    });
+    flatpickr(".monthpicker", {
+        plugins: [
+            new monthSelectPlugin({
+                shorthand: true,
+                dateFormat: "Y-m"
+            })
+        ],
+        altInput: true,
+        altFormat: "F Y",
+        locale: "fr",
     });
 }
 

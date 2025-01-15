@@ -19,8 +19,8 @@
     <% @saisons.each do |saison| %>
       <tr id="<%= dom_id saison %>">
         <td><%= saison.id %></td>
-        <td><%= saison.date_debut.strftime("%d %b, %Y") if saison.date_debut %></td>
-        <td><%= saison.date_fin.strftime("%d %b, %Y") if saison.date_fin %></td>
+        <td><%= "#{saison.date_debut.strftime('%d')} #{I18n.t('date.month_names_short')[saison.date_debut.month]}, #{saison.date_debut.strftime('%Y')}" if saison.date_debut %></td>
+        <td><%= "#{saison.date_fin.strftime('%d')} #{I18n.t('date.month_names_short')[saison.date_fin.month]}, #{saison.date_fin.strftime('%Y')}" if saison.date_fin %></td>
         <td><%= saison.montant_abonnement %></td>
         <td><%= saison.montant_assurance %></td>
         <td>

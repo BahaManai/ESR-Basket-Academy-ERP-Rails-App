@@ -40,7 +40,7 @@
       %>">
         <td><%= joueur.id %></td>
         <td><%= "#{joueur.prénom} #{joueur.nom}" %></td>
-        <td><%= joueur.date_naissance %></td>
+        <td><%= "#{joueur.date_naissance.strftime('%d')} #{I18n.t('date.month_names_short')[joueur.date_naissance.month]}, #{joueur.date_naissance.strftime('%Y')}" %></td>
         <td>
           <% if joueur.parent %>
             <%= "#{joueur.parent.prénom} #{joueur.parent.nom}" %><br>
@@ -52,7 +52,7 @@
         </td>
         <td>
           <% if joueur.paiements.any? %>
-            <%= "#{joueur.paiements.last.date_abonnement.strftime("%d %b, %Y")}"%><br><strong><%= "(#{joueur.paiements.last.montant.to_i} DT)" %></strong>
+            <%= "#{joueur.paiements.last.date_abonnement.strftime('%d')} #{I18n.t('date.month_names_short')[joueur.paiements.last.date_abonnement.month]}, #{joueur.paiements.last.date_abonnement.strftime('%Y')}"%><br><strong><%= "(#{joueur.paiements.last.montant.to_i} DT)" %></strong>
           <% else %>
             Aucun paiement
           <% end %>
@@ -60,7 +60,7 @@
         <td>
           <% if joueur.paiements.any? %>
             <% expiration_date = joueur.paiements.last.date_abonnement + 30.days %>
-            <%= expiration_date.strftime("%d %b, %Y") %>
+            <%= "#{expiration_date.strftime('%d')} #{I18n.t('date.month_names_short')[expiration_date.month]}, #{expiration_date.strftime('%Y')}" %>
             <br><strong>
               <% if (expiration_date - Date.today).to_i > 0 %>
               reste : <%= (expiration_date - Date.today).to_i %> jours
@@ -83,7 +83,7 @@
           ''
         end
       %>"><%= joueur.somme_des_credits %>&nbsp;DT</td>
-        <td><%= joueur.created_at.strftime("%d %b, %Y %H:%M") %></td>
+        <td><%= "#{joueur.created_at.strftime('%d')} #{I18n.t('date.month_names_short')[joueur.created_at.month]}, #{joueur.created_at.strftime('%Y %H:%M')}" %></td>
         <td>
           <%= link_to "Modifier", edit_joueur_path(joueur), class: "btn btn-primary btn-sm" %>
         </td>
