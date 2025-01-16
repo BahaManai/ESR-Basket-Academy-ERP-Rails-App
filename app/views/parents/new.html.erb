@@ -8,7 +8,7 @@
   <h1>Nouveau parent :</h1><br>
 
   <% if @parent.errors.any? %>
-    <div class="alert alert-danger" role="alert">
+    <div class="custom-alert" role="alert">
       <h2>
         <%= pluralize(@parent.errors.count, "erreur", "erreurs") %> détectée<%= 's' if @parent.errors.count > 1 %> :
       </h2>

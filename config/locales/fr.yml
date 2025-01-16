@@ -32,9 +32,9 @@ fr:
   errors:
     messages:
       blank: "ne peut pas être vide"
-      less_than: "doit être inférieur à"
+      less_than: "doit être inférieur à %{count}"
       greater_than_or_equal_to: "doit être supérieur ou égal à %{count}"
       required: "est obligatoire"
-      not_a_number: "n'est pas un entier"
+      not_a_number: "doit être un nombre"
 
 

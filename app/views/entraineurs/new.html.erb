@@ -8,7 +8,7 @@
   <h1>Nouvel entraîneur :</h1><br>
   
   <% if @entraineur.errors.any? %>
-    <div class="alert alert-danger" role="alert">
+    <div class="custom-alert" role="alert">
       <h2>
         <%= pluralize(@entraineur.errors.count, "erreur", "erreurs") %> détectée<%= 's' if @entraineur.errors.count > 1 %> :
       </h2>

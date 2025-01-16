@@ -4,7 +4,20 @@
 </div>
 <% end%>
 <% if flash[:alert] %>
-<div class="alert alert-danger mt-4" role="alert">
+  <div class="custom-alert" role="alert" id="flash-alert">
+    <button type="button" class="close-btn" aria-label="Close" onclick="dismissAlert()">
+      <i class="bi bi-x-lg"></i>
+    </button>
     <%= raw(flash[:alert]) %>
-</div>
-<% end%>
+  </div>
+<% end %>
+
+<script>
+  function dismissAlert() {
+    const alertBox = document.getElementById('flash-alert');
+    if (alertBox) {
+      alertBox.style.display = 'none';
+    }
+  }
+</script>
+

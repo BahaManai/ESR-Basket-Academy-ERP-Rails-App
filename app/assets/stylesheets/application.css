@@ -135,3 +135,33 @@
     width: 50%;
     margin: auto;
 }
+
+.custom-alert {
+    background-color: #be3644;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #f5c2c7;
+    font-size: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+.custom-alert strong {
+    font-weight: bold;
+}
+
+.custom-alert .close-btn {
+    float: right;
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #721c24;
+}
+
+.custom-alert .close-btn:hover {
+    background-color: #ca737e;
+    color: white;
+}

@@ -5,6 +5,6 @@ class Achat < ApplicationRecord
   message: "%{value} n'est pas un état valide"
   }
   validates :designation, presence: true
-  validates :prix, presence: true
+  validates :prix, numericality: { greater_than_or_equal_to: 0 }
   validates :date_achat, presence: true
 end

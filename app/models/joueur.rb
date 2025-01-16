@@ -7,7 +7,7 @@ class Joueur < ApplicationRecord
 
   validates :nom, presence: true
   validates :prénom, presence: true
-  validates :sexe, presence: true
+  validates :sexe, inclusion: { in: [ "male", "femelle" ], message: "doit être male ou femelle" }
   validates :date_naissance, comparison: { less_than: Date.today }, allow_blank: true
 
   def somme_des_credits

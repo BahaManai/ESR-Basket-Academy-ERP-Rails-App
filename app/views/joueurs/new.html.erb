@@ -5,9 +5,9 @@
 </div>
 
 <%= form_with(model: @joueur, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |form| %>
-<h1>Nouveau joueur :</h1><br>
+<h1>Nouveau joueur :</h1>
   <% if @joueur.errors.any? %>
-    <div class="alert alert-danger" role="alert">
+    <div class="custom-alert" role="alert">
       <h2>
         <%= pluralize(@joueur.errors.count, "erreur", "erreurs") %> détectée<%= 's' if @joueur.errors.count > 1 %> :
       </h2>
@@ -18,7 +18,7 @@
       </ul>
     </div>
   <% end %>
-
+<br>
 
 <div class="mb-3">
     <%= form.label :parent_id, "Parent", class: "form-label" %>

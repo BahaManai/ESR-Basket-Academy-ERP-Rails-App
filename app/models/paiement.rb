@@ -4,6 +4,7 @@ class Paiement < ApplicationRecord
     in: [ "Non crédit", "Crédit" ],
     message: "%{value} n'est pas un état valide"
   }
-  validates :montant, presence: true
+  validates :montant, numericality: { greater_than_or_equal_to: 0 }
   validates :date_abonnement, presence: true
+  validates :num_recu, presence: true
 end

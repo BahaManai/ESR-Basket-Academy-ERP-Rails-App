@@ -8,7 +8,7 @@
   <h1>Ajouter un salaire :</h1><br>
   
   <% if @salaire.errors.any? %>
-    <div class="alert alert-danger">
+    <div class="custom-alert">
       <h2><%= pluralize(@salaire.errors.count, "error") %> prohibited this salaire from being saved:</h2>
       <ul>
         <% @salaire.errors.full_messages.each do |message| %>
@@ -28,7 +28,7 @@
 
   <div class="mb-3">
     <%= form.label :salaire, "Salaire (DT)", class: "form-label" %>
-    <%= form.text_field :salaire, class: "form-control", placeholder: "Entrez le salaire", id: "salaire-field" %>
+    <%= form.number_field :salaire, class: "form-control", placeholder: "Entrez le salaire", id: "salaire-field" %>
   </div>
 
   <div class="mb-3">
