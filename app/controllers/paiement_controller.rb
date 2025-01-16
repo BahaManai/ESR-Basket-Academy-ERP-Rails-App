@@ -36,11 +36,17 @@ class PaiementController < ApplicationController
         format.html { redirect_to "/joueurs/#{@paiement.joueur_id}/edit", notice: "Paiement was successfully created." }
         format.json { render json: @paiement, status: :created }
       else
-        format.html { redirect_to paiements_path, alert: "Failed to create Paiement." }
+        format.html do
+          error_messages = @paiement.errors.full_messages.map { |msg| "<li style='list-style-type: none;'><i class='bi bi-exclamation-triangle-fill'></i>&nbsp;#{msg}</li>" }.join
+          alert_message = "<h2>Erreur en ajout de paiement :</h2><ul>#{error_messages}</ul>"
+
+          redirect_to "/joueurs/#{@paiement.joueur_id}/edit", alert: alert_message.html_safe
+        end
         format.json { render json: @paiement.errors, status: :unprocessable_entity }
       end
     end
   end
+
 
   def update
     if @paiement.update(paiement_params)

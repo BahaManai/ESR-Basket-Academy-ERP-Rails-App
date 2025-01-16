@@ -1,4 +1,4 @@
 class Salaire < ApplicationRecord
   belongs_to :entraineur
-  validates :salaire, :mois, :annee, :entraineur_id, presence: true
+  validates :salaire, :mois, :annee, presence: true
 end

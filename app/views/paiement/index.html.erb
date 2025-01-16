@@ -1,13 +1,11 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Paiements" %>
 
 <h1>Paiements</h1>
 <div class="mb-3">
-  <%= link_to 'Tous', paiements_path, class: 'btn btn-primary' %>
-  <%= link_to 'Active', paiements_path(filter: 'active'), class: 'btn btn-success' %>
-  <%= link_to 'Expiré', paiements_path(filter: 'expired'), class: 'btn btn-danger' %>
-  <%= link_to 'Crédit', paiements_path(filter: 'credit'), class: 'btn btn-warning' %>
+  <%= link_to 'Tous', paiements_path, class: 'btn btn-primary btn-sm' %>
+  <%= link_to 'Active', paiements_path(filter: 'active'), class: 'btn btn-success btn-sm' %>
+  <%= link_to 'Expiré', paiements_path(filter: 'expired'), class: 'btn btn-danger btn-sm' %>
+  <%= link_to 'Crédit', paiements_path(filter: 'credit'), class: 'btn btn-warning btn-sm' %>
 </div>
 
 <table class="table table-bordered datatable">

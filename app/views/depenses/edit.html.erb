@@ -8,11 +8,15 @@
   <h1>Modifier la dépense :</h1><br>
   
   <% if @depense.errors.any? %>
-    <div class="alert alert-danger">
-      <h2><%= pluralize(@depense.errors.count, "error") %> prohibited this dépense from being saved:</h2>
+    <div class="alert alert-danger" role="alert">
+      <h2>
+        <%= pluralize(@depense.errors.count, "erreur", "erreurs") %> détectée<%= 's' if @depense.errors.count > 1 %> :
+      </h2>
       <ul>
         <% @depense.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+          <li style="list-style-type: none;">
+            <i class="bi bi-exclamation-triangle-fill"></i>&nbsp; <%= message %>
+          </li>
         <% end %>
       </ul>
     </div>

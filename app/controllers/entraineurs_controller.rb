@@ -39,7 +39,12 @@ class EntraineursController < ApplicationController
         format.html { redirect_to entraineurs_path, notice: "Entraineur was successfully updated." }
         format.json { render :show, status: :ok, location: @entraineur }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html do
+          error_messages = @entraineur.errors.full_messages.map { |msg| "<li style='list-style-type: none;'><i class='bi bi-exclamation-triangle-fill'></i>&nbsp;#{msg}</li>" }.join
+          alert_message = "<h2>Erreur en modification de l'entraîneur :</h2><ul>#{error_messages}</ul>"
+
+          redirect_to edit_entraineur_path, alert: alert_message.html_safe
+        end
         format.json { render json: @entraineur.errors, status: :unprocessable_entity }
       end
     end

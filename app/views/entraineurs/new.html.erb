@@ -8,15 +8,20 @@
   <h1>Nouvel entraîneur :</h1><br>
   
   <% if @entraineur.errors.any? %>
-    <div class="alert alert-danger">
-      <h2><%= pluralize(@entraineur.errors.count, "error") %> prohibited this entraineur from being saved:</h2>
+    <div class="alert alert-danger" role="alert">
+      <h2>
+        <%= pluralize(@entraineur.errors.count, "erreur", "erreurs") %> détectée<%= 's' if @entraineur.errors.count > 1 %> :
+      </h2>
       <ul>
         <% @entraineur.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+          <li style="list-style-type: none;">
+            <i class="bi bi-exclamation-triangle-fill"></i>&nbsp; <%= message %>
+          </li>
         <% end %>
       </ul>
     </div>
   <% end %>
+
 
   <div class="mb-3">
     <%= form.label :nom, class: "form-label" %>

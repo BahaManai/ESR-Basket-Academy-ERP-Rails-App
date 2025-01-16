@@ -21,7 +21,12 @@ class AssuranceController < ApplicationController
         format.html { redirect_to "/joueurs/#{@assurance.joueur_id}/edit", notice: "L'assurance a été créée avec succès." }
         format.json { render json: @assurance, status: :created }
       else
-        format.html { redirect_to assurances_path, alert: "Échec de la création de l'assurance." }
+        format.html do
+          error_messages = @assurance.errors.full_messages.map { |msg| "<li style='list-style-type: none;'><i class='bi bi-exclamation-triangle-fill'></i>&nbsp;#{msg}</li>" }.join
+          alert_message = "<h2>Erreur en ajout d'assurance :</h2><ul>#{error_messages}</ul>"
+
+          redirect_to "/joueurs/#{@assurance.joueur_id}/edit", alert: alert_message.html_safe
+        end
         format.json { render json: @assurance.errors, status: :unprocessable_entity }
       end
     end

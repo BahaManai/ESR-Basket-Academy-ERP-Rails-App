@@ -1,6 +1,6 @@
 module PaiementHelper
   def default_payment_value(joueur, saison)
-    count = joueur.parent.joueurs.count
+    count = joueur.parent.nil? ? 1 : joueur.parent.joueurs.count
     montant = saison.nil? ? 50 : saison.montant_abonnement
     if count == 1
       montant

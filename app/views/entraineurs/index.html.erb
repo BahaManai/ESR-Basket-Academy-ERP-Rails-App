@@ -1,8 +1,6 @@
 <% selected_year = params[:annee].presence || Date.today.year %>
 <% selected_month = params[:mois].presence || Date.today.month %>
 
-<p class="text-success"><%= notice %></p>
-
 <% content_for :title, "Entraîneurs" %>
 
 <h1 class="mb-4">Entraîneurs</h1>
@@ -29,8 +27,8 @@
 </div>
 
 <div class="mb-3">
-  <%= link_to 'Tous', request.path + "?" + request.query_parameters.except(:filter).to_query, class: 'btn btn-primary' %>
-  <%= link_to 'Non payés', request.path + "?" + request.query_parameters.merge(filter: 'nonpayes').to_query, class: 'btn btn-danger' %>
+  <%= link_to 'Tous', request.path + "?" + request.query_parameters.except(:filter).to_query, class: 'btn btn-primary btn-sm' %>
+  <%= link_to 'Non payés', request.path + "?" + request.query_parameters.merge(filter: 'nonpayes').to_query, class: 'btn btn-danger btn-sm' %>
 </div>
 
 <table class="table table-striped table-bordered datatable">

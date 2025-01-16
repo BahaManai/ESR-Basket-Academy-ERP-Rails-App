@@ -1,12 +1,10 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Achats" %>
 
 <h1>Achats</h1>
 
 <div class="mb-3">
-  <%= link_to 'Tous', achats_path, class: 'btn btn-primary' %>
-  <%= link_to 'Crédits', achats_path(filter: 'credit'), class: 'btn btn-warning' %>
+  <%= link_to 'Tous', achats_path, class: 'btn btn-primary btn-sm' %>
+  <%= link_to 'Crédits', achats_path(filter: 'credit'), class: 'btn btn-warning btn-sm' %>
 </div>
 
 <table class="table table-bordered datatable">
@@ -21,7 +19,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @achats.each do |achat| %>
+    <% @achats.reverse.each do |achat| %>
       <tr id="<%= dom_id achat %>" class="<%= 'etat_crédit' if achat.etat_paiement == 'Crédit' %>">
         <td>
           <%= achat.joueur ? "#{achat.joueur.prénom} #{achat.joueur.nom}" : "Joueur inconnu" %>

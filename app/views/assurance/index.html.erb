@@ -1,12 +1,10 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Assurances" %>
 
 <h1>Assurances</h1>
 
 <div class="mb-3">
-  <%= link_to 'Tous', assurances_path, class: 'btn btn-primary' %>
-  <%= link_to 'Crédits', assurances_path(filter: 'credit'), class: 'btn btn-warning' %>
+  <%= link_to 'Tous', assurances_path, class: 'btn btn-primary btn-sm' %>
+  <%= link_to 'Crédits', assurances_path(filter: 'credit'), class: 'btn btn-warning btn-sm' %>
 </div>
 
 <table class="table table-bordered datatable">
@@ -20,7 +18,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @assurances.each do |assurance| %>
+    <% @assurances.reverse.each do |assurance| %>
       <tr id="<%= dom_id assurance %>" class="<%= 'etat_crédit' if assurance.etat_paiement == 'Crédit' %>">
         <td><%= assurance.joueur ? "#{assurance.joueur.prénom} #{assurance.joueur.nom}" : "Joueur inconnu" %></td>
         <td><%= "#{assurance.saison.date_debut.strftime('%d')} #{I18n.t('date.month_names_short')[assurance.saison.date_debut.month]} #{assurance.saison.date_debut.strftime('%Y')} à #{assurance.saison.date_fin.strftime('%d')} #{I18n.t('date.month_names_short')[assurance.saison.date_fin.month]} #{assurance.saison.date_fin.strftime('%Y')}" %></td>

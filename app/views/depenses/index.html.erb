@@ -1,8 +1,6 @@
 <% selected_year = (params[:annee] || Date.today.year).to_i %>
 <% selected_month = (params[:mois] || Date.today.month).to_i %>
 
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Dépenses" %>
 
 <h1>Dépenses</h1><br>

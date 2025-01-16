@@ -25,7 +25,12 @@ class AchatController < ApplicationController
         format.html { redirect_to "/joueurs/#{@achat.joueur_id}/edit", notice: "Achat was successfully created." }
         format.json { render json: @achat, status: :created }
       else
-        format.html { redirect_to "/joueurs/#{@achat.joueur_id}/edit", alert: "Failed to create Achat." }
+        format.html do
+          error_messages = @achat.errors.full_messages.map { |msg| "<li style='list-style-type: none;'><i class='bi bi-exclamation-triangle-fill'></i>&nbsp;#{msg}</li>" }.join
+          alert_message = "<h2>Erreur en ajout d'achat :</h2><ul>#{error_messages}</ul>"
+
+          redirect_to "/joueurs/#{@achat.joueur_id}/edit", alert: alert_message.html_safe
+        end
         format.json { render json: @achat.errors, status: :unprocessable_entity }
       end
     end

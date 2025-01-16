@@ -7,15 +7,18 @@
 <%= form_with(model: @joueur, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |form| %>
 <h1>Nouveau joueur :</h1><br>
   <% if @joueur.errors.any? %>
-    <div class="alert alert-danger">
-      <h2><%= pluralize(@joueur.errors.count, "erreurs") %> :</h2>
+    <div class="alert alert-danger" role="alert">
+      <h2>
+        <%= pluralize(@joueur.errors.count, "erreur", "erreurs") %> détectée<%= 's' if @joueur.errors.count > 1 %> :
+      </h2>
       <ul>
         <% @joueur.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+          <li style= "list-style-type: none;"><i class="bi bi-exclamation-triangle-fill"></i>&nbsp; <%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
+
 
 <div class="mb-3">
     <%= form.label :parent_id, "Parent", class: "form-label" %>

@@ -7,11 +7,15 @@
 <%= form_with(model: @saison, class: "new_forms", local: true) do |form| %>
   <h1>Nouvelle saison :</h1><br>
   <% if @saison.errors.any? %>
-    <div class="alert alert-danger">
-      <h2><%= pluralize(@saison.errors.count, "error") %> prohibited this saison from being saved:</h2>
+    <div class="alert alert-danger" role="alert">
+      <h2>
+        <%= pluralize(@saison.errors.count, "erreur", "erreurs") %> détectée<%= 's' if @saison.errors.count > 1 %> :
+      </h2>
       <ul>
         <% @saison.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+          <li style="list-style-type: none;">
+            <i class="bi bi-exclamation-triangle-fill"></i>&nbsp; <%= message %>
+          </li>
         <% end %>
       </ul>
     </div>

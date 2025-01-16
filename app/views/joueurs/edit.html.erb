@@ -3,7 +3,6 @@
 <div>
   <%= link_to "Joueurs >", joueurs_path %>
 </div>
-<p style="color: green"><%= notice %></p>
 
 <h1>Modifier un joueur</h1>
 
@@ -14,17 +13,6 @@
       <div>
         <%= form.submit "Enregistrer", class:"btn btn-primary", style: "float:right" %>
       </div>
-
-      <% if @joueur.errors.any? %>
-        <div style="color: red">
-          <h2><%= pluralize(@joueur.errors.count, "erreur") %> empêchent ce joueur d'être sauvegardé :</h2>
-          <ul>
-            <% @joueur.errors.each do |error| %>
-              <li><%= error.full_message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
       <br>
       <div class="mb-3">
         <%= form.label :prénom, style: "display: block" %>
@@ -93,18 +81,7 @@
     <div class="hideForm" id="paiementForm">
       <button id="btnAnnuler2" class="btn btn-secondary" style="float:right">Annuler</button>
       <%= form_with(model: @paiement) do |form| %>
-        <% if @paiement.errors.any? %>
-          <div style="color: red">
-            <h2><%= pluralize(@paiement.errors.count, "erreur") %> empêchent ce paiement d'être sauvegardé :</h2>
-            <ul>
-              <% @paiement.errors.each do |error| %>
-                <li><%= error.full_message %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
         <br>
-
         <div class="mb-3">
           <%= form.check_box :etat_abonnement, { checked: false }, 'Crédit', nil %>
           <%= form.label :etat_abonnement, "Marquer comme Crédit" %>
@@ -244,18 +221,7 @@
     <div class="hideForm" id="assuranceForm">
       <button id="btnAnnuler3" class="btn btn-secondary" style="float:right">Annuler</button>
       <%= form_with(model: @assurance) do |form| %>
-        <% if @assurance.errors.any? %>
-          <div style="color: red">
-            <h2><%= pluralize(@assurance.errors.count, "erreur") %> empêchent cette assurance d'être sauvegardée :</h2>
-            <ul>
-              <% @assurance.errors.each do |error| %>
-                <li><%= error.full_message %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
         <br>
-
         <div class="mb-3">
           <%= form.check_box :etat_paiement, { checked: false }, 'Crédit', nil %>
           <%= form.label :etat_paiement, "Marquer comme Crédit" %>
@@ -353,18 +319,7 @@
     <div class="hideForm" id="achatForm">
       <button id="btnAnnuler4" class="btn btn-secondary" style="float:right">Annuler</button>
       <%= form_with(model: @achat) do |form| %>
-        <% if @achat.errors.any? %>
-          <div style="color: red">
-            <h2><%= pluralize(@achat.errors.count, "erreur") %> empêchent cet achat d'être sauvegardé :</h2>
-            <ul>
-              <% @achat.errors.each do |error| %>
-                <li><%= error.full_message %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
         <br>
-
         <div class="mb-3">
           <%= form.check_box :etat_paiement, { checked: false }, 'Crédit', nil %>
           <%= form.label :etat_paiement, "Marquer comme Crédit" %>

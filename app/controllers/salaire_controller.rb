@@ -19,13 +19,20 @@ class SalaireController < ApplicationController
     respond_to do |format|
       if @salaire.save
         format.html { redirect_to "/entraineurs/#{@salaire.entraineur_id}/edit", notice: "Salaire was successfully created." }
-        format.json { render :show, status: :created, location: @salaire }
+        format.json { render json: @salaire, status: :created }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html do
+          error_messages = @salaire.errors.full_messages.map { |msg| "<li style= 'list-style-type: none;'><i class='bi bi-exclamation-triangle-fill'></i>&nbsp;#{msg}</li>" }.join
+          alert_message = "<h2>Erreur en ajout de salaire :</h2><ul>#{error_messages}</ul>"
+
+          redirect_to "/entraineurs/#{@salaire.entraineur_id}/edit", alert: alert_message.html_safe
+        end
         format.json { render json: @salaire.errors, status: :unprocessable_entity }
       end
     end
   end
+
+
 
 
   def destroy

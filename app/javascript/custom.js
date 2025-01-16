@@ -8,6 +8,7 @@ function initializeDataTables() {
                 searching: true,
                 ordering: true,
                 info: true,
+                order: []
             });
         }
     });

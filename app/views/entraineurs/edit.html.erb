@@ -3,7 +3,6 @@
 <div>
   <%= link_to "Entraîneurs >", entraineurs_path %>
 </div>
-<p style="color: green"><%= notice %></p>
 
 <h1>Modifier un entraîneur</h1>
 
@@ -14,17 +13,6 @@
       <div>
         <%= form.submit "Enregistrer", class:"btn btn-primary", style: "float:right" %>
       </div>
-
-      <% if @entraineur.errors.any? %>
-        <div style="color: red">
-          <h2><%= pluralize(@entraineur.errors.count, "error") %> prohibited this entraineur from being saved:</h2>
-          <ul>
-            <% @entraineur.errors.each do |error| %>
-              <li><%= error.full_message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
       <br>
       <div class="mb-3">
         <%= form.label :nom, style: "display: block" %>
@@ -61,16 +49,6 @@
     <div class="hideForm" id="salaireForm">
       <button id="btnAnnuler" class="btn btn-secondary" style="float:right">Annuler</button>
       <%= form_with(model: @salaire, html: { id: "salaireFormElement" }) do |form| %>
-        <% if @salaire.errors.any? %>
-          <div style="color: red">
-            <h2><%= pluralize(@salaire.errors.count, "error") %> prohibited this salaire from being saved:</h2>
-            <ul>
-              <% @salaire.errors.each do |error| %>
-                <li><%= error.full_message %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
         <br>
         <div style="display: none">
           <%= form.label :entraineur_id, style: "display: none" %>

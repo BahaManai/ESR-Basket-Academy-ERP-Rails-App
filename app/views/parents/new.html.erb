@@ -8,15 +8,20 @@
   <h1>Nouveau parent :</h1><br>
 
   <% if @parent.errors.any? %>
-    <div class="alert alert-danger">
-      <h2><%= pluralize(@parent.errors.count, "error") %> prohibited this parent from being saved:</h2>
+    <div class="alert alert-danger" role="alert">
+      <h2>
+        <%= pluralize(@parent.errors.count, "erreur", "erreurs") %> détectée<%= 's' if @parent.errors.count > 1 %> :
+      </h2>
       <ul>
         <% @parent.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+          <li style="list-style-type: none;">
+            <i class="bi bi-exclamation-triangle-fill"></i>&nbsp; <%= message %>
+          </li>
         <% end %>
       </ul>
     </div>
   <% end %>
+
 
   <div class="mb-3">
     <%= form.label :nom, class: "form-label" %>

@@ -69,9 +69,14 @@ class JoueursController < ApplicationController
     respond_to do |format|
       if @joueur.update(joueur_params)
         format.html { redirect_to joueurs_path, notice: "Joueur was successfully updated." }
-        format.json { render :show, status: :ok, location: @joueur }
+        format.json { render :edit, status: :ok, location: @joueur }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html do
+          error_messages = @joueur.errors.full_messages.map { |msg| "<li style='list-style-type: none;'><i class='bi bi-exclamation-triangle-fill'></i>&nbsp;#{msg}</li>" }.join
+          alert_message = "<h2>Erreur en modification de joueur :</h2><ul>#{error_messages}</ul>"
+
+          redirect_to edit_joueur_path, alert: alert_message.html_safe
+        end
         format.json { render json: @joueur.errors, status: :unprocessable_entity }
       end
     end

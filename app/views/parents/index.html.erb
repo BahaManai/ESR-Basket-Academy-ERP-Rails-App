@@ -1,5 +1,3 @@
-<p class="notice"><%= notice %></p>
-
 <% content_for :title, "Parents" %>
 
 <h1>Parents</h1>
@@ -12,6 +10,7 @@
         <th>Nom</th>
         <th>Téléphone</th>
         <th>Enfants</th>
+        <th>Crédits</th>
         <th>Créé le</th>
         <th>Actions</th>
       </tr>
@@ -28,6 +27,7 @@
               <% end %></ul>
             <% end %>
           </td>
+          <td><%= "#{parent.somme_credits_enfants} DT" %></td>
           <td><%= "#{parent.created_at.strftime('%d')} #{I18n.t('date.month_names_short')[parent.created_at.month]}, #{parent.created_at.strftime('%Y %H:%M')}" %></td>
           <td>
             <%= link_to "Modifier", edit_parent_path(parent), class: "btn btn-primary btn-sm" %>
