@@ -4,7 +4,7 @@
   <%= link_to "Parents >", parents_path %>
 </div>
 
-<%= form_with(model: @parent, class: "new_forms", local: true) do |form| %>
+<%= form_with(model: @parent, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |form| %>
   <h1>Nouveau parent :</h1><br>
 
   <% if @parent.errors.any? %>
@@ -22,24 +22,32 @@
     </div>
   <% end %>
 
-
   <div class="mb-3">
-    <%= form.label :nom, class: "form-label" %>
-    <%= form.text_field :nom, class: "form-control", placeholder: "Entrez le nom" %>
+    <%= form.label :nom, "Nom *", class: "form-label" %>
+    <%= form.text_field :nom, class: "form-control", placeholder: "Entrez le nom", required: true %>
+    <div class="invalid-feedback">
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le nom est obligatoire.
+    </div>
   </div>
 
   <div class="mb-3">
-    <%= form.label :prénom, class: "form-label" %>
-    <%= form.text_field :prénom, class: "form-control", placeholder: "Entrez le prénom" %>
+    <%= form.label :prénom, "Prénom *", class: "form-label" %>
+    <%= form.text_field :prénom, class: "form-control", placeholder: "Entrez le prénom", required: true %>
+    <div class="invalid-feedback">
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le prénom est obligatoire.
+    </div>
   </div>
 
   <div class="mb-3">
-    <%= form.label :téléphone, class: "form-label" %>
-    <%= form.number_field :téléphone, class: "form-control", placeholder: "Entrez le téléphone" %>
+    <%= form.label :téléphone, "Téléphone *", class: "form-label" %>
+    <%= form.text_field :téléphone, class: "form-control", placeholder: "Entrez le numéro de téléphone", 
+        pattern: "\\d{8}", title: "Le téléphone doit contenir exactement 8 chiffres." %>
+    <div class="invalid-feedback">
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le numéro de téléphone doit être un nombre de 8 chiffres.
+    </div>
   </div>
 
   <div class="mb-3">
     <%= form.submit "Créer parent", class: "btn btn-primary" %>
   </div>
-
 <% end %>

@@ -1,39 +1,41 @@
 <% content_for :title, "New Dépense" %>
 
 <div>
-  <%= link_to "Dépenses >", depenses_path %>
+  <%= link_to "Dépenses >", depenses_path, class: "btn btn-link" %>
 </div>
 
-<%= form_with(model: @depense, class: "new_forms", local: true) do |form| %>
+<%= form_with(model: @depense, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |form| %>
   <h1>Nouvelle dépense :</h1><br>
+
   <% if @depense.errors.any? %>
     <div class="custom-alert" role="alert">
-      <h2>
-        <%= pluralize(@depense.errors.count, "erreur", "erreurs") %> détectée<%= 's' if @depense.errors.count > 1 %> :
-      </h2>
+      <h2><%= pluralize(@depense.errors.count, "erreur") %> détectée<%= 's' if @depense.errors.count > 1 %> :</h2>
       <ul>
         <% @depense.errors.full_messages.each do |message| %>
-          <li style="list-style-type: none;">
-            <i class="bi bi-exclamation-triangle-fill"></i>&nbsp; <%= message %>
-          </li>
+          <li style="list-style-type: none;"><i class="bi bi-exclamation-triangle-fill"></i>&nbsp; <%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-
   <div class="mb-3">
-    <%= form.label :designation, "Désignation", class: "form-label" %>
-    <%= form.text_field :designation, class: "form-control", placeholder: "Désignation de la dépense" %>
+    <%= form.label :designation, "Désignation *", class: "form-label" %>
+    <%= form.text_field :designation, class: "form-control", placeholder: "Désignation de la dépense", required: true %>
+    <div class="invalid-feedback">
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>La désignation est obligatoire.
+    </div>
   </div>
 
   <div class="mb-3">
-    <%= form.label :prix, "Prix (DT)", class: "form-label" %>
-    <%= form.number_field :prix, class: "form-control", step: 0.01, placeholder: "Montant de la dépense" %>
+    <%= form.label :prix, "Prix (DT) *", class: "form-label" %>
+    <%= form.number_field :prix, class: "form-control", step: 0.01, placeholder: "Montant de la dépense", required: true, min: "0" %>
+    <div class="invalid-feedback">
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le prix est obligatoire et doit être un nombre positif.
+    </div>
   </div>
 
   <div class="mb-3">
-    <%= form.label :date_depense, "Date de la dépense", class: "form-label" %>
+    <%= form.label :date_depense, "Date de la dépense *", class: "form-label" %>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon1" style="background-color:rgba(119, 169, 223, 0.35)">
@@ -43,7 +45,10 @@
           </svg>
         </span>
       </div>
-      <%= form.text_field :date_depense, class: "form-control datepicker", placeholder: "date de la dépense" %>
+      <%= form.text_field :date_depense, class: "form-control datepicker", placeholder: "Date de la dépense", required: true %>
+      <div class="invalid-feedback">
+        <i class="bi bi-exclamation-circle mr-1 ml-1"></i>La date est obligatoire.
+      </div>
     </div>
   </div>
 
