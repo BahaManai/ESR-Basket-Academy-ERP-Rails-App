@@ -18,6 +18,7 @@ function initializeFlatpickr() {
     flatpickr(".datepicker", {
         dateFormat: "Y-m-d",
         locale: "fr",
+        allowInput: true
     });
     flatpickr(".monthpicker", {
         plugins: [
@@ -29,6 +30,7 @@ function initializeFlatpickr() {
         altInput: true,
         altFormat: "F Y",
         locale: "fr",
+        allowInput: true
     });
 }
 
@@ -49,7 +51,7 @@ function initializeSalaireForm() {
                 moisField.value = parseInt(month, 10);
                 anneeField.value = year;
             } else {
-                alert("Veuillez sélectionner un mois et une année.");
+                alert("Vous n'avez pas sélectionner un mois et une année.");
                 event.preventDefault();
             }
         });

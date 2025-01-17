@@ -9,34 +9,40 @@
 <div style="display: flex; justify-content: space-between; gap: 20px;">
   <div style="flex: 1; border: 1px solid #ccc; padding: 20px;">
     <h3>Informations personnelles</h3>
-    <%= form_with(model: @joueur) do |form| %>
+    <%= form_with(model: @joueur, class: "needs-validation", local: true, html: { novalidate: true }) do |form| %>
       <div>
         <%= form.submit "Enregistrer", class:"btn btn-primary", style: "float:right" %>
-      </div>
+      </div>     
       <br>
       <div class="mb-3">
-        <%= form.label :prénom, style: "display: block" %>
-        <%= form.text_field :prénom ,class: "form-control" %>
+        <%= form.label :prénom, "Prénom *", class: "form-label" %>
+        <%= form.text_field :prénom, class: "form-control", placeholder: "Entrez le prénom", required: true %>
+        <div class="invalid-feedback">
+          <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le prénom est obligatoire.
+        </div>
       </div>
 
       <div class="mb-3">
-        <%= form.label :nom, style: "display: block" %>
-        <%= form.text_field :nom ,class: "form-control" %>
+        <%= form.label :nom, "Nom *", class: "form-label" %>
+        <%= form.text_field :nom, class: "form-control", placeholder: "Entrez le nom", required: true %>
+        <div class="invalid-feedback">
+          <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le nom est obligatoire.
+        </div>
       </div>
 
       <div class="mb-3">
-        <%= form.label :sexe, class: "form-label" %><br>
-
+        <%= form.label :sexe, "Genre *", class: "form-label" %><br>
         <div class="form-check form-check-inline ml-3">
-          <%= form.radio_button :sexe, "male", class: "form-check-input" %>
-          <%= form.label :sexe_male, "Mâle", class: "form-check-label" %>
+          <%= form.radio_button :sexe, "male", class: "form-check-input", required: true %>
+          <%= form.label :sexe_male, "Homme", class: "form-check-label" %>
         </div>
-
         <div class="form-check form-check-inline">
-          <%= form.radio_button :sexe, "femelle", class: "form-check-input" %>
-          <%= form.label :sexe_femelle, "Femelle", class: "form-check-label" %>
+          <%= form.radio_button :sexe, "femelle", class: "form-check-input", required: true %>
+          <%= form.label :sexe_femelle, "Femme", class: "form-check-label" %>
         </div>
-
+        <div class="invalid-feedback ml-3">
+          <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le genre est obligatoire.
+        </div>
       </div>
 
       <div class="mb-3">
@@ -50,21 +56,19 @@
               </svg>
             </span>
           </div>
-          <%= form.text_field :date_naissance, class: "form-control datepicker", placeholder: "Date" %>
+          <%= form.text_field :date_naissance, class: "form-control datepicker", placeholder: "date de naissance", autocomplete: "off" %>
         </div>
       </div>
-
       <div class="mb-3">
         <%= form.label :parent_id, "Parent", style: "display: block" %>
         <%= form.select :parent_id, 
-              Parent.all.map { |parent| ["#{parent.prénom} #{parent.nom}", parent.id] }, 
-              { prompt: "Choisir un parent existant" }, 
+              [["Aucun parent sélectionné", nil]] + Parent.all.map { |parent| ["#{parent.prénom} #{parent.nom}", parent.id] }, 
+              {}, 
               { class: "custom-select" } %>
       </div>
-
-      <div>
-        <%= form.label :note, style: "display: block" %>
-        <%= form.text_area :note, class: "form-control" %>
+      <div class="mb-3">
+        <%= form.label :note, class: "form-label" %>
+        <%= form.text_area :note, class: "form-control", rows: 4, placeholder: "Ajoutez une note (facultatif)" %>
       </div>
     <% end %>
     <hr>
@@ -80,11 +84,12 @@
 
     <div class="hideForm" id="paiementForm">
       <button id="btnAnnuler2" class="btn btn-secondary" style="float:right">Annuler</button>
-      <%= form_with(model: @paiement) do |form| %>
+
+      <%= form_with(model: @paiement, class: "needs-validation", local: true, html: { novalidate: true }) do |form| %>
         <br>
         <div class="mb-3">
           <%= form.check_box :etat_abonnement, { checked: false }, 'Crédit', nil %>
-          <%= form.label :etat_abonnement, "Marquer comme Crédit" %>
+          <%= form.label :etat_abonnement, "Marquer comme Crédit", class: "form-label" %>
         </div>
 
         <div style="display: none">
@@ -92,12 +97,15 @@
         </div>
 
         <div class="mb-3">
-          <%= form.label :montant, "Paiement (DT)", style: "display: block" %>
-          <%= form.number_field :montant, class: "form-control", value: default_payment_value(@joueur,@saison) %>
+          <%= form.label :montant, "Paiement (DT) *", class: "form-label" %>
+          <%= form.number_field :montant, class: "form-control", value: default_payment_value(@joueur, @saison), required: true, min: 0 %>
+          <div class="invalid-feedback">
+            <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le montant est obligatoire et doit être supérieur ou égal à 0.
+          </div>
         </div>
 
         <div class="mb-3">
-          <%= form.label :date_abonnement, "Date d'abonnement", style: "display: block" %>
+          <%= form.label :date_abonnement, "Date d'abonnement *", style: "display: block" %>
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text" style="background-color:rgba(119, 169, 223, 0.35)">
@@ -107,7 +115,10 @@
                 </svg>
               </span>
             </div>
-            <%= form.text_field :date_abonnement, class: "form-control datepicker", placeholder: "date d'abonnement" %>
+            <%= form.text_field :date_abonnement, class: "form-control datepicker", placeholder: "date d'abonnement", required: true , autocomplete: "off"%>
+            <div class="invalid-feedback">
+            <i class="bi bi-exclamation-circle mr-1 ml-1"></i>La date d'abonnement est obligatoire.
+          </div>
           </div>
         </div>
 
@@ -122,16 +133,17 @@
                 </svg>
               </span>
             </div>
-            <%= form.text_field :date_encaissement, class: "form-control datepicker", placeholder: "date d'encaissement" %>
+            <%= form.text_field :date_encaissement, class: "form-control datepicker", placeholder: "date d'encaissement", autocomplete: "off" %>
           </div>
         </div>
 
         <div class="mb-3">
-          <%= form.label :num_recu, "Numéro de reçu", style: "display: block" %>
-          <%= form.number_field :num_recu, class: "form-control" %>
+          <%= form.label :num_recu, "Numéro de reçu *", class: "form-label" %>
+          <%= form.number_field :num_recu, class: "form-control", required: true, min: 0 %>
+          <div class="invalid-feedback">
+            <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le numéro de reçu est obligatoire et doit être supérieur ou égal à 0.
+          </div>
         </div>
-
-        <br>
 
         <div>
           <%= form.submit "Ajouter", class: "btn btn-primary" %>
@@ -220,36 +232,43 @@
 
     <div class="hideForm" id="assuranceForm">
       <button id="btnAnnuler3" class="btn btn-secondary" style="float:right">Annuler</button>
-      <%= form_with(model: @assurance) do |form| %>
+      <%= form_with(model: @assurance, class: "needs-validation", local: true, html: { novalidate: true }) do |form| %>
         <br>
         <div class="mb-3">
           <%= form.check_box :etat_paiement, { checked: false }, 'Crédit', nil %>
-          <%= form.label :etat_paiement, "Marquer comme Crédit" %>
+          <%= form.label :etat_paiement, "Marquer comme Crédit", class: "form-label" %>
         </div>
-        
+
         <div style="display: none">
           <%= form.hidden_field :joueur_id, value: @joueur.id %>
         </div>
 
         <div class="mb-3">
-          <%= form.label :saison_id, "Saison", style: "display: block" %>
+          <%= form.label :saison_id, "Saison *", class: "form-label" %>
           <%= form.select :saison_id, 
-                Saison.all.map { |saison| 
-                  start_date = "#{saison.date_debut.strftime('%d')} #{I18n.t('date.month_names_short')[saison.date_debut.month]} #{saison.date_debut.strftime('%Y')}"
-                  end_date = "#{saison.date_fin.strftime('%d')} #{I18n.t('date.month_names_short')[saison.date_fin.month]} #{saison.date_fin.strftime('%Y')}"
-                  ["#{start_date} à #{end_date}", saison.id, { "data-montant" => saison.montant_assurance }]
-                }, 
-                { prompt: "Choisir une saison" }, 
-                { class: "custom-select" } %>
+            Saison.all.map { |saison| 
+              start_date = "#{saison.date_debut.strftime('%d')} #{I18n.t('date.month_names_short')[saison.date_debut.month]} #{saison.date_debut.strftime('%Y')}"
+              end_date = "#{saison.date_fin.strftime('%d')} #{I18n.t('date.month_names_short')[saison.date_fin.month]} #{saison.date_fin.strftime('%Y')}"
+              ["#{start_date} à #{end_date}", saison.id, { "data-montant" => saison.montant_assurance }]
+            }, 
+            { prompt: "Choisir une saison" }, 
+            { class: "custom-select", required: true } 
+          %>
+          <div class="invalid-feedback">
+            <i class="bi bi-exclamation-circle mr-1 ml-1"></i>La saison est obligatoire.
+          </div>
         </div>
 
         <div class="mb-3">
-          <%= form.label :montant, "Montant (DT)", class: "form-label" %>
-          <%= form.number_field :montant, class: "form-control", id: "montant-field", value: "" %>
+          <%= form.label :montant, "Montant (DT) *", class: "form-label" %>
+          <%= form.number_field :montant, class: "form-control", id: "montant-field", value: "", placeholder: "Montant par défaut", required: true, min: 0 %>
+          <div class="invalid-feedback">
+            <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le montant est obligatoire et doit être supérieur ou égal à 0.
+          </div>
         </div>
 
         <div class="mb-3">
-          <%= form.label :date_paiement, "Date de paiement", class: "form-label" %>
+          <%= form.label :date_paiement, "Date de paiement *", class: "form-label" %>
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon1" style="background-color:rgba(119, 169, 223, 0.35)">
@@ -259,7 +278,10 @@
                 </svg>
               </span>
             </div>
-            <%= form.text_field :date_paiement, class: "form-control datepicker", placeholder: "date de paiement" %>
+            <%= form.text_field :date_paiement, class: "form-control datepicker", placeholder: "date de paiement", required: true, autocomplete: "off" %>
+            <div class="invalid-feedback">
+              <i class="bi bi-exclamation-circle mr-1 ml-1"></i>La date de paiement est obligatoire.
+            </div>
           </div>
         </div>
 
@@ -318,29 +340,35 @@
 
     <div class="hideForm" id="achatForm">
       <button id="btnAnnuler4" class="btn btn-secondary" style="float:right">Annuler</button>
-      <%= form_with(model: @achat) do |form| %>
+      <%= form_with(model: @achat, class: "needs-validation", local: true, html: { novalidate: true }) do |form| %>
         <br>
         <div class="mb-3">
           <%= form.check_box :etat_paiement, { checked: false }, 'Crédit', nil %>
-          <%= form.label :etat_paiement, "Marquer comme Crédit" %>
+          <%= form.label :etat_paiement, "Marquer comme Crédit", class: "form-label" %>
         </div>
-        
+
         <div style="display: none">
           <%= form.hidden_field :joueur_id, value: @joueur.id %>
         </div>
 
         <div class="mb-3">
-          <%= form.label :designation, "Désignation", class: "form-label" %>
-          <%= form.text_field :designation, class: "form-control" %>
+          <%= form.label :designation, "Désignation *", class: "form-label" %>
+          <%= form.text_field :designation, class: "form-control", required: true %>
+          <div class="invalid-feedback">
+            <i class="bi bi-exclamation-circle mr-1 ml-1"></i>La désignation est obligatoire.
+          </div>
         </div>
 
         <div class="mb-3">
-          <%= form.label :prix, "Prix", class: "form-label" %>
-          <%= form.number_field :prix, class: "form-control", step: 0.01 %>
+          <%= form.label :prix, "Prix (DT) *", class: "form-label" %>
+          <%= form.number_field :prix, class: "form-control", step: 0.01, required: true, min: 0 %>
+          <div class="invalid-feedback">
+            <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le prix est obligatoire et doit être supérieur ou égal à 0.
+          </div>
         </div>
 
         <div class="mb-3">
-          <%= form.label :date_achat, "Date d'achat", class: "form-label" %>
+          <%= form.label :date_achat, "Date d'achat *", class: "form-label" %>
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon2" style="background-color:rgba(119, 169, 223, 0.35)">
@@ -350,7 +378,10 @@
                 </svg>
               </span>
             </div>
-            <%= form.text_field :date_achat, class: "form-control datepicker", placeholder: "date d'achat" %>
+            <%= form.text_field :date_achat, class: "form-control datepicker", placeholder: "date d'achat", required: true, autocomplete: "off" %>
+            <div class="invalid-feedback">
+              <i class="bi bi-exclamation-circle mr-1 ml-1"></i>La date d'achat est obligatoire.
+            </div>
           </div>
         </div>
 
@@ -358,6 +389,7 @@
           <%= form.submit "Ajouter", class: "btn btn-primary" %>
         </div>
       <% end %>
+
 
     </div>
 

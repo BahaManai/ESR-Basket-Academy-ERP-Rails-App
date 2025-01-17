@@ -4,35 +4,41 @@
   <%= link_to "Entraîneurs >", entraineurs_path, class: "btn btn-link" %>
 </div>
 
-<%= form_with(model: @salaire, class: "new_forms", local: true) do |form| %>
+<%= form_with(model: @salaire, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |form| %>
   <h1>Ajouter un salaire :</h1><br>
-  
+
   <% if @salaire.errors.any? %>
-    <div class="custom-alert">
-      <h2><%= pluralize(@salaire.errors.count, "error") %> prohibited this salaire from being saved:</h2>
+    <div class="custom-alert" role="alert">
+      <h2><%= pluralize(@salaire.errors.count, "erreur") %> détectée<%= 's' if @salaire.errors.count > 1 %> :</h2>
       <ul>
         <% @salaire.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+          <li style="list-style-type: none;"><i class="bi bi-exclamation-triangle-fill"></i>&nbsp; <%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
   <div class="mb-3">
-    <%= form.label :entraineur_id, "Entraîneur", class: "form-label" %>
+    <%= form.label :entraineur_id, "Entraîneur *", class: "form-label" %>
     <%= form.select :entraineur_id, 
           Entraineur.all.map { |e| ["#{e.prénom} #{e.nom}", e.id, { "data-salaire" => e.salaire }] }, 
           { prompt: "Choisir un entraîneur" }, 
-          { class: "custom-select" } %>
+          { class: "custom-select", required: true } %>
+    <div class="invalid-feedback">
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le choix de l'entraîneur est obligatoire.
+    </div>
   </div>
 
   <div class="mb-3">
-    <%= form.label :salaire, "Salaire (DT)", class: "form-label" %>
-    <%= form.number_field :salaire, class: "form-control", placeholder: "Entrez le salaire", id: "salaire-field" %>
+    <%= form.label :salaire, "Salaire (DT) *", class: "form-label" %>
+    <%= form.number_field :salaire, class: "form-control", placeholder: "Entrez le salaire", required: true, id: "salaire-field",min: "0", step: "10", title: "Le salaire doit être un nombre positif." %>
+    <div class="invalid-feedback">
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le salaire est obligatoire et doit être un nombre positif.
+    </div>
   </div>
 
   <div class="mb-3">
-    <%= form.label :mois_et_annee, "Mois et année", class: "form-label" %>
+    <%= form.label :mois_et_annee, "Mois et année *", class: "form-label" %>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text" style="background-color:rgba(119, 169, 223, 0.35)">
@@ -42,7 +48,10 @@
           </svg>
         </span>
       </div>
-      <input type="text" id="monthPicker3" class="form-control monthpicker" placeholder="Mois et année">
+      <input type="text" id="monthPicker3" class="form-control monthpicker" placeholder="Mois et année" required>
+      <div class="invalid-feedback">
+        <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Veuillez choisir un mois et une année.
+      </div>
     </div>
   </div>
 

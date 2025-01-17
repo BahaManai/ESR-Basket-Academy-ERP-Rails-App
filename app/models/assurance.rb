@@ -6,6 +6,6 @@ class Assurance < ApplicationRecord
   in: [ "Non crédit", "Crédit" ],
   message: "%{value} n'est pas un état valide"
   }
-  validates :date_paiement, presence: true
+  validates :date_paiement, presence: true, comparison: { less_than_or_equal_to: Date.today }
   validates :saison, uniqueness: { scope: [ :joueur ], message: ": Une assurance de cette saison existe déjà pour ce joueur" }
 end

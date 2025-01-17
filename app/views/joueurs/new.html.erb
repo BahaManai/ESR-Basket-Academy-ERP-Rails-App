@@ -31,31 +31,34 @@
   </div>
 
   <div class="mb-3">
-    <%= form.label :nom, class: "form-label" %>
+    <%= form.label :nom,"Nom *", class: "form-label" %>
     <%= form.text_field :nom, class: "form-control", placeholder: "Entrez le nom" , required: true%>
     <div class="invalid-feedback">
-        Name is required !
-      </div>
+        <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le nom est obligatoire.
+    </div>
   </div>
 
   <div class="mb-3">
-    <%= form.label :prénom, class: "form-label" %>
-    <%= form.text_field :prénom, class: "form-control", placeholder: "Entrez le prénom" %>
+    <%= form.label :prénom, "Prénom *", class: "form-label" %>
+    <%= form.text_field :prénom, class: "form-control", placeholder: "Entrez le prénom" , required: true%>
+    <div class="invalid-feedback">
+        <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le prénom est obligatoire.
+    </div>
   </div>
 
   <div class="mb-3">
-    <%= form.label :sexe, class: "form-label" %><br>
-
+    <%= form.label :sexe, "Genre *", class: "form-label" %><br>
     <div class="form-check form-check-inline ml-3">
-      <%= form.radio_button :sexe, "male", class: "form-check-input" %>
-      <%= form.label :sexe_male, "Mâle", class: "form-check-label" %>
+      <%= form.radio_button :sexe, "male", class: "form-check-input", required: true%>
+      <%= form.label :sexe_male, "Homme", class: "form-check-label" %>
     </div>
 
     <div class="form-check form-check-inline">
-      <%= form.radio_button :sexe, "femelle", class: "form-check-input" %>
-      <%= form.label :sexe_femelle, "Femelle", class: "form-check-label" %>
+      <%= form.radio_button :sexe, "femelle", class: "form-check-input", required: true %>
+      <%= form.label :sexe_femelle, "Femme", class: "form-check-label" %><div class="invalid-feedback ml-3">
+        <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le genre est obligatoire.
+      </div>
     </div>
-
   </div>
 
 
@@ -70,7 +73,7 @@
           </svg>
         </span>
       </div>
-      <%= form.text_field :date_naissance, class: "form-control datepicker", placeholder: "date de naissance" %>
+      <%= form.text_field :date_naissance, class: "form-control datepicker", placeholder: "date de naissance", autocomplete: "off" %>
     </div>
   </div>
 
