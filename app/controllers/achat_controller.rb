@@ -22,7 +22,7 @@ class AchatController < ApplicationController
 
     respond_to do |format|
       if @achat.save
-        format.html { redirect_to "/joueurs/#{@achat.joueur_id}/edit", notice: "Achat was successfully created." }
+        format.html { redirect_to "/joueurs/#{@achat.joueur_id}/edit", notice: "L'achat a été créé avec succès." }
         format.json { render json: @achat, status: :created }
       else
         format.html do
@@ -48,7 +48,7 @@ class AchatController < ApplicationController
   def destroy
     @achat.destroy!
     respond_to do |format|
-      format.html { redirect_to "/joueurs/#{@achat.joueur_id}/edit", status: :see_other, notice: "Achat was successfully destroyed." }
+      format.html { redirect_to "/joueurs/#{@achat.joueur_id}/edit", status: :see_other, notice: "L'achat a été supprimé avec succès." }
       format.json { head :no_content }
     end
   end

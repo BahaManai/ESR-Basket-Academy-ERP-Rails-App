@@ -33,7 +33,7 @@ class PaiementController < ApplicationController
 
     respond_to do |format|
       if @paiement.save
-        format.html { redirect_to "/joueurs/#{@paiement.joueur_id}/edit", notice: "Paiement was successfully created." }
+        format.html { redirect_to "/joueurs/#{@paiement.joueur_id}/edit", notice: "L'abonnement a été créé avec succès." }
         format.json { render json: @paiement, status: :created }
       else
         format.html do
@@ -59,7 +59,7 @@ class PaiementController < ApplicationController
   def destroy
     @paiement.destroy!
     respond_to do |format|
-      format.html { redirect_to "/joueurs/#{@paiement.joueur_id}/edit", status: :see_other, notice: "Paiement was successfully destroyed." }
+      format.html { redirect_to "/joueurs/#{@paiement.joueur_id}/edit", status: :see_other, notice: "L'abonnement a été supprimé avec succès." }
       format.json { head :no_content }
     end
   end

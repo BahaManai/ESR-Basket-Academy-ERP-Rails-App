@@ -1,3 +1,8 @@
+<% content_for :title, "New Entraineur" %>
+
+<div>
+  <%= link_to "Entraîneurs >", entraineurs_path, class: "btn btn-link" %>
+</div>
 <%= form_with(model: @entraineur, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |form| %>
   <h1>Nouvel entraîneur :</h1><br>
 

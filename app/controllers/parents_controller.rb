@@ -21,7 +21,7 @@ class ParentsController < ApplicationController
 
     respond_to do |format|
       if @parent.save
-        format.html { redirect_to new_joueur_path, notice: "Parent was successfully created." }
+        format.html { redirect_to new_joueur_path, notice: "Le parent a été créé avec succès." }
         format.json { render :show, status: :created, location: @parent }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -34,7 +34,7 @@ class ParentsController < ApplicationController
   def update
     respond_to do |format|
       if @parent.update(parent_params)
-        format.html { redirect_to parents_path, notice: "Parent was successfully updated." }
+        format.html { redirect_to parents_path, notice: "Le parent a été mis à jour avec succès." }
         format.json { render :show, status: :ok, location: @parent }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -48,7 +48,7 @@ class ParentsController < ApplicationController
     @parent.destroy!
 
     respond_to do |format|
-      format.html { redirect_to parents_path, status: :see_other, notice: "Parent was successfully destroyed." }
+      format.html { redirect_to parents_path, status: :see_other, notice: "Le parent a été supprimé avec succès." }
       format.json { head :no_content }
     end
   end

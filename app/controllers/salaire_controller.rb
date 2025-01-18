@@ -18,7 +18,7 @@ class SalaireController < ApplicationController
 
     respond_to do |format|
       if @salaire.save
-        format.html { redirect_to "/entraineurs/#{@salaire.entraineur_id}/edit", notice: "Salaire was successfully created." }
+        format.html { redirect_to "/entraineurs/#{@salaire.entraineur_id}/edit", notice: "Le salaire a été ajouté avec succès." }
         format.json { render json: @salaire, status: :created }
       else
         format.html do
@@ -38,7 +38,7 @@ class SalaireController < ApplicationController
   def destroy
     @salaire.destroy!
     respond_to do |format|
-      format.html { redirect_to "/entraineurs/#{@salaire.entraineur_id}/edit", status: :see_other, notice: "Salaire was successfully destroyed." }
+      format.html { redirect_to "/entraineurs/#{@salaire.entraineur_id}/edit", status: :see_other, notice: "Le salaire a été supprimé avec succès." }
       format.json { head :no_content }
     end
   end

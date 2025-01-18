@@ -47,6 +47,8 @@ class JoueursController < ApplicationController
     @assurance = Assurance.new
     @achat = Achat.new
     @saison = Saison.actuelle
+    @used_seasons = Assurance.where(joueur_id: @joueur.id).pluck(:saison_id)
+    @next_num_recu = Paiement.last.num_recu + 1
   end
 
   # POST /joueurs or /joueurs.json
@@ -55,7 +57,7 @@ class JoueursController < ApplicationController
 
     respond_to do |format|
       if @joueur.save
-        format.html { redirect_to "/joueurs/#{@joueur.id}/edit", notice: "Joueur was successfully created." }
+        format.html { redirect_to "/joueurs/#{@joueur.id}/edit", notice: "Le joueur a été créé avec succès." }
         format.json { render :show, status: :created, location: @joueur }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -68,7 +70,7 @@ class JoueursController < ApplicationController
   def update
     respond_to do |format|
       if @joueur.update(joueur_params)
-        format.html { redirect_to joueurs_path, notice: "Joueur was successfully updated." }
+        format.html { redirect_to joueurs_path, notice: "Le joueur a été mis à jour avec succès." }
         format.json { render :edit, status: :ok, location: @joueur }
       else
         format.html do
@@ -87,7 +89,7 @@ class JoueursController < ApplicationController
     @joueur.destroy!
 
     respond_to do |format|
-      format.html { redirect_to joueurs_path, status: :see_other, notice: "Joueur was successfully destroyed." }
+      format.html { redirect_to joueurs_path, status: :see_other, notice: "Le joueur a été supprimé avec succès." }
       format.json { head :no_content }
     end
   end

@@ -15,7 +15,18 @@ class EntraineursController < ApplicationController
   def edit
     @entraineur = Entraineur.find(params[:id])
     @salaire = Salaire.new
+
+    dernier_salaire = @entraineur.salaires.last
+    if dernier_salaire
+      prochain_mois = (Date.new(dernier_salaire.annee, dernier_salaire.mois, 1) >> 1)
+      @mois_par_defaut = prochain_mois.month
+      @annee_par_defaut = prochain_mois.year
+    else
+      @mois_par_defaut = Date.current.month
+      @annee_par_defaut = Date.current.year
+    end
   end
+
 
   # POST /entraineurs or /entraineurs.json
   def create
@@ -23,7 +34,7 @@ class EntraineursController < ApplicationController
 
     respond_to do |format|
       if @entraineur.save
-        format.html { redirect_to "/entraineurs/#{@entraineur.id}/edit", notice: "Entraineur was successfully created." }
+        format.html { redirect_to "/entraineurs/#{@entraineur.id}/edit", notice: "L'entraîneur a été créé avec succès." }
         format.json { render :show, status: :created, location: @entraineur }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -36,7 +47,7 @@ class EntraineursController < ApplicationController
   def update
     respond_to do |format|
       if @entraineur.update(entraineur_params)
-        format.html { redirect_to entraineurs_path, notice: "Entraineur was successfully updated." }
+        format.html { redirect_to entraineurs_path, notice: "L'entraîneur a été mis à jour avec succès." }
         format.json { render :show, status: :ok, location: @entraineur }
       else
         format.html do
@@ -55,7 +66,7 @@ class EntraineursController < ApplicationController
     @entraineur.destroy!
 
     respond_to do |format|
-      format.html { redirect_to entraineurs_path, status: :see_other, notice: "Entraineur was successfully destroyed." }
+      format.html { redirect_to entraineurs_path, status: :see_other, notice: "L'entraîneur a été supprimé avec succès." }
       format.json { head :no_content }
     end
   end

@@ -21,7 +21,7 @@ class DepensesController < ApplicationController
 
     respond_to do |format|
       if @depense.save
-        format.html { redirect_to depenses_path, notice: "Depense was successfully created." }
+        format.html { redirect_to depenses_path, notice: "La dépense a été créée avec succès." }
         format.json { render :show, status: :created, location: @depense }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -34,7 +34,7 @@ class DepensesController < ApplicationController
   def update
     respond_to do |format|
       if @depense.update(depense_params)
-        format.html { redirect_to depenses_path, notice: "Depense was successfully updated." }
+        format.html { redirect_to depenses_path, notice: "La dépense a été mise à jour avec succès." }
         format.json { render :show, status: :ok, location: @depense }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -48,7 +48,7 @@ class DepensesController < ApplicationController
     @depense.destroy!
 
     respond_to do |format|
-      format.html { redirect_to depenses_path, status: :see_other, notice: "Depense was successfully destroyed." }
+      format.html { redirect_to depenses_path, status: :see_other, notice: "La dépense a été supprimée avec succès." }
       format.json { head :no_content }
     end
   end

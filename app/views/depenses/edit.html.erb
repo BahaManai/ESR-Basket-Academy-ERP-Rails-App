@@ -44,7 +44,7 @@
           <i class="bi bi-calendar2-week" style="color: #0069d9;"></i>
         </span>
       </div>
-      <%= form.text_field :date_depense, class: "form-control datepicker", placeholder: "Date de la dépense", required: true %>
+      <%= form.text_field :date_depense, class: "form-control datepicker", placeholder: "Date de la dépense", required: true, autocomplete: "off" %>
       <div class="invalid-feedback">
         <i class="bi bi-exclamation-circle mr-1 ml-1"></i>La date est obligatoire.
       </div>

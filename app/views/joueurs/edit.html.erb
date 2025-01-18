@@ -6,7 +6,7 @@
 
 <h1>Modifier un joueur</h1>
 
-<div style="display: flex; justify-content: space-between; gap: 20px;">
+<div style="display: flex; justify-content: space-between; gap: 10px;">
   <div style="flex: 1; border: 1px solid #ccc; padding: 20px;">
     <h3>Informations personnelles</h3>
     <%= form_with(model: @joueur, class: "needs-validation", local: true, html: { novalidate: true }) do |form| %>
@@ -115,7 +115,7 @@
                 </svg>
               </span>
             </div>
-            <%= form.text_field :date_abonnement, class: "form-control datepicker", placeholder: "date d'abonnement", required: true , autocomplete: "off"%>
+            <%= form.text_field :date_abonnement, class: "form-control datepicker", placeholder: "date d'abonnement", required: true , autocomplete: "off", value: (@joueur.paiements.last.date_abonnement + 31.days if @joueur.paiements.any?) , title: "Par défaut la date d'expiration + 1"%>
             <div class="invalid-feedback">
             <i class="bi bi-exclamation-circle mr-1 ml-1"></i>La date d'abonnement est obligatoire.
           </div>
@@ -139,7 +139,7 @@
 
         <div class="mb-3">
           <%= form.label :num_recu, "Numéro de reçu *", class: "form-label" %>
-          <%= form.number_field :num_recu, class: "form-control", required: true, min: 0 %>
+          <%= form.number_field :num_recu, class: "form-control", required: true, min: 0, value: @next_num_recu %>
           <div class="invalid-feedback">
             <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le numéro de reçu est obligatoire et doit être supérieur ou égal à 0.
           </div>
@@ -249,11 +249,16 @@
             Saison.all.map { |saison| 
               start_date = "#{saison.date_debut.strftime('%d')} #{I18n.t('date.month_names_short')[saison.date_debut.month]} #{saison.date_debut.strftime('%Y')}"
               end_date = "#{saison.date_fin.strftime('%d')} #{I18n.t('date.month_names_short')[saison.date_fin.month]} #{saison.date_fin.strftime('%Y')}"
-              ["#{start_date} à #{end_date}", saison.id, { "data-montant" => saison.montant_assurance }]
-            }, 
+              [
+                "#{start_date} à #{end_date}",
+                saison.id,
+                { "data-montant" => saison.montant_assurance, disabled: @used_seasons.include?(saison.id) }
+              ]
+            },
             { prompt: "Choisir une saison" }, 
-            { class: "custom-select", required: true } 
+            { class: "custom-select", required: true }
           %>
+
           <div class="invalid-feedback">
             <i class="bi bi-exclamation-circle mr-1 ml-1"></i>La saison est obligatoire.
           </div>

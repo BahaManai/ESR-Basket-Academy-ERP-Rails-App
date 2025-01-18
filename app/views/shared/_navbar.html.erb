@@ -5,20 +5,43 @@
     <% end %>
   </div>
   <div class="navbar-menu">
-    <%= link_to "Tableau de bord", root_path, class: "nav-link btn" %>
-    <%= link_to "Joueurs", joueurs_path, class: "nav-link btn" %>
-    <%= link_to "Paiements", paiements_path, class: "nav-link btn" %>
-    <%= link_to "Assurances", assurances_path, class: "nav-link btn" %>
-    <%= link_to "Achats", achats_path, class: "nav-link btn" %>
-    <%= link_to "Entraîneurs", entraineurs_path, class: "nav-link btn" %>
-    <%= link_to "Dépenses", depenses_path, class: "nav-link btn" %>
-    <%= link_to "Parents", parents_path, class: "nav-link btn" %>
-    <%= link_to "Groupes", groupe_index_path, class: "nav-link btn" %>
+    <%= link_to root_path, class: "nav-link btn" do %>
+      <i class="bi bi-house-door"></i> Tableau de bord
+    <% end %>
+    <%= link_to joueurs_path, class: "nav-link btn" do %>
+      <i class="bi bi-people"></i> Joueurs
+    <% end %>
+    <%= link_to paiements_path, class: "nav-link btn" do %>
+      <i class="bi bi-credit-card"></i> Paiements
+    <% end %>
+    <%= link_to assurances_path, class: "nav-link btn" do %>
+      <i class="bi bi-shield-check"></i> Assurances
+    <% end %>
+    <%= link_to achats_path, class: "nav-link btn" do %>
+      <i class="bi bi-cart"></i> Achats
+    <% end %>
+    <%= link_to entraineurs_path, class: "nav-link btn" do %>
+      <i class="bi bi-person-workspace"></i> Entraîneurs
+    <% end %>
+    <%= link_to depenses_path, class: "nav-link btn" do %>
+      <i class="bi bi-cash"></i> Dépenses
+    <% end %>
+    <%= link_to parents_path, class: "nav-link btn" do %>
+      <i class="bi bi-people-fill"></i> Parents
+    <% end %>
+    <%= link_to groupe_index_path, class: "nav-link btn" do %>
+      <i class="bi bi-layers"></i> Groupes
+    <% end %>
     <div>
-      <span class="nav-label" style="margin-left: 20px">Configuration</span>
+      <span class="nav-label">Configuration</span>
       <ul class="nav-list">
-        <li><%= link_to "Saisons", saisons_path, class: "nav-link btn" %></li>
-        <li><%= link_to "Utilisateurs", users_path, class: "nav-link btn" %></li>
+        <li><%= link_to saisons_path, class: "nav-link btn" do %>
+  <i class="bi bi-calendar-check"></i> Saisons
+<% end %></li>
+
+        <li><%= link_to users_path, class: "nav-link btn" do %>
+          <i class="bi bi-person-badge"></i> Utilisateurs
+        <% end %></li>
       </ul>
     </div>
   </div>

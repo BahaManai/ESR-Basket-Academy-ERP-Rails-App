@@ -85,7 +85,7 @@
                 </svg>
               </span>
             </div>
-            <input type="text" placeholder="Mois et année" id="monthPicker" class="form-control monthpicker" style="display: block">
+            <input type="text" placeholder="Mois et année" id="monthPicker" class="form-control monthpicker" style="display: block" value="<%= @annee_par_defaut %>-<%= @mois_par_defaut %>">
           </div>
         </div>
 
@@ -109,7 +109,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @entraineur.salaires.each do |salaire| %>
+        <% @entraineur.salaires.reverse.each do |salaire| %>
           <tr id="<%= dom_id salaire %>">
             <td><%= salaire.salaire %>&nbspDT</td>
             <td><%= "#{I18n.t('date.month_names')[salaire.mois]} #{salaire.annee}" %></td>      
