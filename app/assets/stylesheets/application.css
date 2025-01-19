@@ -194,3 +194,13 @@
     border-bottom: 1px solid rgb(79, 159, 83) !important;
     border-right: 1px solid rgb(79, 159, 83) !important;
 }
+
+.btn-icon-only {
+    padding: 0 !important;
+    width: 25px !important;
+    height: 25px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    border-radius: 50% !important;
+}

@@ -1,4 +1,4 @@
-<% content_for :title, "Parents" %>
+<% content_for :title, "Informations des parents" %>
 
 <h1>Parents</h1>
 
@@ -7,12 +7,11 @@
     <thead class="thead-light">
       <tr>
         <th>ID</th>
-        <th>Nom</th>
+        <th>Nom et Prénom</th>
         <th>Téléphone</th>
-        <th>Enfants</th>
-        <th>Crédits</th>
-        <th>Créé le</th>
-        <th>Actions</th>
+        <th>Nombre d'enfants</th>
+        <th>Total des crédits</th>
+        <th>Actions</th> 
       </tr>
     </thead>
     <tbody>
@@ -20,17 +19,13 @@
         <tr id="<%= dom_id parent %>">
           <td><%= parent.id %></td>
           <td><%= "#{parent.prénom} #{parent.nom}" %></td>
-          <td><%= parent.téléphone %></td>
-          <td><% if parent.joueurs %>
-            <ul><% parent.joueurs.each do |enfant|%>
-              <li>  <%= link_to "#{enfant.prénom}", edit_joueur_path(enfant) %></li>
-              <% end %></ul>
-            <% end %>
-          </td>
-          <td><%= "#{parent.somme_credits_enfants} DT" %></td>
-          <td><%= "#{parent.created_at.strftime('%d')} #{I18n.t('date.month_names_short')[parent.created_at.month]}, #{parent.created_at.strftime('%Y %H:%M')}" %></td>
+          <td><%= parent.téléphone.presence || '-' %></td>
+          <td><%= parent.joueurs.count %></td>
+          <td><%= parent.somme_credits_enfants %> DT</td>
           <td>
-            <%= link_to "Modifier", edit_parent_path(parent), class: "btn btn-primary btn-sm" %>
+            <button class="btn btn-primary btn-sm" onclick="toggleDetails('<%= parent.id %>')">
+              Afficher les détails
+            </button>
           </td>
         </tr>
       <% end %>
@@ -38,6 +33,83 @@
   </table>
 </div>
 
+<div id="children-details-container">
+  <% @parents.each do |parent| %>
+    <div class="card my-3" id="children-details-<%= parent.id %>" style="display: none;">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5>Détails des enfants de <%= "#{parent.prénom} #{parent.nom}" %></h5>
+        <button class="btn btn-secondary btn-icon-only" onclick="hideDetails('<%= parent.id %>')"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <div class="card-body">
+        <% if parent.joueurs.any? %>
+          <table class="table table-sm table-striped">
+            <thead>
+              <tr>
+                <th>Nom et prénom</th>
+                <th>Âge</th>
+                <th>Groupe d'entraînement</th>
+                <th>Date d'expiration de l'abonnement</th>
+                <th>Total des crédits</th>
+                <th>Dernier paiement</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% parent.joueurs.each do |enfant| %>
+                <tr>
+                  <td><%= "#{enfant.prénom} #{enfant.nom}" %></td>
+                  <td><%= ((Date.today - enfant.date_naissance).to_i / 365.25).to_i if enfant.date_naissance %></td>
+                  <td><%= enfant.groupe.presence || "N/A" %></td>
+                  <td>
+                    <% if enfant.paiements.any? %>
+                      <% expiration_date = enfant.paiements.last.date_abonnement + 30.days %>
+                      <%= expiration_date.strftime('%d %b %Y') %>
+                    <% else %>
+                      Non défini
+                    <% end %>
+                  </td>
+                  <td><%= enfant.somme_des_credits %> DT</td>
+                  <td>
+                    <% if enfant.paiements.any? %>
+                      <% dernier_paiement = enfant.paiements.last %>
+                      <%= "#{dernier_paiement.date_abonnement.strftime('%d %b %Y')} (#{dernier_paiement.montant} DT)" %>
+                    <% else %>
+                      Aucun paiement
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <p>Aucun enfant trouvé pour ce parent.</p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
 <p>
   <%= link_to "Nouveau parent", new_parent_path, class: "btn btn-success" %>
 </p>
+
+<script>
+  function toggleDetails(parentId) {
+    document.querySelectorAll('#children-details-container .card').forEach(function(card) {
+      card.style.display = 'none';
+    });
+
+    // Afficher les détails pour le parent sélectionné
+    var detailsContainer = document.getElementById('children-details-' + parentId);
+    if (detailsContainer.style.display === 'none') {
+      detailsContainer.style.display = 'block';
+    } else {
+      detailsContainer.style.display = 'none';
+    }
+  }
+
+  function hideDetails(parentId) {
+    // Cacher les détails pour le parent sélectionné
+    var detailsContainer = document.getElementById('children-details-' + parentId);
+    detailsContainer.style.display = 'none';
+  }
+</script>
