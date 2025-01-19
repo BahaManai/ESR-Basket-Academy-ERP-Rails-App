@@ -18,6 +18,7 @@
       <th>Parent</th>
       <th>Dernier paiement</th>
       <th>Expire</th>
+      <th>Assurance</th>
       <th>Crédits</th>
       <th>Créé le</th>
       <th>Actions</th>
@@ -74,16 +75,28 @@
             -
           <% end %>
         </td>
+        <td>
+          <% if joueur.assurances.any? { |assurance| assurance.saison_id == @saison.id } %>
+            <% assurance_actuelle = joueur.assurances.find { |assurance| assurance.saison_id == @saison.id } %>
+            <% if assurance_actuelle.etat_paiement == 'Crédit' %>
+              Crédit
+            <% else %>
+              Payé
+            <% end %>
+          <% else %>
+            Non payé
+          <% end %>
+        </td>
         <td class="<%= 
         if joueur.somme_des_credits > 0
           'etat_crédit'
         else
           ''
         end
-      %>"><%= joueur.somme_des_credits %>&nbsp;DT</td>
+        %>"><%= joueur.somme_des_credits %>&nbsp;DT</td>
         <td><%= "#{joueur.created_at.strftime('%d')} #{I18n.t('date.month_names_short')[joueur.created_at.month]}, #{joueur.created_at.strftime('%Y %H:%M')}" %></td>
         <td>
-          <%= link_to "Modifier", edit_joueur_path(joueur), class: "btn btn-primary btn-sm" %>
+          <%= link_to "Configurer", edit_joueur_path(joueur), class: "btn btn-primary btn-sm" %>
         </td>
       </tr>
     <% end %>

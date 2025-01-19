@@ -4,6 +4,7 @@ class ParentsController < ApplicationController
   # GET /parents or /parents.json
   def index
     @parents = Parent.all
+    @saison = Saison.actuelle
   end
 
   # GET /parents/new

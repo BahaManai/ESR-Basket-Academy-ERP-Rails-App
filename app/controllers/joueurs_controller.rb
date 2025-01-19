@@ -31,6 +31,7 @@ class JoueursController < ApplicationController
     else
       Joueur.all
     end
+    @saison = Saison.actuelle
   end
 
 

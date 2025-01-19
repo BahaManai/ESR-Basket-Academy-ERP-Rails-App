@@ -4,11 +4,11 @@
   <%= link_to "Entraîneurs >", entraineurs_path %>
 </div>
 
-<h1>Modifier un entraîneur</h1>
+<h2>Fiche de <%= "#{@entraineur.prénom} #{@entraineur.nom}" %></h2><br>
 
 <div style="display: flex; justify-content: space-between; gap: 20px;">
   <div style="flex: 1; border: 1px solid #ccc; padding: 20px;">
-    <h3>Informations personnelles</h3>
+    <h3>Modifier l'entraîneur</h3>
     <%= form_with(model: @entraineur, class: "needs-validation", local: true, html: { novalidate: true }) do |form| %>
       <div>
         <%= form.submit "Enregistrer", class: "btn btn-primary", style: "float:right" %>
@@ -54,9 +54,9 @@
   </div>
 
   <div style="flex: 1; border: 1px solid #ccc; padding: 20px;">
-        <h3>Salaire</h3>
-        <p>
-          <button id="btnAjout" class="btn btn-success">Ajouter salaire</button>
+        <h3>Ajouter un salaire</h3>
+        <p style="text-align:right">
+          <button id="btnAjout" class="btn btn-success">Ajouter un salaire</button>
 
         </p>
 
@@ -94,7 +94,7 @@
         <%= form.hidden_field :annee, id: "anneeField" %>
 
         <div>
-          <%= form.submit "Ajouter", class: "btn btn-primary" %>
+          <%= form.submit "Confirmer", class: "btn btn-primary" %>
         </div>
       <% end %>
     </div>

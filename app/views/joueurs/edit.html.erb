@@ -1,14 +1,14 @@
-<% content_for :title, "Modifier un joueur" %>
+<% content_for :title, "Fiche du joueur" %>
 
 <div>
   <%= link_to "Joueurs >", joueurs_path %>
 </div>
 
-<h1>Modifier un joueur</h1>
+<h2>Fiche de <%= "#{@joueur.prénom} #{@joueur.nom}" %></h2><br>
 
 <div style="display: flex; justify-content: space-between; gap: 10px;">
   <div style="flex: 1; border: 1px solid #ccc; padding: 20px;">
-    <h3>Informations personnelles</h3>
+    <h3>Modifier le joueur</h3>
     <%= form_with(model: @joueur, class: "needs-validation", local: true, html: { novalidate: true }) do |form| %>
       <div>
         <%= form.submit "Enregistrer", class:"btn btn-primary", style: "float:right" %>
@@ -49,11 +49,8 @@
         <%= form.label :date_naissance, class: "form-label" %>
         <div class="input-group">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1" style="background-color:rgba(119, 169, 223, 0.35)">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-week" viewBox="0 0 16 16" style="color: #0069d9;">
-                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
-                <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5zM11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
-              </svg>
+            <span class="input-group-text" style="background-color:rgba(119, 169, 223, 0.35)">
+              <i class="bi bi-calendar2-week" style="color: #0069d9;"></i>
             </span>
           </div>
           <%= form.text_field :date_naissance, class: "form-control datepicker", placeholder: "date de naissance", autocomplete: "off" %>
@@ -77,11 +74,8 @@
   
 <!--******************************PAIEMENTS**********************************-->
   <div style="flex: 1; border: 1px solid #ccc; padding: 20px;">
-    <h3>Abonnement</h3>
-    <p>
-      <button id="btnAjout2" class="btn btn-success">Ajouter un paiement</button>
-    </p>
-
+    <h3>Ajouter une transaction</h3><hr>
+    <h5>Abonnement <button id="btnAjout2" class="btn btn-success btn-sm" style="float:right">Ajouter un paiement</button></h5><br>
     <div class="hideForm" id="paiementForm">
       <button id="btnAnnuler2" class="btn btn-secondary" style="float:right">Annuler</button>
 
@@ -109,10 +103,7 @@
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text" style="background-color:rgba(119, 169, 223, 0.35)">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-week" viewBox="0 0 16 16" style="color: #0069d9;">
-                  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
-                  <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5zM11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
-                </svg>
+                <i class="bi bi-calendar2-week" style="color: #0069d9;"></i>
               </span>
             </div>
             <%= form.text_field :date_abonnement, class: "form-control datepicker", placeholder: "date d'abonnement", required: true , autocomplete: "off", value: (@joueur.paiements.last.date_abonnement + 31.days if @joueur.paiements.any?) , title: "Par défaut la date d'expiration + 1"%>
@@ -127,10 +118,7 @@
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text" style="background-color:rgba(119, 169, 223, 0.35)">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-week" viewBox="0 0 16 16" style="color: #0069d9;">
-                  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
-                  <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5zM11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
-                </svg>
+                <i class="bi bi-calendar2-week" style="color: #0069d9;"></i>
               </span>
             </div>
             <%= form.text_field :date_encaissement, class: "form-control datepicker", placeholder: "date d'encaissement", autocomplete: "off" %>
@@ -146,7 +134,7 @@
         </div>
 
         <div>
-          <%= form.submit "Ajouter", class: "btn btn-primary" %>
+          <%= form.submit "Confirmer", class: "btn btn-primary" %>
         </div>
       <% end %>
 
@@ -225,10 +213,7 @@
     </table>
 <!--************************ASSURANCE*******************************-->
     <hr>
-    <h3>Assurance</h3>
-    <p>
-      <button id="btnAjout3" class="btn btn-success">Ajouter une assurance</button>
-    </p>
+    <h5>Assurance <button id="btnAjout3" class="btn btn-success btn-sm" style="float:right">Ajouter une assurance</button></h5><br>
 
     <div class="hideForm" id="assuranceForm">
       <button id="btnAnnuler3" class="btn btn-secondary" style="float:right">Annuler</button>
@@ -246,7 +231,7 @@
         <div class="mb-3">
           <%= form.label :saison_id, "Saison *", class: "form-label" %>
           <%= form.select :saison_id, 
-            Saison.all.map { |saison| 
+            Saison.all.reverse.map { |saison| 
               start_date = "#{saison.date_debut.strftime('%d')} #{I18n.t('date.month_names_short')[saison.date_debut.month]} #{saison.date_debut.strftime('%Y')}"
               end_date = "#{saison.date_fin.strftime('%d')} #{I18n.t('date.month_names_short')[saison.date_fin.month]} #{saison.date_fin.strftime('%Y')}"
               [
@@ -276,11 +261,8 @@
           <%= form.label :date_paiement, "Date de paiement *", class: "form-label" %>
           <div class="input-group">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1" style="background-color:rgba(119, 169, 223, 0.35)">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-week" viewBox="0 0 16 16" style="color: #0069d9;">
-                  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
-                  <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5zM11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
-                </svg>
+              <span class="input-group-text" style="background-color:rgba(119, 169, 223, 0.35)">
+                <i class="bi bi-calendar2-week" style="color: #0069d9;"></i>
               </span>
             </div>
             <%= form.text_field :date_paiement, class: "form-control datepicker", placeholder: "date de paiement", required: true, autocomplete: "off" %>
@@ -291,7 +273,7 @@
         </div>
 
         <div>
-          <%= form.submit "Ajouter", class: "btn btn-primary" %>
+          <%= form.submit "Confirmer", class: "btn btn-primary" %>
         </div>
       <% end %>
 
@@ -338,10 +320,7 @@
 
 <!--************************ACHATS*******************************-->
     <hr>
-    <h3>Achats</h3>
-    <p>
-      <button id="btnAjout4" class="btn btn-success">Ajouter un achat</button>
-    </p>
+    <h5>Achats <button id="btnAjout4" class="btn btn-success btn-sm" style="float:right">Ajouter un achat</button></h5><br>
 
     <div class="hideForm" id="achatForm">
       <button id="btnAnnuler4" class="btn btn-secondary" style="float:right">Annuler</button>
@@ -376,11 +355,8 @@
           <%= form.label :date_achat, "Date d'achat *", class: "form-label" %>
           <div class="input-group">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon2" style="background-color:rgba(119, 169, 223, 0.35)">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-week" viewBox="0 0 16 16" style="color: #0069d9;">
-                  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
-                  <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5zM11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
-                </svg>
+              <span class="input-group-text" style="background-color:rgba(119, 169, 223, 0.35)">
+                <i class="bi bi-calendar2-week" style="color: #0069d9;"></i>
               </span>
             </div>
             <%= form.text_field :date_achat, class: "form-control datepicker", placeholder: "date d'achat", required: true, autocomplete: "off" %>
@@ -391,11 +367,9 @@
         </div>
 
         <div>
-          <%= form.submit "Ajouter", class: "btn btn-primary" %>
+          <%= form.submit "Confirmer", class: "btn btn-primary" %>
         </div>
       <% end %>
-
-
     </div>
 
     <table class="table table-bordered">

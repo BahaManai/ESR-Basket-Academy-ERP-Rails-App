@@ -28,6 +28,12 @@
     display: none;
 }
 
+.datatable td,
+.datatable th {
+    text-align: left !important;
+}
+
+
 .etat_abonnement {
     background-color: #ffff99;
 }

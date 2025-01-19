@@ -9,6 +9,9 @@
 
   <% if @depense.errors.any? %>
     <div class="custom-alert" role="alert">
+      <button type="button" class="close-btn" aria-label="Close" onclick="document.querySelector('.custom-alert').style.display = 'none'">
+      <i class="bi bi-x-lg"></i>
+      </button>
       <h2><%= pluralize(@depense.errors.count, "erreur") %> détectée<%= 's' if @depense.errors.count > 1 %> :</h2>
       <ul>
         <% @depense.errors.full_messages.each do |message| %>

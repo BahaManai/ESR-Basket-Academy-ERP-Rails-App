@@ -1,6 +1,9 @@
-<% content_for :title, "Informations des parents" %>
+<% content_for :title, "Parents" %>
 
 <h1>Parents</h1>
+<p style="text-align:right">
+  <%= link_to "Nouveau parent", new_parent_path, class: "btn btn-success" %>
+</p>
 
 <div id="parents">
   <table class="table table-bordered datatable">
@@ -46,11 +49,13 @@
             <thead>
               <tr>
                 <th>Nom et prénom</th>
-                <th>Âge</th>
-                <th>Groupe d'entraînement</th>
-                <th>Date d'expiration de l'abonnement</th>
+                <th>Age</th>
+                <th>Groupe</th>
+                <th>Assurance</th>
+                <th>Dernier abonnement</th>
+                <th>Date d'expiration</th>
                 <th>Total des crédits</th>
-                <th>Dernier paiement</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -59,6 +64,25 @@
                   <td><%= "#{enfant.prénom} #{enfant.nom}" %></td>
                   <td><%= ((Date.today - enfant.date_naissance).to_i / 365.25).to_i if enfant.date_naissance %></td>
                   <td><%= enfant.groupe.presence || "N/A" %></td>
+                  <td><% if enfant.assurances.any? { |assurance| assurance.saison_id == @saison.id } %>
+                        <% assurance_actuelle = enfant.assurances.find { |assurance| assurance.saison_id == @saison.id } %>
+                        <% if assurance_actuelle.etat_paiement == 'Crédit' %>
+                          Crédit
+                        <% else %>
+                          Payé
+                        <% end %>
+                      <% else %>
+                        Non payé
+                      <% end %>
+                  </td>
+                  <td>
+                    <% if enfant.paiements.any? %>
+                      <% dernier_paiement = enfant.paiements.last %>
+                      <%= "#{dernier_paiement.date_abonnement.strftime('%d %b %Y')}" %>
+                    <% else %>
+                      Aucun paiement
+                    <% end %>
+                  </td>
                   <td>
                     <% if enfant.paiements.any? %>
                       <% expiration_date = enfant.paiements.last.date_abonnement + 30.days %>
@@ -69,12 +93,7 @@
                   </td>
                   <td><%= enfant.somme_des_credits %> DT</td>
                   <td>
-                    <% if enfant.paiements.any? %>
-                      <% dernier_paiement = enfant.paiements.last %>
-                      <%= "#{dernier_paiement.date_abonnement.strftime('%d %b %Y')} (#{dernier_paiement.montant} DT)" %>
-                    <% else %>
-                      Aucun paiement
-                    <% end %>
+                    <%= link_to "Modifier", edit_joueur_path(enfant), class: "btn btn-primary btn-sm" %>
                   </td>
                 </tr>
               <% end %>
@@ -84,13 +103,12 @@
           <p>Aucun enfant trouvé pour ce parent.</p>
         <% end %>
       </div>
+      <p style="margin-left:20px">
+      <%= link_to "Ajouter un enfant", new_joueur_path, class: "btn btn-success" %>
+      </p>
     </div>
   <% end %>
 </div>
-
-<p>
-  <%= link_to "Nouveau parent", new_parent_path, class: "btn btn-success" %>
-</p>
 
 <script>
   function toggleDetails(parentId) {

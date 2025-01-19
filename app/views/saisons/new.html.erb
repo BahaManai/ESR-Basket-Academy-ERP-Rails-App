@@ -9,6 +9,9 @@
   
   <% if @saison.errors.any? %>
     <div class="custom-alert" role="alert">
+      <button type="button" class="close-btn" aria-label="Close" onclick="document.querySelector('.custom-alert').style.display = 'none'">
+      <i class="bi bi-x-lg"></i>
+      </button>
       <h2>
         <%= pluralize(@saison.errors.count, "erreur", "erreurs") %> détectée<%= 's' if @saison.errors.count > 1 %> :
       </h2>
