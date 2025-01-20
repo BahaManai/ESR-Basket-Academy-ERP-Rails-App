@@ -28,7 +28,6 @@ Rails.application.routes.draw do
   patch "achats/:id", to: "achat#update", as: "update_achat"
 
   resources :saisons
-  resources :users
   resources :parents
   resources :depenses
   get "dashbord/index"
