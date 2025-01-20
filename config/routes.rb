@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users, skip: :registrations
   get "groupe/index"
   get "achat/index"
   get "assurance/index"

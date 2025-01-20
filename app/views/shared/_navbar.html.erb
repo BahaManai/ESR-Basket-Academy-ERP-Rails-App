@@ -36,8 +36,11 @@
       <span class="nav-label">Configuration</span>
       <ul class="nav-list">
         <li><%= link_to saisons_path, class: "nav-link", style: "padding-left:20px" do %>
-  <i class="bi bi-calendar-check"></i> Saisons
-<% end %></li>
+          <i class="bi bi-calendar-check"></i> Saisons
+        <% end %></li>
+        <% if user_signed_in? %>
+          <li><%= link_to 'Log out', destroy_user_session_path, method: :delete, class: "nav-link", style: "padding-left:20px" %></li>
+        <% end %>
       </ul>
     </div>
   </div>
