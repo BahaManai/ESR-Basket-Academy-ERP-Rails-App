@@ -23,17 +23,19 @@
     <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/style.css", media: "all" %>
     <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css", media: "all" %>
     <%= javascript_importmap_tags %>
-     
+
   </head>
 
   <body>
-    <div class="app-layout">
+  <div class="app-layout">
+    <% unless controller_name == 'sessions' && action_name == 'new' %>
       <%= render partial: "shared/navbar" %>
-      <div class="content-area">
-        <%= render partial: "shared/flash"%>
-        <%= yield %>
-      </div>
+    <% end %>
+    <div class="content-area">
+      <%= render partial: "shared/flash"%>
+      <%= yield %>
     </div>
-    
-  </body>
+  </div>
+</body>
+
 </html>

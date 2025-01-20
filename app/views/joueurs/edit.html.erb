@@ -31,19 +31,20 @@
       </div>
 
       <div class="mb-3">
-        <%= form.label :sexe, "Genre *", class: "form-label" %><br>
+        <span class="form-label">Genre *</span><br>
         <div class="form-check form-check-inline ml-3">
           <%= form.radio_button :sexe, "male", class: "form-check-input", required: true %>
-          <%= form.label :sexe_male, "Homme", class: "form-check-label" %>
+          <%= form.label :sexe, "Homme", value: "male", class: "form-check-label" %>
         </div>
         <div class="form-check form-check-inline">
           <%= form.radio_button :sexe, "femelle", class: "form-check-input", required: true %>
-          <%= form.label :sexe_femelle, "Femme", class: "form-check-label" %>
+          <%= form.label :sexe, "Femme", value: "femelle", class: "form-check-label" %>
         </div>
         <div class="invalid-feedback ml-3">
           <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le genre est obligatoire.
         </div>
       </div>
+
 
       <div class="mb-3">
         <%= form.label :date_naissance, class: "form-label" %>
@@ -250,7 +251,7 @@
         </div>
 
         <div class="mb-3">
-          <%= form.label :montant, "Montant (DT) *", class: "form-label" %>
+          <%= form.label :montant, "Montant (DT) *", class: "form-label", for: "montant-field" %>
           <%= form.number_field :montant, class: "form-control", id: "montant-field", value: "", placeholder: "Montant par défaut", required: true, min: 0 %>
           <div class="invalid-feedback">
             <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le montant est obligatoire et doit être supérieur ou égal à 0.

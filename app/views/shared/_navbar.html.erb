@@ -39,7 +39,7 @@
           <i class="bi bi-calendar-check"></i> Saisons
         <% end %></li>
         <% if user_signed_in? %>
-          <li><%= link_to 'Log out', destroy_user_session_path, method: :delete, class: "nav-link", style: "padding-left:20px" %></li>
+          <li><%= button_to 'Log out', destroy_user_session_path, method: :delete, class: "nav-link", style: "padding-left:20px;border:none" %></li>
         <% end %>
       </ul>
     </div>
