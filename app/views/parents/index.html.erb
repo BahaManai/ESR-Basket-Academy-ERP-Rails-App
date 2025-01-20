@@ -26,9 +26,10 @@
           <td><%= parent.joueurs.count %></td>
           <td><%= parent.somme_credits_enfants %> DT</td>
           <td>
-            <button class="btn btn-primary btn-sm" onclick="toggleDetails('<%= parent.id %>')">
+            <button class="btn btn-info btn-sm" onclick="toggleDetails('<%= parent.id %>')">
               Afficher les détails
             </button>
+            <%= link_to "Modifier", edit_parent_path(parent), class: "btn btn-primary btn-sm" %>
           </td>
         </tr>
       <% end %>

@@ -59,7 +59,10 @@
   </div>
 <% end %>
 
-<div class="new_forms">
+<div class="new_forms"> 
   <hr>
-  <%= button_to "Supprimer cette dépense", @depense, method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cette dépense ?" }, class: "btn btn-danger", style: "float:right" %>
+  <%= button_to "Supprimer cette dépense", @depense, method: :delete, 
+      class: "btn btn-danger", style: "float:right", 
+      data: { controller: "confirm", confirm_message: "Êtes-vous sûr de supprimer la dépense ?" } %>
 </div>
+

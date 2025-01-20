@@ -90,7 +90,7 @@
               <%= form.hidden_field :date_abonnement, value: paiement.date_abonnement %>
               <%= form.hidden_field :date_encaissement, value: paiement.date_encaissement %>
               <%= form.hidden_field :etat_abonnement, value: 'Non crédit' %>
-              <%= form.submit 'Payer', class: "btn btn-success btn-sm" %>
+              <%= form.submit 'Payer', class: "btn btn-success btn-sm", data: { controller: "confirm", confirm_message: "Êtes-vous sûr de changer l'état de paiement à non crédit ?" } %>
             <% end %>
           <% else %>
             <button class="btn btn-secondary btn-sm" disabled>Payé</button>
