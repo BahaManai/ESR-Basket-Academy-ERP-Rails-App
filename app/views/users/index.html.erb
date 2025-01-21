@@ -1,0 +1,29 @@
+<% content_for :title, "Utilisateurs" %>
+<% @page_title = "Utilisateurs" %>
+
+<%= link_to "Ajouter un utilisateur", new_user_path, class: "btn btn-primary" %>
+
+<table class="table table-bordered datatable">
+  <thead class="thead-light">
+    <tr>
+      <th>ID</th>
+      <th>Nom d'utilisateur</th>
+      <th>Email</th>
+      <th>Rôle</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr id="<%= dom_id user %>">
+        <td><%= user.id %></td>
+        <td><%= user.user_name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.role %></td>
+        <td>
+          <%= link_to "Modifier", edit_user_path(user), class: "btn btn-secondary btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

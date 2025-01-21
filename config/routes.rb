@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, skip: :registrations
+  resources :users, only: [ :index, :show, :new, :create, :edit, :update, :destroy ]
+
   get "groupe/index"
   get "achat/index"
   get "assurance/index"

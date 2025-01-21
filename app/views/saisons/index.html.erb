@@ -1,6 +1,7 @@
 <% content_for :title, "Saisons" %>
 <% @page_title = "Saisons"%>
 
+<%= link_to "Ajouter une saison", new_saison_path, class: "btn btn-primary" %>
 <table class="table table-bordered datatable">
   <thead class="thead-light">
     <tr>
@@ -21,11 +22,9 @@
         <td><%= saison.montant_abonnement %></td>
         <td><%= saison.montant_assurance %></td>
         <td>
-          <%= link_to "Modifier", edit_saison_path(saison), class: "btn btn-primary btn-sm" %>
+          <%= link_to "Modifier", edit_saison_path(saison), class: "btn btn-secondary btn-sm" %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<%= link_to "Nouvelle saison", new_saison_path, class: "btn btn-success" %>
