@@ -8,6 +8,7 @@ one:
   string: MyString
   age_min: 1
   age_max: 1
+  entraineur: one
 
 two:
   heure_debut: 1
@@ -17,3 +18,4 @@ two:
   string: MyString
   age_min: 1
   age_max: 1
+  entraineur: two

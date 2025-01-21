@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get "achat/index"
   get "assurance/index"
   get "paiement/index"
+  get "salaire/index"
+
 
   get "salaires", to: "salaire#index", as: "salaires"
   delete "salaires/:id", to: "salaire#destroy", as: "salaire"

@@ -1,11 +1,11 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  nom: MyString
-  prénom: MyString
-  téléphone: 1
+  nom: "Dupont"
+  prénom: "Jean"
+  téléphone: "12345678" # Valid 8-digit phone number
+  salaire: 3000.0 # Valid positive salary
 
 two:
-  nom: MyString
-  prénom: MyString
-  téléphone: 1
+  nom: "Martin"
+  prénom: "Paul"
+  téléphone: "87654321" # Valid 8-digit phone number
+  salaire: 2500.0 # Valid positive salary

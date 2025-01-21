@@ -1,15 +1,17 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  nom: MyString
-  prénom: MyString
-  sexe: MyString
-  date_naissance: 2025-01-02
-  note: MyText
+  nom: "Dupont"
+  prénom: "Pierre"
+  sexe: "male" # Valid sexe value
+  date_naissance: "2005-03-10" # Valid date before today
+  note: "Joueur prometteur"
+  groupe: one # Assuming the 'one' groupe fixture exists
 
 two:
-  nom: MyString
-  prénom: MyString
-  sexe: MyString
-  date_naissance: 2025-01-02
-  note: MyText
+  nom: "Martin"
+  prénom: "Sophie"
+  sexe: "femelle" # Valid sexe value
+  date_naissance: "2004-07-15" # Valid date before today
+  note: "Joueuse expérimentée"
+  groupe: two # Assuming the 'two' groupe fixture exists

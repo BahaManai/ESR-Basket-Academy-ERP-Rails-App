@@ -18,10 +18,14 @@ class UsersController < ApplicationController
   # Create action to create a new user
   def create
     @user = User.new(user_params)
-    if @user.save
-      redirect_to users_path, notice: "L'utilisateur a été créé avec succès."
-    else
-      render :new
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to users_path, notice: "L'utilisateur a été créé avec succès." }
+        format.json { render :show, status: :created, location: @user }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -38,12 +42,7 @@ class UsersController < ApplicationController
         format.html { redirect_to users_path, notice: "L'utilisateur a été mis à jour avec succès." }
         format.json { render :edit, status: :ok, location: @user }
       else
-        format.html do
-          error_messages = @user.errors.full_messages.map { |msg| "<li style='list-style-type: none;'><i class='bi bi-exclamation-triangle-fill'></i>&nbsp;#{msg}</li>" }.join
-          alert_message = "<h2>Erreur en modification de l'utilisateur :</h2><ul>#{error_messages}</ul>"
-
-          redirect_to edit_user_path, alert: alert_message.html_safe
-        end
+        format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end

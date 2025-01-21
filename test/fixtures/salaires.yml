@@ -1,11 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  salaire: 1.5
+  salaire: 1500
   mois: 1
-  annee: 1
+  annee: 2025
+  entraineur: one
 
 two:
-  salaire: 1.5
-  mois: 1
-  annee: 1
+  salaire: 2000
+  mois: 2
+  annee: 2025
+  entraineur: two

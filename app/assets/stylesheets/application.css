@@ -203,7 +203,7 @@
 
 .custom-notice .close-btn {
     text-align: right;
-    background-color: white;
+    background-color: transparent;
     border: none;
     border-radius: 50%;
     font-size: 1.2rem;

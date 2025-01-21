@@ -2,8 +2,14 @@
 
 one:
   montant: 1.5
-  date_paiement: 2025-01-03
+  date_paiement: 2024-01-20 # Ensure this is <= Date.today
+  etat_paiement: "Crédit" # Valid state
+  saison: one # References the 'one' saison in saisons.yml
+  joueur: one # References the 'one' joueur in joueurs.yml
 
 two:
-  montant: 1.5
-  date_paiement: 2025-01-03
+  montant: 2.0
+  date_paiement: 2024-01-15 # Ensure this is <= Date.today
+  etat_paiement: "Non crédit" # Valid state
+  saison: two # References the 'two' saison in saisons.yml
+  joueur: two # References the 'two' joueur in joueurs.yml
