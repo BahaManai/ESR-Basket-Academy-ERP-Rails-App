@@ -2,8 +2,7 @@
 <% selected_month = params[:mois].presence || Date.today.month %>
 
 <% content_for :title, "Entraîneurs" %>
-
-<h1 class="mb-4">Entraîneurs</h1>
+<% @page_title = "Entraîneurs"%>
 
 <div class="mb-3 d-flex align-items-center">
   <label for="monthPicker2" class="form-label me-2">Mois :&nbsp;</label>

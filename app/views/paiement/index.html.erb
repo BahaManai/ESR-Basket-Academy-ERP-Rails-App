@@ -1,6 +1,6 @@
 <% content_for :title, "Paiements" %>
+<% @page_title = "Paiements"%>
 
-<h1>Paiements</h1>
 <div class="mb-3">
   <%= link_to 'Tous', paiements_path, class: 'btn btn-primary btn-sm' %>
   <%= link_to 'Active', paiements_path(filter: 'active'), class: 'btn btn-success btn-sm' %>

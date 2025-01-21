@@ -1,7 +1,6 @@
 <% content_for :title, "Achats" %>
 
-<h1>Achats</h1>
-
+<% @page_title = "Achats"%>
 <div class="mb-3">
   <%= link_to 'Tous', achats_path, class: 'btn btn-primary btn-sm' %>
   <%= link_to 'Crédits', achats_path(filter: 'credit'), class: 'btn btn-warning btn-sm' %>

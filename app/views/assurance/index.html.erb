@@ -1,7 +1,6 @@
 <% content_for :title, "Assurances" %>
 
-<h1>Assurances</h1>
-
+<% @page_title = "Assurances"%>
 <div class="mb-3">
   <%= link_to 'Tous', assurances_path, class: 'btn btn-primary btn-sm' %>
   <%= link_to 'Crédits', assurances_path(filter: 'credit'), class: 'btn btn-warning btn-sm' %>

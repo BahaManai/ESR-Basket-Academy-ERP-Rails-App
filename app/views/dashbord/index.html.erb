@@ -1,8 +1,6 @@
 <% selected_year = (params[:annee] || Date.today.year).to_i %>
 <% selected_month = (params[:mois] || Date.today.month).to_i %>
-
-<div class="container my-4">
-  <h1 class="mb-4">Tableau de bord</h1>
+<% @page_title = "Tableau de bord"%>
   <h5>Par année :</h5>
   <div class="mb-3 d-flex align-items-center">
     <select 
@@ -180,7 +178,6 @@
   </div>
 </div>
 
-</div>
 <script>
   function redirectToMonthDashbord(select) {
     const month = select.value;

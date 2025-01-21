@@ -1,8 +1,11 @@
 <% if flash[:notice] %>
-  <div class="alert custom-notice mt-4 d-flex justify-content-between align-items-center" role="alert">
+  <div class="alert custom-notice d-flex justify-content-between align-items-center" role="alert">
     <span>
       <i class="bi bi-check-circle-fill me-2 mr-2" style="color: #1b5e20;"></i><%= flash[:notice] %>
     </span>
+    <button type="button" class="close-btn" aria-label="Close" onclick="this.parentElement.style.display = 'none'">
+      <i class="bi bi-x-lg"></i>
+    </button>
   </div>
 <% end %>
 

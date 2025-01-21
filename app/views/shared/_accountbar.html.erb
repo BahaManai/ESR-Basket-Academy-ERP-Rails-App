@@ -1,0 +1,11 @@
+<div class="top-bar d-flex justify-content-between align-items-center py-2 shadow-sm bg-light" style="margin-bottom: 10px">
+  <div class="page-title d-flex align-items-center pt-2">
+    <h2><%= @page_title %></h2>
+  </div>
+  
+  <div class="user-info d-flex align-items-center text-right">
+    <i class="bi bi-person-circle me-2" style="font-size: 1.5rem;"></i>
+    <span class="me-3 mr-3 ml-2"><strong><%= current_user.user_name %></strong> <span style="font-size:0.8rem"><%= current_user.role %></span></span>
+    <%= button_to 'Déconnexion', destroy_user_session_path, method: :delete, class: "btn btn-sm btn-outline-secondary", data: { controller: "confirm", confirm_message: "Êtes-vous sûr de vouloir vous déconnecter ?" } %>
+  </div>
+</div>

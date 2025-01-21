@@ -3,8 +3,7 @@
 <div>
   <%= link_to "Joueurs >", joueurs_path %>
 </div>
-
-<h2>Fiche de <%= "#{@joueur.prénom} #{@joueur.nom}" %></h2><br>
+<% @page_title = "Fiche de #{@joueur.prénom} #{@joueur.nom}"%>
 
 <div style="display: flex; justify-content: space-between; gap: 10px;">
   <div style="flex: 1; border: 1px solid #ccc; padding: 20px;">

@@ -32,6 +32,9 @@
       <%= render partial: "shared/navbar" %>
     <% end %>
     <div class="content-area">
+      <% unless controller_name == 'sessions' && action_name == 'new' %>
+        <%= render partial: "shared/accountbar"%>
+      <% end %>
       <%= render partial: "shared/flash"%>
       <%= yield %>
     </div>

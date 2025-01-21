@@ -111,7 +111,7 @@
 
 .content-area {
     width: 100%;
-    padding: 20px;
+    padding: 0px 20px 20px 20px;
     overflow-y: auto;
 }
 
@@ -125,7 +125,7 @@
 }
 
 .navbar-logo {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-align: center;
 }
 
@@ -199,6 +199,21 @@
     border-top: 1px solid rgb(79, 159, 83) !important;
     border-bottom: 1px solid rgb(79, 159, 83) !important;
     border-right: 1px solid rgb(79, 159, 83) !important;
+}
+
+.custom-notice .close-btn {
+    text-align: right;
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #1b5e20;
+}
+
+.custom-notice .close-btn:hover {
+    background-color: #88ba8c;
+    color: white;
 }
 
 .btn-icon-only {

@@ -1,8 +1,9 @@
 
-<div class="container d-flex justify-content-center align-items-center">
-  <div class="card shadow-lg" style="width: 100%; max-width: 400px;margin-top:70px">
+<div class="container d-flex justify-content-center align-items-center" >
+  <div class="card shadow-lg" style="width: 100%; max-width: 400px;margin-top:70px;border:1px solid #0023b5;border-radius: 17px; box-shadow: -8px 8px 15px rgba(0, 0, 0, 0.2);">
+    <div style="background-image: url(<%= asset_path 'logo_BASKET.jpg' %>); background-size: cover; background-position: center;height:100px;border-radius: 15px 15px 0px 0px"></div>
     <div class="card-body">
-      <h2 class="text-center mb-4">Se connecter</h2>
+      <h2 class="text-center mb-4" style="color: #0023b5">Se connecter</h2>
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="field mb-3">
           <%= f.label :email, "Email", class: "form-label" %><br />
@@ -21,7 +22,7 @@
           </div>
         <% end %>
 
-        <div class="actions d-grid">
+        <div class="actions d-grid text-center mb-3">
           <%= f.submit "Se connecter", class: "btn btn-primary" %>
         </div>
       <% end %>
