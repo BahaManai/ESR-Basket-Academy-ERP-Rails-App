@@ -6,6 +6,7 @@ one:
   date_encaissement: 2025-01-03 # Valid date, but should be <= today's date for testing
   etat_abonnement: "Non crédit" # Valid value (either "Non crédit" or "Crédit")
   num_recu: 12345 # Example valid num_recu (numeric value >= 0)
+  joueur: one
 
 two:
   montant: 1.5
@@ -13,3 +14,4 @@ two:
   date_encaissement: 2025-01-03 # Valid date, but should be <= today's date for testing
   etat_abonnement: "Crédit" # Valid value (either "Non crédit" or "Crédit")
   num_recu: 67890 # Example valid num_recu (numeric value >= 0)
+  joueur: two

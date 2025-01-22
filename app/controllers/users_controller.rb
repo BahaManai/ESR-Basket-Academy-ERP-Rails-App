@@ -64,7 +64,11 @@ class UsersController < ApplicationController
 
   # Define strong parameters for user
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :role, :user_name)
+    permitted_params = [ :email, :password, :password_confirmation, :user_name ]
+    if current_user.role == "Administrateur"
+      permitted_params << :role
+    end
+    params.require(:user).permit(permitted_params)
   end
 
   def check_admin

@@ -1,7 +1,10 @@
 require "test_helper"
 
 class JoueursControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
   setup do
+    @user = users(:one)
+    sign_in @user
     @joueur = joueurs(:one)
   end
 
@@ -20,13 +23,9 @@ class JoueursControllerTest < ActionDispatch::IntegrationTest
       post joueurs_url, params: { joueur: { date_naissance: @joueur.date_naissance, nom: @joueur.nom, note: @joueur.note, prénom: @joueur.prénom, sexe: @joueur.sexe } }
     end
 
-    assert_redirected_to joueur_url(Joueur.last)
+    assert_redirected_to edit_joueur_url(Joueur.last)
   end
 
-  test "should show joueur" do
-    get joueur_url(@joueur)
-    assert_response :success
-  end
 
   test "should get edit" do
     get edit_joueur_url(@joueur)
@@ -35,7 +34,7 @@ class JoueursControllerTest < ActionDispatch::IntegrationTest
 
   test "should update joueur" do
     patch joueur_url(@joueur), params: { joueur: { date_naissance: @joueur.date_naissance, nom: @joueur.nom, note: @joueur.note, prénom: @joueur.prénom, sexe: @joueur.sexe } }
-    assert_redirected_to joueur_url(@joueur)
+    assert_redirected_to joueurs_url
   end
 
   test "should destroy joueur" do

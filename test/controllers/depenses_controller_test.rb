@@ -1,7 +1,10 @@
 require "test_helper"
 
 class DepensesControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
   setup do
+    @user = users(:one)
+    sign_in @user
     @depense = depenses(:one)
   end
 
@@ -20,13 +23,9 @@ class DepensesControllerTest < ActionDispatch::IntegrationTest
       post depenses_url, params: { depense: { date_depense: @depense.date_depense, designation: @depense.designation, prix: @depense.prix } }
     end
 
-    assert_redirected_to depense_url(Depense.last)
+    assert_redirected_to depenses_url
   end
 
-  test "should show depense" do
-    get depense_url(@depense)
-    assert_response :success
-  end
 
   test "should get edit" do
     get edit_depense_url(@depense)
@@ -35,7 +34,7 @@ class DepensesControllerTest < ActionDispatch::IntegrationTest
 
   test "should update depense" do
     patch depense_url(@depense), params: { depense: { date_depense: @depense.date_depense, designation: @depense.designation, prix: @depense.prix } }
-    assert_redirected_to depense_url(@depense)
+    assert_redirected_to depenses_url
   end
 
   test "should destroy depense" do

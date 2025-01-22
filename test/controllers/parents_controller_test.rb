@@ -1,7 +1,10 @@
 require "test_helper"
 
 class ParentsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
   setup do
+    @user = users(:one)
+    sign_in @user
     @parent = parents(:one)
   end
 
@@ -20,13 +23,9 @@ class ParentsControllerTest < ActionDispatch::IntegrationTest
       post parents_url, params: { parent: { nom: @parent.nom, prénom: @parent.prénom, téléphone: @parent.téléphone } }
     end
 
-    assert_redirected_to parent_url(Parent.last)
+    assert_redirected_to new_joueur_url
   end
 
-  test "should show parent" do
-    get parent_url(@parent)
-    assert_response :success
-  end
 
   test "should get edit" do
     get edit_parent_url(@parent)
@@ -35,7 +34,7 @@ class ParentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update parent" do
     patch parent_url(@parent), params: { parent: { nom: @parent.nom, prénom: @parent.prénom, téléphone: @parent.téléphone } }
-    assert_redirected_to parent_url(@parent)
+    assert_redirected_to parents_url
   end
 
   test "should destroy parent" do

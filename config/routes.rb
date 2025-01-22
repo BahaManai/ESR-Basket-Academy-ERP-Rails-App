@@ -32,12 +32,12 @@ Rails.application.routes.draw do
   post "/achats", to: "achat#create"
   patch "achats/:id", to: "achat#update", as: "update_achat"
 
-  resources :saisons
-  resources :parents
-  resources :depenses
+  resources :saisons, except: [ :show ]
+  resources :parents, except: [ :show ]
+  resources :depenses, except: [ :show ]
   get "dashbord/index"
-  resources :entraineurs
-  resources :joueurs
+  resources :entraineurs, except: [ :show ]
+  resources :joueurs, except: [ :show ]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

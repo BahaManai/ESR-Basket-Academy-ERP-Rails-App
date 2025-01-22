@@ -1,7 +1,10 @@
 require "test_helper"
 
 class SaisonsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
   setup do
+    @user = users(:one)
+    sign_in @user
     @saison = saisons(:one)
   end
 
@@ -17,16 +20,12 @@ class SaisonsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create saison" do
     assert_difference("Saison.count") do
-      post saisons_url, params: { saison: { date_debut: @saison.date_debut, date_fin: @saison.date_fin } }
+      post saisons_url, params: { saison: { date_debut: @saison.date_debut, date_fin: @saison.date_fin, montant_abonnement: @saison.montant_abonnement, montant_assurance: @saison.montant_assurance } }
     end
 
-    assert_redirected_to saison_url(Saison.last)
+    assert_redirected_to saisons_url
   end
 
-  test "should show saison" do
-    get saison_url(@saison)
-    assert_response :success
-  end
 
   test "should get edit" do
     get edit_saison_url(@saison)
@@ -35,7 +34,7 @@ class SaisonsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update saison" do
     patch saison_url(@saison), params: { saison: { date_debut: @saison.date_debut, date_fin: @saison.date_fin } }
-    assert_redirected_to saison_url(@saison)
+    assert_redirected_to saisons_url
   end
 
   test "should destroy saison" do
