@@ -40,5 +40,6 @@ fr:
       taken: "est déjà utilisé"
       confirmation: "ne correspond pas"
       too_short: "est trop court (minimum %{count} caractères)"
+      invalid: "n'est pas valide."
 
 

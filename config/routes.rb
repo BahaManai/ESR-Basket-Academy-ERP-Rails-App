@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get "assurance/index"
   get "paiement/index"
   get "salaire/index"
-
+  get "/forgot_password", to: "devise/passwords#edit", as: "forgot_password"
 
   get "salaires", to: "salaire#index", as: "salaires"
   delete "salaires/:id", to: "salaire#destroy", as: "salaire"

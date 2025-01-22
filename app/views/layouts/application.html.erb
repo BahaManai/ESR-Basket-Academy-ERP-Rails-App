@@ -28,11 +28,11 @@
 
   <body>
   <div class="app-layout">
-    <% unless controller_name == 'sessions' && action_name == 'new' %>
+    <% unless (controller_name == 'sessions' && action_name == 'new') || (controller_name == 'passwords' && action_name == 'new') || (controller_name == 'passwords' && action_name == 'edit') || (controller_name == 'passwords' && action_name == 'update') %>
       <%= render partial: "shared/navbar" %>
     <% end %>
     <div class="content-area">
-      <% unless controller_name == 'sessions' && action_name == 'new' %>
+      <% unless (controller_name == 'sessions' && action_name == 'new') || (controller_name == 'passwords' && action_name == 'new') || (controller_name == 'passwords' && action_name == 'edit') || (controller_name == 'passwords' && action_name == 'update')%>
         <%= render partial: "shared/accountbar"%>
       <% end %>
       <%= render partial: "shared/flash"%>
