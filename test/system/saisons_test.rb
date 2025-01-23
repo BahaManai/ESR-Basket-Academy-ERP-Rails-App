@@ -7,7 +7,7 @@ class SaisonsTest < ApplicationSystemTestCase
 
   test "visiting the index" do
     visit saisons_url
-    assert_selector "h1", text: "Saisons"
+    assert_selector "h2", text: "Saisons"
   end
 
   test "should create saison" do

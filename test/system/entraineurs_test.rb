@@ -7,7 +7,7 @@ class EntraineursTest < ApplicationSystemTestCase
 
   test "visiting the index" do
     visit entraineurs_url
-    assert_selector "h1", text: "Entraineurs"
+    assert_selector "h2", text: "Entraîneurs"
   end
 
   test "should create entraineur" do

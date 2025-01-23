@@ -4,7 +4,7 @@ class ForgotPasswordMailer < ApplicationMailer
     @email = params[:email]
     @host = Rails.env.development? ? "http://localhost:3000" : params[:host]
     @token = params[:token]
-    @url = edit_user_password_url(reset_password_token: @token)
+    @url = edit_user_password_url(reset_password_token: CGI.escape(@token))
     mail(
       to: @email,
       from: "test@example.com",

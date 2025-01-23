@@ -7,7 +7,7 @@ class ParentsTest < ApplicationSystemTestCase
 
   test "visiting the index" do
     visit parents_url
-    assert_selector "h1", text: "Parents"
+    assert_selector "h2", text: "Parents"
   end
 
   test "should create parent" do

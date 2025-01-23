@@ -202,11 +202,10 @@
 }
 
 .custom-notice .close-btn {
-    text-align: right;
+    float: right;
     background-color: transparent;
     border: none;
     border-radius: 50%;
-    font-size: 1.2rem;
     cursor: pointer;
     color: #1b5e20;
 }
@@ -224,4 +223,12 @@
     justify-content: center !important;
     align-items: center !important;
     border-radius: 50% !important;
+}
+
+.log_out_button :hover {
+    color: #0056b3;
+}
+
+.log_out_button :active {
+    border: none !important;
 }

@@ -7,7 +7,7 @@ class DepensesTest < ApplicationSystemTestCase
 
   test "visiting the index" do
     visit depenses_url
-    assert_selector "h1", text: "Depenses"
+    assert_selector "h2", text: "Dépenses"
   end
 
   test "should create depense" do
