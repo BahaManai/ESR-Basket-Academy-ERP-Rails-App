@@ -12,15 +12,15 @@ class DepensesTest < ApplicationSystemTestCase
 
   test "should create depense" do
     visit depenses_url
-    click_on "New depense"
+    click_on "Nouvelle dépense"
 
     fill_in "Date depense", with: @depense.date_depense
     fill_in "Designation", with: @depense.designation
     fill_in "Prix", with: @depense.prix
-    click_on "Create Depense"
+    click_on "Créer Dépense"
 
-    assert_text "Depense was successfully created"
-    click_on "Back"
+    assert_text "La dépense a été créée avec succès."
+    click_on "Dépenses >"
   end
 
   test "should update Depense" do

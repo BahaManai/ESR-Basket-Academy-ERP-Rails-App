@@ -28,6 +28,20 @@ fr:
       - Oct
       - Nov
       - Déc
+    abbr_month_names:
+      - ~ 
+      - Jan
+      - Fév
+      - Mar
+      - Avr
+      - Mai
+      - Juin
+      - Juil
+      - Aoû
+      - Sep
+      - Oct
+      - Nov
+      - Déc
   activerecord:
   errors:
     messages:

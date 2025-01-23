@@ -7,8 +7,7 @@
   <%= link_to 'Expiré', paiements_path(filter: 'expired'), class: 'btn btn-danger btn-sm' %>
   <%= link_to 'Crédit', paiements_path(filter: 'credit'), class: 'btn btn-warning btn-sm' %>
 </div>
-<%= line_chart Paiement.group_by_day(:date_abonnement).count %>
-<%= pie_chart Paiement.group(:etat_abonnement).count %>
+
 <table class="table table-bordered datatable">
   <thead class="thead-light">
     <tr>
