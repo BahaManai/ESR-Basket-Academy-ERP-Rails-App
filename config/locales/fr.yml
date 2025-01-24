@@ -42,6 +42,15 @@ fr:
       - Oct
       - Nov
       - Déc
+    day_names:
+      - Lundi
+      - Mardi
+      - Mercredi
+      - Jeudi
+      - Vendredi
+      - Samedi
+      - Dimanche
+      
   activerecord:
   errors:
     messages:

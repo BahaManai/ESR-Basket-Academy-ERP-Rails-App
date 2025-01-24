@@ -5,74 +5,105 @@
   <%= link_to "Nouveau groupe", new_groupe_path, class: "btn btn-success" %>
 </p>
 
-<%= pie_chart @groupes_joueurs_count, 
-      labels: @groupes_joueurs_count.map { |groupe| groupe[0] },
-      data: @groupes_joueurs_count.map { |groupe| groupe[1] } %>
-
-<table class="table table-bordered datatable">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Age</th>
-      <th>Entraîneur</th>
-      <th>Jour</th>
-      <th>Terrain</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @groupes.each do |groupe| %>
-      <tr>
-        <td><%= groupe.id %></td>
-        <td><%= "#{groupe.age_min}-#{groupe.age_max} ans" %></td>        
-        <td><%= groupe.entraineur&.nom || "Aucun" %></td>
-        <td><%= groupe.jour %></td>
-        <td><%= groupe.terrain %></td>
-        <td>
-          <button class="btn btn-info btn-sm" onclick="toggleJoueurs('<%= groupe.id %>')">
-              Afficher les joueurs
-            </button>
-          <%= link_to "Modifier", edit_groupe_path(groupe), class: "btn btn-primary btn-sm" %>
-          <%= button_to "Supprimer", groupe_path(groupe), method: :delete, data: { confirm: "Êtes-vous sûr ?" }, class: "btn btn-danger btn-sm" %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="d-flex flex-wrap">
+  <div class="mb-2" style="width:70%">
+    <table class="table table-bordered datatable">
+      <thead class="thead-light">
+        <tr>
+          <th>ID</th>
+          <th>Groupe</th>
+          <th>Entraîneur</th>
+          <th>Jour et Heure</th>
+          <th>Terrain</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @groupes.each do |groupe| %>
+          <tr>
+            <td><%= groupe.id %></td>
+            <td><%= "#{groupe.age_min}-#{groupe.age_max} ans" %></td>        
+            <td><%= "#{groupe.entraineur&.prénom} #{groupe.entraineur&.nom}" || "Aucun" %></td>
+            <td><%= "#{groupe.jour} #{groupe.heure_debut} - #{groupe.heure_fin}" %></td>
+            <td><%= groupe.terrain if groupe.terrain %></td>
+            <td>
+              <button class="btn btn-info btn-sm" onclick="toggleJoueurs('<%= groupe.id %>')">
+                  Liste des joueurs
+                </button>
+              <%= link_to "Modifier", edit_groupe_path(groupe), class: "btn btn-primary btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="chart-container">
+    <%= pie_chart @groupes_joueurs_count, 
+          labels: @groupes_joueurs_count.map { |groupe| groupe[0] },
+          data: @groupes_joueurs_count.map { |groupe| groupe[1] }, 
+          download: { filename: "joueurs_par_groupe", background: "#ffffff" },
+          title: "Répartition des Joueurs par Groupe" %>
+  </div>
+</div>
 
 <div id="joueurs-details-container">
   <% @groupes.each do |groupe| %>
     <div class="card my-3" id="joueurs-details-<%= groupe.id %>" style="display: none;">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <h5>Détails des joueurs du groupe <%= "#{groupe.age_min}-#{groupe.age_max} ans" %></h5>
+        <h5>La liste des joueurs du groupe des <%= "#{groupe.age_min}-#{groupe.age_max} ans" %></h5>
         <button class="btn btn-secondary btn-icon-only" onclick="hideJoueursDetails('<%= groupe.id %>')"><i class="bi bi-x-lg"></i></button>
       </div>
       <div class="card-body">
         <% if groupe.joueurs.any? %>
-          <table class="table table-sm table-striped">
-            <thead>
+          <table class="table table-sm table-bordered datatable">
+            <thead class="thead-light">
               <tr>
                 <th>Nom et prénom</th>
                 <th>Age</th>
+                <th>Contact du parent</th>
                 <th>Assurance</th>
+                <th>Dernier abonnement</th>
+                <th>Date d'expiration</th>
+                <th>Total des crédits</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              <% groupe.joueurs.each do |joueur| %>
+              <% groupe.joueurs.each do |enfant| %>
                 <tr>
-                  <td><%= "#{joueur.prénom} #{joueur.nom}" %></td>
-                  <td><%= ((Date.today - joueur.date_naissance).to_i / 365.25).to_i if joueur.date_naissance %></td>
+                  <td><%= "#{enfant.prénom} #{enfant.nom}" %></td>
+                  <td><%= ((Date.today - enfant.date_naissance).to_i / 365.25).to_i if enfant.date_naissance %></td>
+                  <td><%= enfant.parent.téléphone if enfant.parent %></td>
+                  <td><% if enfant.assurances.any? { |assurance| assurance.saison_id == @saison.id } %>
+                        <% assurance_actuelle = enfant.assurances.find { |assurance| assurance.saison_id == @saison.id } %>
+                        <% if assurance_actuelle.etat_paiement == 'Crédit' %>
+                          Crédit
+                        <% else %>
+                          Payé
+                        <% end %>
+                      <% else %>
+                        Non payé
+                      <% end %>
+                  </td>
                   <td>
-                    <% if joueur.assurances.any? { |assurance| assurance.saison_id == @saison.id } %>
-                      <% assurance_actuelle = joueur.assurances.find { |assurance| assurance.saison_id == @saison.id } %>
-                      <%= assurance_actuelle.etat_paiement %>
+                    <% if enfant.paiements.any? %>
+                      <% dernier_paiement = enfant.paiements.last %>
+                      <%= "#{dernier_paiement.date_abonnement.strftime('%d %b %Y')}" %>
                     <% else %>
-                      Non payé
+                      Aucun paiement
                     <% end %>
                   </td>
                   <td>
-                    <%= link_to "Modifier", edit_joueur_path(joueur), class: "btn btn-primary btn-sm" %>
+                    <% if enfant.paiements.any? %>
+                      <% expiration_date = enfant.paiements.last.date_abonnement + 30.days %>
+                      <%= expiration_date.strftime('%d %b %Y') %>
+                    <% else %>
+                      Non défini
+                    <% end %>
+                  </td>
+                  <td><%= enfant.somme_des_credits %> DT</td>
+                  <td>
+                    <%= link_to "Modifier", edit_joueur_path(enfant), class: "btn btn-primary btn-sm" %>
                   </td>
                 </tr>
               <% end %>

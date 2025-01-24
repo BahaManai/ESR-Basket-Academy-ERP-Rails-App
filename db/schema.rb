@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_24_094740) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_24_151546) do
   create_table "achats", force: :cascade do |t|
     t.string "designation"
     t.float "prix"
@@ -52,8 +52,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_24_094740) do
   end
 
   create_table "groupes", force: :cascade do |t|
-    t.integer "heure_debut"
-    t.integer "heure_fin"
+    t.string "heure_debut"
+    t.string "heure_fin"
     t.string "jour"
     t.string "terrain"
     t.string "string"

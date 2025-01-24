@@ -64,7 +64,7 @@
                 <tr>
                   <td><%= "#{enfant.prénom} #{enfant.nom}" %></td>
                   <td><%= ((Date.today - enfant.date_naissance).to_i / 365.25).to_i if enfant.date_naissance %></td>
-                  <td><%= enfant.groupe.presence || "N/A" %></td>
+                  <td><%= "#{enfant.groupe.age_min}-#{enfant.groupe.age_max} ans" if enfant.groupe %></td>
                   <td><% if enfant.assurances.any? { |assurance| assurance.saison_id == @saison.id } %>
                         <% assurance_actuelle = enfant.assurances.find { |assurance| assurance.saison_id == @saison.id } %>
                         <% if assurance_actuelle.etat_paiement == 'Crédit' %>

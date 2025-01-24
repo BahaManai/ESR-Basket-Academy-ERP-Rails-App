@@ -232,3 +232,10 @@
 .log_out_button :active {
     border: none !important;
 }
+
+.chart-container {
+    min-width: 260px;
+    width: 30%;
+    padding-right: 30px;
+    padding-left: 30px;
+}

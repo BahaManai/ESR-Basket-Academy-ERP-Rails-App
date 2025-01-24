@@ -8,41 +8,49 @@
       </ul>
     </div>
   <% end %>
-
   <div class="mb-3">
     <%= form.label :heure_debut, "Heure de début" %>
-    <%= form.number_field :heure_debut, class: "form-control" %>
+    <%= form.text_field :heure_debut, step: 1, class: "form-control" %>
   </div>
-
   <div class="mb-3">
     <%= form.label :heure_fin, "Heure de fin" %>
-    <%= form.number_field :heure_fin, class: "form-control" %>
+    <%= form.text_field :heure_fin, step: 1, class: "form-control" %>
   </div>
 
   <div class="mb-3">
     <%= form.label :jour %>
-    <%= form.text_field :jour, class: "form-control" %>
+    <%= form.select :jour, 
+                    I18n.t('date.day_names').map { |day| [day, day] }, 
+                    { prompt: "Sélectionner un jour" }, 
+                    {class: "custom-select"} %>
   </div>
 
   <div class="mb-3">
     <%= form.label :terrain %>
-    <%= form.text_field :terrain, class: "form-control" %>
+    <%= form.select :terrain, 
+                    [["A", "A"], ["B", "B"]], 
+                    { prompt: "Sélectionner un terrain" }, 
+                    { class: "custom-select" } %>
   </div>
 
   <div class="mb-3">
-    <%= form.label :age_min, "Âge minimum" %>
+    <%= form.label :age_min, "Age minimum" %>
     <%= form.number_field :age_min, class: "form-control" %>
   </div>
 
   <div class="mb-3">
-    <%= form.label :age_max, "Âge maximum" %>
+    <%= form.label :age_max, "Age maximum" %>
     <%= form.number_field :age_max, class: "form-control" %>
   </div>
 
   <div class="mb-3">
-    <%= form.label :entraineur_id, "Entraîneur" %>
-    <%= form.collection_select :entraineur_id, @entraineurs, :id, :nom, prompt: "Choisir un entraîneur", class: "form-control" %>
+    <%= form.label :entraineur_id, "Entraîneur", class: "form-label" %>
+    <%= form.select :entraineur_id, 
+          Entraineur.all.map { |e| ["#{e.prénom} #{e.nom}", e.id, { "data-salaire" => e.salaire }] }, 
+          { prompt: "Sélectionner un entraîneur" }, 
+          { class: "custom-select" } %>
   </div>
+
 
   <div>
     <%= form.submit class: "btn btn-success" %>
