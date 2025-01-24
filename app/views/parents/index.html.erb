@@ -121,10 +121,13 @@
     var detailsContainer = document.getElementById('children-details-' + parentId);
     if (detailsContainer.style.display === 'none') {
       detailsContainer.style.display = 'block';
+      // Faire défiler la page jusqu'à cette section
+      detailsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } else {
       detailsContainer.style.display = 'none';
     }
   }
+
 
   function hideDetails(parentId) {
     // Cacher les détails pour le parent sélectionné

@@ -36,6 +36,7 @@
       <th>ID</th>
       <th>Nom de l'entraîneur</th>
       <th>Téléphone</th>
+      <th>Groupe</th>
       <th>Salaire (Dt)</th>
       <th>État du salaire (<%= "#{I18n.t('date.month_names')[selected_month.to_i]} #{selected_year}" %>)</th>
       <th>Actions</th>
@@ -49,6 +50,13 @@
         <td><%= entraineur.id %></td>
         <td><%= "#{entraineur.prénom} #{entraineur.nom}" %></td>
         <td><%= entraineur.téléphone %></td>
+        <td>
+          <% if entraineur.groupes %>
+            <% entraineur.groupes.each do |groupe| %>
+              <p><%= "#{groupe.age_min}-#{groupe.age_max} ans" %></p>
+            <% end %>
+          <% end %>
+        </td>
         <td><%= number_to_currency(entraineur.salaire, unit: "", delimiter: " ") %></td>
         <td>
           <% if salaire_paye %>

@@ -81,6 +81,16 @@
   </div>
 
   <div class="mb-3">
+    <%= form.label :groupe_id, "Groupe *", class: "form-label" %>
+    <%= form.select :groupe_id, 
+          Groupe.all.map { |groupe| ["#{groupe.age_min}-#{groupe.age_max} ans", groupe.id] }, 
+          { prompt: "Choisir un groupe" }, { class: "custom-select", required: true } %>
+    <div class="invalid-feedback">
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le groupe est obligatoire.
+    </div>
+  </div>
+  
+  <div class="mb-3">
     <%= form.label :note, class: "form-label" %>
     <%= form.text_area :note, class: "form-control", rows: 4, placeholder: "Ajoutez une note (facultatif)" %>
   </div>

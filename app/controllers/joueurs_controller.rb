@@ -107,6 +107,6 @@ class JoueursController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def joueur_params
-      params.expect(joueur: [ :nom, :prénom, :sexe, :date_naissance, :note, :parent_id ])
+      params.expect(joueur: [ :nom, :prénom, :sexe, :date_naissance, :note, :parent_id, :groupe_id ])
     end
 end
