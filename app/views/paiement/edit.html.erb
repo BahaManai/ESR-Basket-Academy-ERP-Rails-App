@@ -1,0 +1,89 @@
+<% content_for :title, "Modifier le Paiement" %>
+
+<div>
+  <%= link_to "Retour aux paiements >", paiements_path %>
+</div>
+
+<%= form_with(model: @paiement, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |form| %>
+  <h1>Modifier le paiement :</h1><br>
+  
+  <% if @paiement.errors.any? %>
+    <div class="custom-alert" role="alert">
+      <button type="button" class="close-btn" aria-label="Close" onclick="document.querySelector('.custom-alert').style.display = 'none'">
+        <i class="bi bi-x-lg"></i>
+      </button>
+      <h2>
+        <%= pluralize(@paiement.errors.count, "erreur", "erreurs") %> détectée<%= 's' if @paiement.errors.count > 1 %> :
+      </h2>
+      <ul>
+        <% @paiement.errors.full_messages.each do |message| %>
+          <li style="list-style-type: none;">
+            <i class="bi bi-exclamation-triangle-fill"></i>&nbsp; <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.check_box :etat_abonnement, { checked: false }, 'Crédit', nil %>
+    <%= form.label :etat_abonnement, "Marquer comme Crédit", class: "form-label" %>
+  </div>
+
+  <div style="display: none">
+    <%= form.number_field :joueur_id %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :montant, "Paiement (DT) *", class: "form-label" %>
+    <%= form.number_field :montant, class: "form-control", required: true, min: 0 %>
+    <div class="invalid-feedback">
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le montant est obligatoire et doit être supérieur ou égal à 0.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :date_abonnement, "Date d'abonnement *", style: "display: block" %>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" style="background-color:rgba(119, 169, 223, 0.35)">
+          <i class="bi bi-calendar2-week" style="color: #0069d9;"></i>
+        </span>
+      </div>
+      <%= form.text_field :date_abonnement, class: "form-control datepicker", placeholder: "Date d'abonnement", required: true , autocomplete: "off", title: "Par défaut la date d'expiration + 1" %>
+      <div class="invalid-feedback">
+        <i class="bi bi-exclamation-circle mr-1 ml-1"></i>La date d'abonnement est obligatoire.
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :date_encaissement, "Date d'encaissement", style: "display: block" %>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" style="background-color:rgba(119, 169, 223, 0.35)">
+          <i class="bi bi-calendar2-week" style="color: #0069d9;"></i>
+        </span>
+      </div>
+      <%= form.text_field :date_encaissement, class: "form-control datepicker", placeholder: "Date d'encaissement", autocomplete: "off" %>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :num_recu, "Numéro de reçu *", class: "form-label" %>
+    <%= form.number_field :num_recu, class: "form-control", required: true, min: 0, value: @next_num_recu %>
+    <div class="invalid-feedback">
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le numéro de reçu est obligatoire et doit être supérieur ou égal à 0.
+    </div>
+  </div>
+
+  <div>
+    <%= form.submit "Confirmer", class: "btn btn-primary" %>
+  </div>
+
+<% end %>
+
+<div class="new_forms">
+  <hr>
+  <%= button_to "Supprimer ce paiement", @paiement, method: :delete, data: { controller: "confirm", confirm_message: "Êtes-vous sûr de supprimer ce paiement définitivement ?" }, class: "btn btn-danger", style: "float:right" %>
+</div>

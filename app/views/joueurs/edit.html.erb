@@ -151,10 +151,11 @@
 
     </div>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered table-sm">
       <thead class="thead-light">
         <tr>
           <th>Paiement</th>
+          <th>Reçu</th>
           <th>Date d'abonnement</th>
           <th>Date d'encaissement</th>
           <th>Expire</th>
@@ -179,6 +180,7 @@
             end
           %>">
             <td><%= paiement.montant %>&nbspDT</td>
+            <td><%= paiement.num_recu %></td>
             <td>
               <%= "#{paiement.date_abonnement.strftime('%d')} #{I18n.t('date.month_names_short')[paiement.date_abonnement.month]}, #{paiement.date_abonnement.strftime('%Y')}" if paiement.date_abonnement %>
             </td>
@@ -202,7 +204,7 @@
             </td>
             <td>
               <div class="d-flex align-items-center">
-                <%= button_to 'Delete', paiement_path(paiement), method: :delete, data: { controller: "confirm", confirm_message: "Êtes-vous sûr de supprimer le paiement ?" }, class: "btn btn-danger btn-sm me-2" %>&nbsp
+                <%= link_to 'Modifier', edit_paiement_path(paiement), class: "btn btn-primary btn-sm me-2"%>&nbsp
                 <% if paiement.etat_abonnement == 'Crédit' %>
                   <%= form_with(model: paiement, method: :patch, local: true) do |form| %>
                     <%= form.hidden_field :joueur_id, value: paiement.joueur_id %>
@@ -308,7 +310,7 @@
 
             <td>
               <div class="d-flex align-items-center">
-                <%= button_to 'Delete', assurance_path(assurance), method: :delete, data: { controller: "confirm", confirm_message: "Êtes-vous sûr de supprimer l'assurance ?" }, class: "btn btn-danger btn-sm me-2" %>&nbsp
+                <%= button_to 'Supprimer', assurance_path(assurance), method: :delete, data: { controller: "confirm", confirm_message: "Êtes-vous sûr de supprimer l'assurance ?" }, class: "btn btn-danger btn-sm me-2" %>&nbsp
                 <% if assurance.etat_paiement == 'Crédit' %>
                   <%= form_with(model: assurance, method: :patch, local: true) do |form| %>
                     <%= form.hidden_field :joueur_id, value: assurance.joueur_id %>
@@ -400,7 +402,7 @@
             <td><%= achat.designation %></td>
             <td>
               <div class="d-flex align-items-center">
-                <%= button_to 'Delete', achat_path(achat), method: :delete, data: { controller: "confirm", confirm_message: "Êtes-vous sûr de supprimer l'achat ?" }, class: "btn btn-danger btn-sm me-2" %>&nbsp
+                <%= button_to 'Supprimer', achat_path(achat), method: :delete, data: { controller: "confirm", confirm_message: "Êtes-vous sûr de supprimer l'achat ?" }, class: "btn btn-danger btn-sm me-2" %>&nbsp
                 <% if achat.etat_paiement == 'Crédit' %>
                   <%= form_with(model: achat, method: :patch, local: true) do |form| %>
                     <%= form.hidden_field :joueur_id, value: achat.joueur_id %>

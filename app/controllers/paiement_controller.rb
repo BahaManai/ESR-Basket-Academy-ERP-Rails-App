@@ -1,5 +1,5 @@
 class PaiementController < ApplicationController
-  before_action :set_paiement, only: %i[ destroy update]
+  before_action :set_paiement, only: %i[edit destroy update]
   def index
     # trouver l'identifiant maximum du dernier paiement (MAX(p2.id)) pour chaque joueur.
     @paiements = case params[:filter]
@@ -47,6 +47,8 @@ class PaiementController < ApplicationController
     end
   end
 
+  def edit
+  end
 
   def update
     if @paiement.update(paiement_params)

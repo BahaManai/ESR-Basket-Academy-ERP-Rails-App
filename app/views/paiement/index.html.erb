@@ -11,6 +11,7 @@
 <table class="table table-bordered datatable">
   <thead class="thead-light">
     <tr>
+      <th>ID</th>
       <th>Nom du Joueur</th>
       <th>Date d'Abonnement</th>
       <th>Date d'Encaissement</th>
@@ -35,6 +36,7 @@
               'etat_passé'
             end
           %>">
+        <td><%= paiement.id %></td>
         <td><%= paiement.joueur ? "#{paiement.joueur.prénom} #{paiement.joueur.nom}" : "Joueur inconnu" %></td>
         <td><%= "#{paiement.date_abonnement.strftime('%d')} #{I18n.t('date.month_names_short')[paiement.date_abonnement.month]}, #{paiement.date_abonnement.strftime('%Y')}" if paiement.date_abonnement %></td>
         <td><%= "#{paiement.date_encaissement.strftime('%d')} #{I18n.t('date.month_names_short')[paiement.date_encaissement.month]}, #{paiement.date_encaissement.strftime('%Y')}" if paiement.date_encaissement %></td>
