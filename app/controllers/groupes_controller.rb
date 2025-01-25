@@ -17,37 +17,48 @@ class GroupesController < ApplicationController
 
   def create
     @groupe = Groupe.new(groupe_params)
-    if @groupe.save
-      redirect_to @groupe, notice: "Le groupe a été créé avec succès."
-    else
-      render :new
+    respond_to do |format|
+      if @groupe.save
+        format.html { redirect_to groupes_path, notice: "Le groupe a été créé avec succès." }
+        format.json { render :show, status: :created, location: @groupe }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @groupe.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def edit
-    @entraineurs = Entraineur.all
   end
 
   def update
-    if @groupe.update(groupe_params)
-      redirect_to @groupe, notice: "Le groupe a été mis à jour avec succès."
-    else
-      render :edit
+    respond_to do |format|
+      if @groupe.update(groupe_params)
+        format.html { redirect_to groupes_path, notice: "Le groupe a été mis à jour avec succès." }
+        format.json { render :show, status: :ok, location: @groupe }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @groupe.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
-    @groupe.destroy
-    redirect_to groupes_path, notice: "Le groupe a été supprimé avec succès."
+    @groupe.destroy!
+
+    respond_to do |format|
+      format.html { redirect_to groupes_path, status: :see_other, notice: "Le groupe a été supprimé avec succès." }
+      format.json { head :no_content }
+    end
   end
 
   private
 
   def set_groupe
-    @groupe = Groupe.find(params[:id])
+    @groupe = Groupe.find(params.expect(:id))
   end
 
   def groupe_params
-    params.require(:groupe).permit(:heure_debut, :heure_fin, :jour, :terrain, :age_min, :age_max, :entraineur_id)
+    params.expect(groupe: [ :heure_debut, :heure_fin, :jour, :terrain, :age_min, :age_max, :entraineur_id ])
   end
 end
