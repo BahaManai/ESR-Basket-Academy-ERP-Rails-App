@@ -38,10 +38,19 @@ class AchatController < ApplicationController
 
 
   def update
-    if @achat.update(achat_params)
-      redirect_to achats_path, notice: "L'état de paiement a été mis à jour."
-    else
-      redirect_to achats_path, alert: "Une erreur est survenue lors de la mise à jour."
+    respond_to do |format|
+      if @achat.update(achat_params)
+        format.html { redirect_to "/joueurs/#{@achat.joueur_id}/edit", notice: "L'état de paiement de l'achat a été mis à jour avec succès." }
+        format.json { render :edit, status: :ok, location: @achat }
+      else
+        format.html do
+          error_messages = @achat.errors.full_messages.map { |msg| "<li style='list-style-type: none;'><i class='bi bi-exclamation-triangle-fill'></i>&nbsp;#{msg}</li>" }.join
+          alert_message = "<h2>Erreur lors de la mise à jour de achat :</h2><ul>#{error_messages}</ul>"
+
+          redirect_to "/joueurs/#{@achat.joueur_id}/edit", alert: alert_message.html_safe
+        end
+        format.json { render json: @achat.errors, status: :unprocessable_entity }
+      end
     end
   end
 

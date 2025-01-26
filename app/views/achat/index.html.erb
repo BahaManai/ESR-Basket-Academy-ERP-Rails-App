@@ -26,21 +26,13 @@
         <td><%= achat.designation %></td>
         <td><%= achat.prix %>&nbspDT</td>
         <td><%= "#{achat.date_achat.strftime('%d')} #{I18n.t('date.month_names_short')[achat.date_achat.month]}, #{achat.date_achat.strftime('%Y')}" if achat.date_achat %></td>
-        <td>
-        <% if achat.etat_paiement == 'Crédit' %>
-          <%= form_with(model: achat, method: :patch, local: true) do |form| %>
-            <%= form.hidden_field :joueur_id, value: achat.joueur_id %>
-            <%= form.hidden_field :designation, value: achat.designation %>
-            <%= form.hidden_field :prix, value: achat.prix %>
-            <%= form.hidden_field :date_achat, value: achat.date_achat %>
-            <%= form.hidden_field :etat_paiement, value: 'Non crédit' %>
-            <%= form.submit 'Payer', class: "btn btn-success btn-sm", data: { controller: "confirm", confirm_message: "Êtes-vous sûr de changer l'état de paiement à non crédit ?" } %>
-          <% end %>
-        <% else %>
-        <button class="btn btn-secondary btn-sm" disabled>Payé</button>
-        <% end %>
-      </td>
-
+      <td style="text-align:center" class="<%= 
+        if achat.etat_paiement == 'Crédit'
+          'etat_crédit'
+        else
+          ''
+        end
+      %>"><%= achat.etat_paiement %></td>
       </tr>
     <% end %>
   </tbody>

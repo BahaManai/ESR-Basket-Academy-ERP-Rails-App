@@ -51,10 +51,19 @@ class PaiementController < ApplicationController
   end
 
   def update
-    if @paiement.update(paiement_params)
-      redirect_to paiements_path, notice: "L'état de paiement a été mis à jour."
-    else
-      redirect_to paiements_path, alert: "Une erreur est survenue lors de la mise à jour."
+    respond_to do |format|
+      if @paiement.update(paiement_params)
+        format.html { redirect_to "/joueurs/#{@paiement.joueur_id}/edit", notice: "L'abonnement a été mis à jour avec succès." }
+        format.json { render :edit, status: :ok, location: @paiement }
+      else
+        format.html do
+          error_messages = @paiement.errors.full_messages.map { |msg| "<li style='list-style-type: none;'><i class='bi bi-exclamation-triangle-fill'></i>&nbsp;#{msg}</li>" }.join
+          alert_message = "<h2>Erreur lors de la mise à jour de paiement :</h2><ul>#{error_messages}</ul>"
+
+          redirect_to "/joueurs/#{@paiement.joueur_id}/edit", alert: alert_message.html_safe
+        end
+        format.json { render json: @paiement.errors, status: :unprocessable_entity }
+      end
     end
   end
 

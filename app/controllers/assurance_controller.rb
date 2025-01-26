@@ -34,10 +34,19 @@ class AssuranceController < ApplicationController
 
 
   def update
-    if @assurance.update(assurance_params)
-      redirect_to assurances_path, notice: "L'état de paiement a été mis à jour."
-    else
-      redirect_to assurances_path, alert: "Une erreur est survenue lors de la mise à jour."
+    respond_to do |format|
+      if @assurance.update(assurance_params)
+        format.html { redirect_to "/joueurs/#{@assurance.joueur_id}/edit", notice: "L'état de paiement de l'assurance a été mis à jour avec succès." }
+        format.json { render :edit, status: :ok, location: @assurance }
+      else
+        format.html do
+          error_messages = @assurance.errors.full_messages.map { |msg| "<li style='list-style-type: none;'><i class='bi bi-exclamation-triangle-fill'></i>&nbsp;#{msg}</li>" }.join
+          alert_message = "<h2>Erreur lors de la mise à jour de assurance :</h2><ul>#{error_messages}</ul>"
+
+          redirect_to "/joueurs/#{@assurance.joueur_id}/edit", alert: alert_message.html_safe
+        end
+        format.json { render json: @assurance.errors, status: :unprocessable_entity }
+      end
     end
   end
 

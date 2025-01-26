@@ -24,22 +24,13 @@
 
         <td><%= assurance.montant %>&nbspDT</td>
         <td><%= "#{assurance.date_paiement.strftime('%d')} #{I18n.t('date.month_names_short')[assurance.date_paiement.month]}, #{assurance.date_paiement.strftime('%Y')}" if assurance.date_paiement %></td>
-
-        <td>
-          <% if assurance.etat_paiement == 'Crédit' %>
-            <%= form_with(model: assurance, method: :patch, local: true) do |form| %>
-              <%= form.hidden_field :joueur_id, value: assurance.joueur_id %>
-              <%= form.hidden_field :saison_id, value: assurance.saison_id %>
-              <%= form.hidden_field :montant, value: assurance.montant %>
-              <%= form.hidden_field :date_paiement, value: assurance.date_paiement %>
-              <%= form.hidden_field :etat_paiement, value: 'Non crédit' %>
-              <%= form.submit 'Payer', class: "btn btn-success btn-sm", data: { controller: "confirm", confirm_message: "Êtes-vous sûr de changer l'état de paiement à non crédit ?" } %>
-            <% end %>
-          <% else %>
-            <button class="btn btn-secondary btn-sm" disabled>Payé</button>
-          <% end %>
-        </td>
-
+        <td style="text-align:center" class="<%= 
+          if assurance.etat_paiement == 'Crédit'
+            'etat_crédit'
+          else
+            ''
+          end
+        %>"><%= assurance.etat_paiement %></td>
       </tr>
     <% end %>
   </tbody>

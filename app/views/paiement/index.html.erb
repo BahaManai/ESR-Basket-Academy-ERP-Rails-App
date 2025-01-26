@@ -19,7 +19,6 @@
       <th>Paiement</th>
       <th>N° reçu</th>
       <th>Etat de paiement</th>
-      <th>Payer</th>
     </tr>
   </thead>
   <tbody>
@@ -78,27 +77,6 @@
           ''
         end
       %>"><%= paiement.etat_abonnement %></td>
-        <td class="<%= 
-        if paiement.etat_abonnement == 'Crédit'
-          'etat_crédit'
-        else
-          ''
-        end
-      %>">
-          <% if paiement.etat_abonnement == 'Crédit' %>
-            <%= form_with(model: paiement, method: :patch, local: true) do |form| %>
-              <%= form.hidden_field :joueur_id, value: paiement.joueur_id %>
-              <%= form.hidden_field :montant, value: paiement.montant %>
-              <%= form.hidden_field :date_abonnement, value: paiement.date_abonnement %>
-              <%= form.hidden_field :date_encaissement, value: paiement.date_encaissement %>
-              <%= form.hidden_field :etat_abonnement, value: 'Non crédit' %>
-              <%= form.submit 'Payer', class: "btn btn-success btn-sm", data: { controller: "confirm", confirm_message: "Êtes-vous sûr de changer l'état de paiement à non crédit ?" } %>
-            <% end %>
-          <% else %>
-            <button class="btn btn-secondary btn-sm" disabled>Payé</button>
-          <% end %>
-        </td>
-
       </tr>
     <% end %>
   </tbody>

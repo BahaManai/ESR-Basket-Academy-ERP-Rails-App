@@ -1,7 +1,8 @@
 <% content_for :title, "Modifier le Paiement" %>
 
 <div>
-  <%= link_to "Retour aux paiements >", paiements_path %>
+  <%= link_to "Fiche de joueur >", edit_joueur_path(@paiement.joueur) %><br>
+  <%= link_to "Paiements >", paiements_path %>
 </div>
 
 <%= form_with(model: @paiement, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |form| %>
@@ -26,12 +27,8 @@
   <% end %>
 
   <div class="mb-3">
-    <%= form.check_box :etat_abonnement, { checked: false }, 'Crédit', nil %>
+    <%= form.check_box :etat_abonnement, { data: { controller: "confirm", confirm_message: "Êtes-vous sûr de changer l'état de paiement ?" } }, 'Crédit', 'Non crédit' %>
     <%= form.label :etat_abonnement, "Marquer comme Crédit", class: "form-label" %>
-  </div>
-
-  <div style="display: none">
-    <%= form.number_field :joueur_id %>
   </div>
 
   <div class="mb-3">
@@ -71,14 +68,14 @@
 
   <div class="mb-3">
     <%= form.label :num_recu, "Numéro de reçu *", class: "form-label" %>
-    <%= form.number_field :num_recu, class: "form-control", required: true, min: 0, value: @next_num_recu %>
+    <%= form.number_field :num_recu, class: "form-control", required: true, min: 0 %>
     <div class="invalid-feedback">
       <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le numéro de reçu est obligatoire et doit être supérieur ou égal à 0.
     </div>
   </div>
 
   <div>
-    <%= form.submit "Confirmer", class: "btn btn-primary" %>
+    <%= form.submit "Enregistrer", class: "btn btn-primary" %>
   </div>
 
 <% end %>
