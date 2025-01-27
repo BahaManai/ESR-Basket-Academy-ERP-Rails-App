@@ -1,3 +1,4 @@
+require "csv"
 class JoueursController < ApplicationController
   before_action :set_joueur, only: %i[ edit update destroy ]
 
@@ -92,6 +93,67 @@ class JoueursController < ApplicationController
     respond_to do |format|
       format.html { redirect_to joueurs_path, status: :see_other, notice: "Le joueur a été supprimé avec succès." }
       format.json { head :no_content }
+    end
+  end
+
+  def export_csv
+    @saison = Saison.actuelle
+    @records = case params[:filter]
+    when "active"
+        Joueur.joins(:paiements).where(
+          "date(paiements.date_abonnement, '+30 days') >= ? AND paiements.id = (
+            SELECT MAX(p2.id) FROM paiements p2 WHERE p2.joueur_id = joueurs.id
+          )",
+          Date.today
+        )
+    when "expired"
+        Joueur.joins(:paiements).where(
+          "date(paiements.date_abonnement, '+30 days') < ? AND paiements.id = (
+            SELECT MAX(p2.id) FROM paiements p2 WHERE p2.joueur_id = joueurs.id
+          )",
+          Date.today
+        )
+    when "credit"
+        Joueur.joins("LEFT JOIN paiements ON paiements.joueur_id = joueurs.id")
+              .joins("LEFT JOIN assurances ON assurances.joueur_id = joueurs.id")
+              .joins("LEFT JOIN achats ON achats.joueur_id = joueurs.id")
+              .group("joueurs.id")
+              .having(
+                "SUM(CASE WHEN paiements.etat_abonnement = 'Crédit' THEN paiements.montant ELSE 0 END) +
+                SUM(CASE WHEN assurances.etat_paiement = 'Crédit' THEN assurances.montant ELSE 0 END) +
+                SUM(CASE WHEN achats.etat_paiement = 'Crédit' THEN achats.prix ELSE 0 END) > 0"
+              )
+    else
+        Joueur.all
+    end
+
+    @records = @records.includes(:paiements).sort_by(&:prénom)
+
+    csv_data = CSV.generate(headers: true) do |csv|
+      csv << [ "Nom du joueur", "Dernier abonnement", "Date d'encaissement", "Date d'expiration", "Assurance", "Credits" ]
+
+      @records.each do |record|
+        dernier_paiement = record.paiements.last
+        assurance_status = if record.assurances.any? { |assurance| assurance.saison_id == @saison.id }
+                             assurance_actuelle = record.assurances.find { |assurance| assurance.saison_id == @saison.id }
+                             assurance_actuelle.etat_paiement == "Crédit" ? "Credit" : "Payee"
+        else
+                             "Non payee"
+        end
+
+        csv << [
+          "#{record.prénom} #{record.nom}",
+          (dernier_paiement ? "#{dernier_paiement.date_abonnement.strftime('%d/%m/%Y')} (#{dernier_paiement.montant.to_i} DT)" : "Aucun paiement"),
+          (dernier_paiement&.date_encaissement ? dernier_paiement.date_encaissement.strftime("%d/%m/%Y") : ""),
+          (dernier_paiement ? (dernier_paiement.date_abonnement + 30.days).strftime("%d/%m/%Y") : ""),
+          assurance_status,
+          "#{record.somme_des_credits} DT"
+        ]
+      end
+    end
+
+    respond_to do |format|
+      format.csv { send_data csv_data, filename: "ESR_Academy_#{params[:filter]}Joueurs-#{Date.today}.csv" }
     end
   end
 

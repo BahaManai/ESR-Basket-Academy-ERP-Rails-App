@@ -28,6 +28,20 @@ fr:
       - Oct
       - Nov
       - Déc
+    month_names_short_csv:
+      - ~
+      - Jan
+      - Fev
+      - Mar
+      - Avr
+      - Mai
+      - Juin
+      - Juil
+      - Aou
+      - Sep
+      - Oct
+      - Nov
+      - Dec
     abbr_month_names:
       - ~ 
       - Jan

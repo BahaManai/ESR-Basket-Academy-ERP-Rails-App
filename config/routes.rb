@@ -20,25 +20,33 @@ Rails.application.routes.draw do
   post "/paiements", to: "paiement#create"
   patch "paiements/:id", to: "paiement#update", as: "update_paiement"
   get "paiements/:id/edit", to: "paiement#edit", as: "edit_paiement"
+  get "paiements/export_csv", to: "paiement#export_csv", as: "export_csv_paiements"
 
   get "assurances", to: "assurance#index", as: "assurances"
   delete "assurances/:id", to: "assurance#destroy", as: "assurance"
   get "/assurances/new", to: "assurance#new", as: "new_assurance"
   post "/assurances", to: "assurance#create"
   patch "assurances/:id", to: "assurance#update", as: "update_assurance"
+  get "assurances/export_csv", to: "assurance#export_csv", as: "export_csv_assurances"
 
   get "achats", to: "achat#index", as: "achats"
   delete "achats/:id", to: "achat#destroy", as: "achat"
   get "/achats/new", to: "achat#new", as: "new_achat"
   post "/achats", to: "achat#create"
   patch "achats/:id", to: "achat#update", as: "update_achat"
+  get "achats/export_csv", to: "achat#export_csv", as: "export_csv_achats"
+
 
   resources :saisons, except: [ :show ]
   resources :parents, except: [ :show ]
   resources :depenses, except: [ :show ]
   get "dashbord/index"
   resources :entraineurs, except: [ :show ]
-  resources :joueurs, except: [ :show ]
+  resources :joueurs, except: [ :show ] do
+    collection do
+      get :export_csv
+    end
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

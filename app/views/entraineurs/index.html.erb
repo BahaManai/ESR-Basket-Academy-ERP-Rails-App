@@ -30,7 +30,7 @@
   <%= link_to 'Non payés', request.path + "?" + request.query_parameters.merge(filter: 'nonpayes').to_query, class: 'btn btn-danger btn-sm' %>
 </div>
 
-<table class="table table-striped table-bordered datatable">
+<table class="table table-bordered datatable table-hover table-sm">
   <thead class="thead-light">
     <tr>
       <th>ID</th>

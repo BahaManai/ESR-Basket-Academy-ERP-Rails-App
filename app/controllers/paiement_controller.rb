@@ -1,3 +1,4 @@
+require "csv"
 class PaiementController < ApplicationController
   before_action :set_paiement, only: %i[edit destroy update]
   def index
@@ -74,6 +75,52 @@ class PaiementController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def export_csv
+    @records = case params[:filter]
+    when "active"
+      Paiement.joins(:joueur).where(
+        "date(paiements.date_abonnement, '+30 days') >= ? AND paiements.id = (
+          SELECT MAX(p2.id) FROM paiements p2 WHERE p2.joueur_id = paiements.joueur_id
+        )",
+        Date.today
+        )
+    when "expired"
+      Paiement.joins(:joueur).where(
+        "date(paiements.date_abonnement, '+30 days') < ? AND paiements.id = (
+          SELECT MAX(p2.id) FROM paiements p2 WHERE p2.joueur_id = paiements.joueur_id
+        )",
+        Date.today
+        )
+    when "credit"
+      Paiement.where(etat_abonnement: "Crédit")
+    else
+      Paiement.all
+    end
+
+    csv_data = CSV.generate(headers: true) do |csv|
+      csv << [ "Nom du joueur", "Date d'abonnement", "Date d'encaissement", "Date d'expiration", "Paiement", "Numero de recu", "Etat de paiement" ]
+      @records.reverse.each do |record|
+        etat_abonnement = case record.etat_abonnement
+        when "Crédit"
+              "Credit"
+        when "Non crédit"
+              "Non credit"
+        end
+        csv << [ "#{record.joueur.prénom} #{record.joueur.nom}",
+                record.date_abonnement,
+                record.date_encaissement,
+                record.date_abonnement + 30.days,
+                "#{record.montant} DT",
+                record.num_recu,
+                etat_abonnement ]
+      end
+    end
+    respond_to do |format|
+      format.csv { send_data csv_data, filename: "ESR_Academy_#{params[:filter]}Paiements-#{Date.today}.csv" }
+    end
+  end
+
 
   private
 

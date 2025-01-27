@@ -5,8 +5,11 @@
   <%= link_to 'Tous', achats_path, class: 'btn btn-primary btn-sm' %>
   <%= link_to 'Crédits', achats_path(filter: 'credit'), class: 'btn btn-warning btn-sm' %>
 </div>
+<%= link_to export_csv_achats_path(format: :csv, filter: params[:filter]), class: 'btn btn-info btn-sm float-right' do %>
+  <i class="bi bi-download"></i> Télécharger CSV
+<% end %><br>
 
-<table class="table table-bordered datatable">
+<table class="table table-bordered datatable table-hover table-sm">
   <thead class="thead-light">
     <tr>
       <th>Nom du Joueur</th>

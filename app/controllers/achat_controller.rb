@@ -1,3 +1,4 @@
+require "csv"
 class AchatController < ApplicationController
   before_action :set_achat, only: %i[destroy update]
 
@@ -59,6 +60,35 @@ class AchatController < ApplicationController
     respond_to do |format|
       format.html { redirect_to "/joueurs/#{@achat.joueur_id}/edit", status: :see_other, notice: "L'achat a été supprimé avec succès." }
       format.json { head :no_content }
+    end
+  end
+
+  def export_csv
+    @records = case params[:filter]
+    when "credit"
+      Achat.where(etat_paiement: "Crédit")
+    else
+      Achat.all
+    end
+
+    csv_data = CSV.generate(headers: true) do |csv|
+      csv << [ "Nom du joueur", "Designation", "Prix", "Date d'achat", "Etat de paiement" ]
+      @records.reverse.each do |record|
+        etat_abonnement = case record.etat_paiement
+        when "Crédit"
+              "Credit"
+        when "Non crédit"
+              "Non credit"
+        end
+        csv << [ "#{record.joueur.prénom} #{record.joueur.nom}",
+                record.designation,
+                "#{record.prix} DT",
+                record.date_achat,
+                etat_abonnement ]
+      end
+    end
+    respond_to do |format|
+      format.csv { send_data csv_data, filename: "ESR_Academy_#{params[:filter]}Achats-#{Date.today}.csv" }
     end
   end
 

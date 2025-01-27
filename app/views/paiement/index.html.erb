@@ -8,10 +8,13 @@
   <%= link_to 'Crédit', paiements_path(filter: 'credit'), class: 'btn btn-warning btn-sm' %>
 </div>
 
-<table class="table table-bordered datatable">
+<%= link_to export_csv_paiements_path(format: :csv, filter: params[:filter]), class: 'btn btn-info btn-sm float-right' do %>
+  <i class="bi bi-download"></i> Télécharger CSV
+<% end %><br>
+
+<table class="table table-bordered datatable table-hover table-sm">
   <thead class="thead-light">
     <tr>
-      <th>ID</th>
       <th>Nom du Joueur</th>
       <th>Date d'Abonnement</th>
       <th>Date d'Encaissement</th>
@@ -35,7 +38,6 @@
               'etat_passé'
             end
           %>">
-        <td><%= paiement.id %></td>
         <td><%= paiement.joueur ? "#{paiement.joueur.prénom} #{paiement.joueur.nom}" : "Joueur inconnu" %></td>
         <td><%= "#{paiement.date_abonnement.strftime('%d')} #{I18n.t('date.month_names_short')[paiement.date_abonnement.month]}, #{paiement.date_abonnement.strftime('%Y')}" if paiement.date_abonnement %></td>
         <td><%= "#{paiement.date_encaissement.strftime('%d')} #{I18n.t('date.month_names_short')[paiement.date_encaissement.month]}, #{paiement.date_encaissement.strftime('%Y')}" if paiement.date_encaissement %></td>

@@ -7,8 +7,11 @@
   <%= link_to 'Expiré', joueurs_path(filter: 'expired'), class: 'btn btn-danger btn-sm' %>
   <%= link_to 'Crédit', joueurs_path(filter: 'credit'), class: 'btn btn-warning btn-sm' %>
 </div>
+<%= link_to export_csv_joueurs_path(format: :csv, filter: params[:filter]), class: 'btn btn-info btn-sm float-right' do %>
+  <i class="bi bi-download"></i> Télécharger CSV
+<% end %><br>
 
-<table class="table table-bordered datatable" id="joueurs">
+<table class="table table-bordered datatable table-hover table-sm" id="joueurs">
   <thead class="thead-light">
     <tr>
       <th>ID</th>

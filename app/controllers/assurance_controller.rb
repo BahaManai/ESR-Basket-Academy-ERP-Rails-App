@@ -1,3 +1,4 @@
+require "csv"
 class AssuranceController < ApplicationController
   before_action :set_assurance, only: %i[destroy update]
 
@@ -55,6 +56,35 @@ class AssuranceController < ApplicationController
     respond_to do |format|
       format.html { redirect_to "/joueurs/#{@assurance.joueur_id}/edit", status: :see_other, notice: "L'assurance a été supprimée avec succès." }
       format.json { head :no_content }
+    end
+  end
+
+  def export_csv
+    @records = case params[:filter]
+    when "credit"
+      Assurance.where(etat_paiement: "Crédit")
+    else
+      Assurance.all
+    end
+
+    csv_data = CSV.generate(headers: true) do |csv|
+      csv << [ "Nom du joueur", "Saison", "Montant", "Date de paiement", "Etat de paiement" ]
+      @records.reverse.each do |record|
+        etat_abonnement = case record.etat_paiement
+        when "Crédit"
+              "Credit"
+        when "Non crédit"
+              "Non credit"
+        end
+        csv << [ "#{record.joueur.prénom} #{record.joueur.nom}",
+                "#{record.saison.date_debut.strftime('%d')} #{I18n.t('date.month_names_short_csv')[record.saison.date_debut.month]} #{record.saison.date_debut.strftime('%Y')} - #{record.saison.date_fin.strftime('%d')} #{I18n.t('date.month_names_short_csv')[record.saison.date_fin.month]} #{record.saison.date_fin.strftime('%Y')}",
+                "#{record.montant} DT",
+                record.date_paiement,
+                etat_abonnement ]
+      end
+    end
+    respond_to do |format|
+      format.csv { send_data csv_data, filename: "ESR_Academy_#{params[:filter]}Assurances-#{Date.today}.csv" }
     end
   end
 
