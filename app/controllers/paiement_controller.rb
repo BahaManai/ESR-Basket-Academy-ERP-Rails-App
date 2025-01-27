@@ -99,7 +99,7 @@ class PaiementController < ApplicationController
     end
 
     csv_data = CSV.generate(headers: true) do |csv|
-      csv << [ "Nom du joueur", "Date d'abonnement", "Date d'encaissement", "Date d'expiration", "Paiement", "Numero de recu", "Etat de paiement" ]
+      csv << [ "Nom du joueur", "Date d'abonnement", "Montant", "Numero de recu", "Etat de paiement" ]
       @records.reverse.each do |record|
         etat_abonnement = case record.etat_abonnement
         when "Crédit"
@@ -109,8 +109,6 @@ class PaiementController < ApplicationController
         end
         csv << [ "#{record.joueur.prénom} #{record.joueur.nom}",
                 record.date_abonnement,
-                record.date_encaissement,
-                record.date_abonnement + 30.days,
                 "#{record.montant} DT",
                 record.num_recu,
                 etat_abonnement ]

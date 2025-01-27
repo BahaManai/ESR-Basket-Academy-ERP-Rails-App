@@ -125,19 +125,6 @@ function onChangeSaisonMontant() {
     }
 }
 
-function initializeNewSalaireForm() {
-    const entraineurSelect = document.getElementById("salaire_entraineur_id");
-    const salaireField = document.getElementById("salaire-field");
-
-    if (entraineurSelect && salaireField) {
-        entraineurSelect.addEventListener("change", function () {
-            const selectedOption = entraineurSelect.options[entraineurSelect.selectedIndex];
-            const salaire = selectedOption.dataset.salaire;
-            salaireField.value = salaire || "";
-        });
-    }
-}
-
 function bootstrapValidation() {
     'use strict'
 
@@ -192,10 +179,6 @@ document.addEventListener("turbo:load", onChangeSaisonMontant);
 document.addEventListener("DOMContentLoaded", initializeFlatpickr);
 document.addEventListener("turbo:frame-load", initializeFlatpickr);
 document.addEventListener("turbo:load", initializeFlatpickr);
-
-document.addEventListener("DOMContentLoaded", initializeNewSalaireForm);
-document.addEventListener("turbo:frame-load", initializeNewSalaireForm);
-document.addEventListener("turbo:load", initializeNewSalaireForm);
 
 document.addEventListener("DOMContentLoaded", initializeNewSalaireForm2);
 document.addEventListener("turbo:frame-load", initializeNewSalaireForm2);

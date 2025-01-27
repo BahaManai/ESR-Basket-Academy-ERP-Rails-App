@@ -50,7 +50,8 @@ class JoueursController < ApplicationController
     @achat = Achat.new
     @saison = Saison.actuelle
     @used_seasons = Assurance.where(joueur_id: @joueur.id).pluck(:saison_id)
-    @next_num_recu = Paiement.last.num_recu + 1
+    last_valid_paiement = Paiement.where.not(num_recu: nil).last
+    @next_num_recu = last_valid_paiement.present? ? last_valid_paiement.num_recu + 1 : 1
   end
 
   # POST /joueurs or /joueurs.json

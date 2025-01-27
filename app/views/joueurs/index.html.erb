@@ -8,11 +8,11 @@
   <%= link_to 'Crédit', joueurs_path(filter: 'credit'), class: 'btn btn-warning btn-sm' %>
 </div>
 <%= link_to export_csv_joueurs_path(format: :csv, filter: params[:filter]), class: 'btn btn-info btn-sm float-right' do %>
-  <i class="bi bi-download"></i> Télécharger CSV
+  <i class="bi bi-download"></i> Exporter en CSV
 <% end %><br>
 
 <table class="table table-bordered datatable table-hover table-sm" id="joueurs">
-  <thead class="thead-light">
+  <thead class="table-primary" style ="color:rgb(2, 30, 144)">
     <tr>
       <th>ID</th>
       <th>Nom du joueur</th>
@@ -41,7 +41,9 @@
         end
       %>">
         <td><%= joueur.id %></td>
-        <td><%= "#{joueur.prénom} #{joueur.nom}" %></td>
+        <td><%= link_to edit_joueur_path(joueur), class: "custom-dark" do %>
+              <%= "#{joueur.prénom} #{joueur.nom}" %>
+            <% end %></td>
         <td style="text-align:center"><%= joueur.age if joueur.date_naissance %></td>
         <td>
           <% if joueur.parent %>

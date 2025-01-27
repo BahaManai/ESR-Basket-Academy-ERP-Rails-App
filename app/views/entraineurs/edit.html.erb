@@ -68,9 +68,9 @@
           <%= form.number_field :entraineur_id, value: @entraineur.id , style: "display: none" %>
         </div>
 
-        <div style="display: none">
-          <%= form.label :salaire, style: "display: none" %>
-          <%= form.text_field :salaire, value: @entraineur.salaire, style: "display: none" %>
+        <div>
+          <%= form.label :salaire, "Montant (DT) *" %>
+          <%= form.text_field :salaire, value: @entraineur.salaire, required: true %>
         </div>
 
         <div>
@@ -99,8 +99,8 @@
     </div>
 
 
-    <table class="table table-bordered">
-      <thead class="thead-light">
+    <table class="table table-bordered datatable table-hover table-sm">
+      <thead class="table-primary" style ="color:rgb(2, 30, 144)">
         <tr>
           <th>Salaire</th>
           <th>Mois</th>

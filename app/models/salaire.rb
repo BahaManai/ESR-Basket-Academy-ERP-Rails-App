@@ -3,8 +3,8 @@ class Salaire < ApplicationRecord
 
   validates :mois, :annee, presence: true
   validates :salaire, numericality: { greater_than_or_equal_to: 0 }
-  validates :mois, uniqueness: { scope: [ :annee, :entraineur_id ], message: ": Un salaire pour ce mois et cette année existe déjà pour cet entraîneur" }
   validate :date_not_in_future
+  validate :total_salaire_not_exceed_entraineur_salaire
 
   private
 
@@ -15,6 +15,15 @@ class Salaire < ApplicationRecord
 
       if salaire_date > current_date
         errors.add(:base, "La date du salaire ne peut pas être dans le futur")
+      end
+    end
+  end
+
+  def total_salaire_not_exceed_entraineur_salaire
+    if entraineur.present? && mois.present? && annee.present?
+      total_salaire = entraineur.salaires.where(mois: mois, annee: annee).sum(:salaire)
+      if total_salaire + salaire > entraineur.salaire
+        errors.add(:base, "La somme des montants ajoutés pour ce mois ne doit pas dépasser le salaire mensuel de l'entraîneur. Le montant ajouté pour ce mois est #{total_salaire}/#{entraineur.salaire} DT")
       end
     end
   end

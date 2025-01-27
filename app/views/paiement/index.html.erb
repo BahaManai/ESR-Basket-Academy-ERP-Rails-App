@@ -9,11 +9,11 @@
 </div>
 
 <%= link_to export_csv_paiements_path(format: :csv, filter: params[:filter]), class: 'btn btn-info btn-sm float-right' do %>
-  <i class="bi bi-download"></i> Télécharger CSV
+  <i class="bi bi-download"></i> Exporter en CSV
 <% end %><br>
 
 <table class="table table-bordered datatable table-hover table-sm">
-  <thead class="thead-light">
+    <thead class="table-primary" style ="color:rgb(2, 30, 144)">
     <tr>
       <th>Nom du Joueur</th>
       <th>Date d'Abonnement</th>
@@ -38,7 +38,13 @@
               'etat_passé'
             end
           %>">
-        <td><%= paiement.joueur ? "#{paiement.joueur.prénom} #{paiement.joueur.nom}" : "Joueur inconnu" %></td>
+        <td>
+          <% if paiement.joueur %>
+            <%= link_to edit_joueur_path(paiement.joueur), class: "custom-dark" do %>
+              <%= paiement.joueur ? "#{paiement.joueur.prénom} #{paiement.joueur.nom}" : "Joueur inconnu" %>
+            <% end %>
+          <% end %>
+        </td>
         <td><%= "#{paiement.date_abonnement.strftime('%d')} #{I18n.t('date.month_names_short')[paiement.date_abonnement.month]}, #{paiement.date_abonnement.strftime('%Y')}" if paiement.date_abonnement %></td>
         <td><%= "#{paiement.date_encaissement.strftime('%d')} #{I18n.t('date.month_names_short')[paiement.date_encaissement.month]}, #{paiement.date_encaissement.strftime('%Y')}" if paiement.date_encaissement %></td>
         <td> 

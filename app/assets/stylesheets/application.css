@@ -35,7 +35,7 @@
 
 
 .etat_abonnement {
-    background-color: #ffff99;
+    background-color: #ffff99 !important;
 }
 
 .etat_crédit {
@@ -44,12 +44,20 @@
 }
 
 .etat_expiré {
-    background-color: #fab2b2 !important;
+    background-color: #f8bcbc !important;
+}
+
+.etat_expiré:hover {
+    background-color: #f6a8a8 !important;
 }
 
 .etat_passé {
-    background-color: #e0e0e0;
+    background-color: #edeaea !important;
     color: #6d6c6c;
+}
+
+.etat_passé:hover {
+    background-color: #dedbdb !important;
 }
 
 .new_forms {
@@ -238,4 +246,12 @@
     width: 30%;
     padding-right: 30px;
     padding-left: 30px;
+}
+
+.custom-dark {
+    color: #333
+}
+
+.custom-dark:hover {
+    text-decoration: none !important;
 }

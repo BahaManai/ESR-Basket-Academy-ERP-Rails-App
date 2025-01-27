@@ -6,11 +6,11 @@
   <%= link_to 'Crédits', achats_path(filter: 'credit'), class: 'btn btn-warning btn-sm' %>
 </div>
 <%= link_to export_csv_achats_path(format: :csv, filter: params[:filter]), class: 'btn btn-info btn-sm float-right' do %>
-  <i class="bi bi-download"></i> Télécharger CSV
+  <i class="bi bi-download"></i> Exporter en CSV
 <% end %><br>
 
 <table class="table table-bordered datatable table-hover table-sm">
-  <thead class="thead-light">
+  <thead class="table-primary" style ="color:rgb(2, 30, 144)">
     <tr>
       <th>Nom du Joueur</th>
       <th>Désignation</th>
@@ -20,11 +20,15 @@
 
     </tr>
   </thead>
-  <tbody>
+  <tbody class="table-group-divider">
     <% @achats.reverse.each do |achat| %>
       <tr id="<%= dom_id achat %>" class="<%= 'etat_crédit' if achat.etat_paiement == 'Crédit' %>">
         <td>
-          <%= achat.joueur ? "#{achat.joueur.prénom} #{achat.joueur.nom}" : "Joueur inconnu" %>
+          <% if achat.joueur %>
+            <%= link_to edit_joueur_path(achat.joueur), class: "custom-dark" do %>
+              <%= achat.joueur ? "#{achat.joueur.prénom} #{achat.joueur.nom}" : "Joueur inconnu" %>
+            <% end %>
+          <% end %>
         </td>
         <td><%= achat.designation %></td>
         <td><%= achat.prix %>&nbspDT</td>

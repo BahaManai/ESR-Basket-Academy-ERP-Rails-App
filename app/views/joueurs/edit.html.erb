@@ -137,10 +137,10 @@
         </div>
 
         <div class="mb-3">
-          <%= form.label :num_recu, "Numéro de reçu *", class: "form-label" %>
-          <%= form.number_field :num_recu, class: "form-control", required: true, min: 0, value: @next_num_recu %>
+          <%= form.label :num_recu, "Numéro de reçu", class: "form-label" %>
+          <%= form.number_field :num_recu, class: "form-control", min: 0, value: @next_num_recu %>
           <div class="invalid-feedback">
-            <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le numéro de reçu est obligatoire et doit être supérieur ou égal à 0.
+            <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le numéro de reçu doit être supérieur ou égal à 0.
           </div>
         </div>
 
@@ -151,14 +151,13 @@
 
     </div>
 
-    <table class="table table-bordered table-sm">
-      <thead class="thead-light">
+    <table class="table table-bordered datatable table-hover table-sm">
+      <thead class="table-primary" style ="color:rgb(2, 30, 144)">
         <tr>
           <th>Paiement</th>
           <th>Reçu</th>
           <th>Date d'abonnement</th>
-          <th>Date d'encaissement</th>
-          <th>Expire</th>
+          <th>Date d'expiration</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -180,12 +179,9 @@
             end
           %>">
             <td><%= paiement.montant %>&nbspDT</td>
-            <td><%= paiement.num_recu %></td>
+            <td><%= paiement.num_recu if paiement.num_recu %></td>
             <td>
               <%= "#{paiement.date_abonnement.strftime('%d')} #{I18n.t('date.month_names_short')[paiement.date_abonnement.month]}, #{paiement.date_abonnement.strftime('%Y')}" if paiement.date_abonnement %>
-            </td>
-            <td>
-              <%= "#{paiement.date_encaissement.strftime('%d')} #{I18n.t('date.month_names_short')[paiement.date_encaissement.month]}, #{paiement.date_encaissement.strftime('%Y')}" if paiement.date_encaissement %>
             </td>
             <td> 
               <% expiration_date = paiement.date_abonnement + 30.days %>
@@ -292,8 +288,8 @@
 
     </div>
 
-    <table class="table table-bordered">
-      <thead class="thead-light">
+    <table class="table table-bordered datatable table-hover table-sm">
+      <thead class="table-primary" style ="color:rgb(2, 30, 144)">
         <tr>
           <th>Paiement</th>
           <th>Date de paiement</th>
@@ -385,8 +381,8 @@
       <% end %>
     </div>
 
-    <table class="table table-bordered">
-      <thead class="thead-light">
+    <table class="table table-bordered datatable table-hover table-sm">
+      <thead class="table-primary" style ="color:rgb(2, 30, 144)">
         <tr>
           <th>Prix</th>
           <th>Date d'achat</th>
