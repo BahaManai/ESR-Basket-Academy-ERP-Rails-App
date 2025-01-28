@@ -71,13 +71,7 @@
           ''
         end
       %>"><%= paiement.montant %>&nbspDT</td>
-        <td style="text-align:center" class="<%= 
-        if paiement.etat_abonnement == 'Crédit'
-          'etat_crédit'
-        else
-          ''
-        end
-      %>"><%= paiement.num_recu %></td>
+        <td style="text-align:center"><%= paiement.num_recu %></td>
         <td class="<%= 
         if paiement.etat_abonnement == 'Crédit'
           'etat_crédit'

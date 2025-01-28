@@ -33,13 +33,7 @@
         <td><%= achat.designation %></td>
         <td><%= achat.prix %>&nbspDT</td>
         <td><%= "#{achat.date_achat.strftime('%d')} #{I18n.t('date.month_names_short')[achat.date_achat.month]}, #{achat.date_achat.strftime('%Y')}" if achat.date_achat %></td>
-      <td style="text-align:center" class="<%= 
-        if achat.etat_paiement == 'Crédit'
-          'etat_crédit'
-        else
-          ''
-        end
-      %>"><%= achat.etat_paiement %></td>
+      <td style="text-align:center"><%= achat.etat_paiement %></td>
       </tr>
     <% end %>
   </tbody>

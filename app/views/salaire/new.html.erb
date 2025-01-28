@@ -20,9 +20,9 @@
 
   <div class="mb-3">
     <%= form.label :entraineur_id, "Entraîneur *", class: "form-label" %>
-    <%= form.select :entraineur_id, 
-          Entraineur.all.map { |e| ["#{e.prénom} #{e.nom}", e.id] }, 
-          { prompt: "Choisir un entraîneur" }, 
+    <%= form.select :entraineur_id,
+          Entraineur.all.map { |e| ["#{e.prénom} #{e.nom} (#{e.salaire.to_i} DT)", e.id] }, 
+          { prompt: "Entraîneur (salaire mensuel)" },
           { class: "custom-select", required: true } %>
     <div class="invalid-feedback">
       <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le choix de l'entraîneur est obligatoire.
@@ -31,9 +31,9 @@
 
   <div class="mb-3">
     <%= form.label :salaire, "Montant (DT) *", class: "form-label" %>
-    <%= form.number_field :salaire, class: "form-control", placeholder: "Entrez le salaire", required: true, min: "0", step: "10", title: "Le salaire doit être un nombre positif." %>
+    <%= form.number_field :salaire, class: "form-control", placeholder: "Montant (<= salaire mensuel)", required: true, min: "0", step: "10" %>
     <div class="invalid-feedback">
-      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le salaire est obligatoire et doit être un nombre positif.
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le montant est obligatoire et doit être un nombre positif.
     </div>
   </div>
 

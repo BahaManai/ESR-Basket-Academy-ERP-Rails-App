@@ -33,13 +33,7 @@
 
         <td><%= assurance.montant %>&nbspDT</td>
         <td><%= "#{assurance.date_paiement.strftime('%d')} #{I18n.t('date.month_names_short')[assurance.date_paiement.month]}, #{assurance.date_paiement.strftime('%Y')}" if assurance.date_paiement %></td>
-        <td style="text-align:center" class="<%= 
-          if assurance.etat_paiement == 'Crédit'
-            'etat_crédit'
-          else
-            ''
-          end
-        %>"><%= assurance.etat_paiement %></td>
+        <td style="text-align:center"><%= assurance.etat_paiement %></td>
       </tr>
     <% end %>
   </tbody>

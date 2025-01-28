@@ -50,9 +50,6 @@ function initializeSalaireForm() {
                 const [year, month] = monthPicker.value.split("-");
                 moisField.value = parseInt(month, 10);
                 anneeField.value = year;
-            } else {
-                alert("Vous n'avez pas sélectionner un mois et une année.");
-                event.preventDefault();
             }
         });
     }

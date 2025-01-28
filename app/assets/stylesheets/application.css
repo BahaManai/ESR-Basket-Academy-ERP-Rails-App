@@ -39,8 +39,11 @@
 }
 
 .etat_crédit {
-    background-color: #ffff99 !important;
-    color: #333
+    background-color: #fafaa2 !important;
+}
+
+.etat_crédit:hover {
+    background-color: #fefe81 !important;
 }
 
 .etat_expiré {
