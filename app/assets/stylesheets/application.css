@@ -152,6 +152,7 @@
 
 .nav-link {
     display: flex;
+    padding-left: 30px !important;
     align-items: center;
     padding: 10px 15px;
     color: #495057;
@@ -257,4 +258,11 @@
 
 .custom-dark:hover {
     text-decoration: none !important;
+}
+
+#chart-1,
+#chart-2 {
+    margin: auto;
+    padding: 10px;
+    border: 1px solid #ccc;
 }

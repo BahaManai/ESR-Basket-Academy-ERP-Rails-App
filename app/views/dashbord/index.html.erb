@@ -111,8 +111,9 @@
   { name: "Revenus", data: revenues, color: "#3498db" },
   { name: "Dépenses", data: expenses, color: "#e74c3c" }
 ], 
+width: "95%",
 xmin: "Jan #{selected_year}", 
-xmax: "Dec #{selected_year}", 
+xmax: "Dec #{selected_year}",
 xtitle: "Mois", 
 ytitle: "Montant en DT", 
 title: "Revenus et Dépenses mensuels - Année #{selected_year}", 
@@ -230,7 +231,7 @@ download: { filename: "revenus_depenses_#{selected_year}", background: "#ffffff"
       { name: "Total Salaires", data: { "Salaires" => @total_salaires_for_month }},
       { name: "Total Dépenses", data: { "Dépenses" => @total_depenses_for_month }}
     ], 
-    height: "400px", 
+    height: "350px", width: "95%",
     download: { filename: "recette_paiements_#{selected_month}_#{selected_year}", background: "#ffffff" }, 
     title: "Bilan Financier Mensuel - #{I18n.t('date.month_names')[selected_month]} #{selected_year}",
     xtitle: "Catégories", 

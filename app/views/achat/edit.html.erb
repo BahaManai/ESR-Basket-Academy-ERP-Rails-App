@@ -33,7 +33,7 @@
 
   <div class="mb-3">
           <%= form.label :designation, "Désignation *", class: "form-label" %>
-          <%= form.text_field :designation, class: "form-control", required: true %>
+          <%= form.text_field :designation, class: "form-control", required: true, disabled: true %>
           <div class="invalid-feedback">
             <i class="bi bi-exclamation-circle mr-1 ml-1"></i>La désignation est obligatoire.
           </div>

@@ -110,6 +110,21 @@ function toggleForm(formId, show) {
     }
 }
 
+function onChangeProduitAchat() {
+    const productSelect = document.getElementById("product_select");
+    const designationField = document.getElementById("designation_field");
+    const prixField = document.getElementById("prix_field");
+
+    productSelect.addEventListener("change", function () {
+        designationField.value = productSelect.value;
+
+        const selectedOption = productSelect.options[productSelect.selectedIndex];
+        const price = selectedOption.dataset.price;
+
+        prixField.value = price || "";
+    });
+}
+
 function onChangeSaisonMontant() {
     const saisonSelect = document.getElementById("assurance_saison_id");
     const montantField = document.getElementById("montant-field");
@@ -172,6 +187,10 @@ document.addEventListener("turbo:load", initializeDataTables);
 document.addEventListener("DOMContentLoaded", onChangeSaisonMontant);
 document.addEventListener("turbo:frame-load", onChangeSaisonMontant);
 document.addEventListener("turbo:load", onChangeSaisonMontant);
+
+document.addEventListener("DOMContentLoaded", onChangeProduitAchat);
+document.addEventListener("turbo:frame-load", onChangeProduitAchat);
+document.addEventListener("turbo:load", onChangeProduitAchat);
 
 document.addEventListener("DOMContentLoaded", initializeFlatpickr);
 document.addEventListener("turbo:frame-load", initializeFlatpickr);

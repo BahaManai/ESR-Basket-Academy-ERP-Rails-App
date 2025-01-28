@@ -325,7 +325,17 @@
 
         <div class="mb-3">
           <%= form.label :designation, "Désignation *", class: "form-label" %>
-          <%= form.text_field :designation, class: "form-control", required: true %>
+          
+          <%= select_tag 'product_select', 
+              options_from_collection_for_select(
+                Product.all.map { |product| [product.nom, product.nom, { data: { price: product.prix } }] }, 
+                :second, 
+                :first
+              ), 
+              { class: "custom-select", id: "product_select", prompt: "Sélectionnez un produit" } %>
+          
+          <%= form.text_field :designation, class: "form-control", required: true, id: "designation_field", style: "display:none" %>
+          
           <div class="invalid-feedback">
             <i class="bi bi-exclamation-circle mr-1 ml-1"></i>La désignation est obligatoire.
           </div>
@@ -333,7 +343,8 @@
 
         <div class="mb-3">
           <%= form.label :prix, "Prix (DT) *", class: "form-label" %>
-          <%= form.number_field :prix, class: "form-control", step: 0.01, required: true, min: 0 %>
+          <%= form.number_field :prix, class: "form-control", step: 0.01, required: true, min: 0, id: "prix_field" %>
+          
           <div class="invalid-feedback">
             <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le prix est obligatoire et doit être supérieur ou égal à 0.
           </div>
@@ -371,9 +382,9 @@
     <table class="table table-bordered datatable table-hover table-sm">
       <thead class="table-primary" style ="color:rgb(2, 30, 144)">
         <tr>
+          <th>Désignation</th>
           <th>Prix</th>
           <th>Date d'achat</th>
-          <th>Désignation</th>
           <th>Num reçu</th>
           <th>Actions</th>
         </tr>
@@ -381,9 +392,9 @@
       <tbody>
         <% @joueur.achats.reverse.each do |achat| %>
           <tr id="<%= dom_id achat %>" class="<%= 'etat_crédit' if achat.etat_paiement == 'Crédit' %>">
+            <td><%= achat.designation %></td>
             <td><%= achat.prix %>&nbspDT</td>
             <td><%= achat.date_achat.strftime("%d #{I18n.t('date.month_names_short')[achat.date_achat.month]}, %Y") if achat.date_achat %></td>
-            <td><%= achat.designation %></td>
             <td style="text-align:center !important"><%= achat.num_recu if achat.num_recu %></td>
             <td>
               <%= link_to 'Modifier', edit_achat_path(achat), class: "btn btn-primary btn-sm"%>

@@ -6,40 +6,44 @@
   </div>
   <div class="navbar-menu">
     <span class="nav-label">Menu</span>
-    <%= link_to root_path, class: "nav-link", style: "padding-left:20px" do %>
+    <%= link_to root_path, class: "nav-link" do %>
       <i class="bi bi-house-door"></i> Tableau de bord
     <% end %>
-    <%= link_to joueurs_path, class: "nav-link", style: "padding-left:20px" do %>
+    <%= link_to joueurs_path, class: "nav-link" do %>
       <i class="bi bi-people"></i> Joueurs
     <% end %>
-    <%= link_to paiements_path, class: "nav-link", style: "padding-left:20px" do %>
+    <%= link_to paiements_path, class: "nav-link" do %>
       <i class="bi bi-credit-card"></i> Paiements
     <% end %>
-    <%= link_to assurances_path, class: "nav-link", style: "padding-left:20px" do %>
+    <%= link_to assurances_path, class: "nav-link" do %>
       <i class="bi bi-shield-check"></i> Assurances
     <% end %>
-    <%= link_to achats_path, class: "nav-link", style: "padding-left:20px" do %>
+    <%= link_to achats_path, class: "nav-link" do %>
       <i class="bi bi-cart"></i> Achats
     <% end %>
-    <%= link_to entraineurs_path, class: "nav-link", style: "padding-left:20px" do %>
+    <%= link_to entraineurs_path, class: "nav-link" do %>
       <i class="bi bi-person-workspace"></i> Entraîneurs
     <% end %>
-    <%= link_to depenses_path, class: "nav-link", style: "padding-left:20px" do %>
+    <%= link_to depenses_path, class: "nav-link" do %>
       <i class="bi bi-cash"></i> Dépenses
     <% end %>
-    <%= link_to parents_path, class: "nav-link", style: "padding-left:20px" do %>
+    <%= link_to parents_path, class: "nav-link" do %>
       <i class="bi bi-people-fill"></i> Parents
     <% end %>
-    <%= link_to groupes_path, class: "nav-link", style: "padding-left:20px" do %>
+    <%= link_to groupes_path, class: "nav-link" do %>
       <i class="bi bi-layers"></i> Groupes
     <% end %>
     <div><br>
       <span class="nav-label">Configuration</span>
       <ul class="nav-list">
-        <li><%= link_to saisons_path, class: "nav-link", style: "padding-left:20px" do %>
+        <li><%= link_to saisons_path, class: "nav-link" do %>
           <i class="bi bi-calendar-check"></i> Saisons
         <% end %></li>
-        <li><%= link_to users_path, class: "nav-link", style: "padding-left:20px" do %>
+        <li><%= link_to products_path, class: "nav-link" do %>
+          <i class="bi bi-dribbble"></i> Produits
+        <% end %></li>
+
+        <li><%= link_to users_path, class: "nav-link" do %>
           <i class="bi bi-person-lines-fill"></i> Utilisateurs
         <% end %></li>
       </ul>

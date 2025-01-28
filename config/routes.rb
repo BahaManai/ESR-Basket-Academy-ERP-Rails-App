@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :products, except: [ :show ]
   devise_for :users, skip: :registrations
   resources :users, only: [ :index, :show, :new, :create, :edit, :update, :destroy ]
 

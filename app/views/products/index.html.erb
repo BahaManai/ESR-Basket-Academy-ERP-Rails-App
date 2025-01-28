@@ -1,0 +1,26 @@
+<% content_for :title, "Produits" %>
+<% @page_title = "Produits"%>
+
+<%= link_to "Ajouter un produit", new_product_path, class: "btn btn-primary" %>
+<table class="table table-bordered datatable table-hover table-sm">
+  <thead class="table-primary" style ="color:rgb(2, 30, 144)">
+    <tr>
+      <th>ID</th>
+      <th>Nom du produit</th>
+      <th>Prix (DT)</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |produit| %>
+      <tr id="<%= dom_id produit %>">
+        <td><%= produit.id %></td>
+        <td><%= produit.nom %></td>
+        <td><%= produit.prix %></td>
+        <td>
+          <%= link_to "Modifier", edit_product_path(produit), class: "btn btn-secondary btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
