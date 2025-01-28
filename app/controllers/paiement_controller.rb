@@ -20,6 +20,8 @@ class PaiementController < ApplicationController
         )
     when "credit"
       Paiement.where(etat_abonnement: "Crédit")
+    when "noncredit"
+      Paiement.where(etat_abonnement: "Non crédit")
     else
       Paiement.all
     end
@@ -94,18 +96,18 @@ class PaiementController < ApplicationController
         )
     when "credit"
       Paiement.where(etat_abonnement: "Crédit")
+    when "noncredit"
+      Paiement.where(etat_abonnement: "Non crédit")
     else
       Paiement.all
     end
 
     csv_data = CSV.generate(headers: true) do |csv|
-      csv << [ "Nom du joueur", "Date d'abonnement", "Montant", "Numero de recu", "Etat de paiement" ]
+      csv << [ "Nom du joueur", "Date d'abonnement", "Montant", "Num de recu", "Etat de paiement" ]
       @records.reverse.each do |record|
         etat_abonnement = case record.etat_abonnement
         when "Crédit"
-              "Credit"
-        when "Non crédit"
-              "Non credit"
+              "credit"
         end
         csv << [ "#{record.joueur.prénom} #{record.joueur.nom}",
                 record.date_abonnement,

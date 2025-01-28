@@ -4,6 +4,7 @@
 <div class="mb-3">
   <%= link_to 'Tous', achats_path, class: 'btn btn-primary btn-sm' %>
   <%= link_to 'Crédits', achats_path(filter: 'credit'), class: 'btn btn-warning btn-sm' %>
+  <%= link_to 'Non crédits', achats_path(filter: 'noncredit'), class: 'btn btn-secondary btn-sm' %>
 </div>
 <%= link_to export_csv_achats_path(format: :csv, filter: params[:filter]), class: 'btn btn-info btn-sm float-right' do %>
   <i class="bi bi-download"></i> Exporter en CSV
@@ -16,6 +17,7 @@
       <th>Désignation</th>
       <th>Prix</th>
       <th>Date d'Achat</th>
+      <th>N° reçu</th>
       <th>Etat de paiement</th>
 
     </tr>
@@ -33,7 +35,8 @@
         <td><%= achat.designation %></td>
         <td><%= achat.prix %>&nbspDT</td>
         <td><%= "#{achat.date_achat.strftime('%d')} #{I18n.t('date.month_names_short')[achat.date_achat.month]}, #{achat.date_achat.strftime('%Y')}" if achat.date_achat %></td>
-      <td style="text-align:center"><%= achat.etat_paiement %></td>
+        <td style="text-align:center"><%= achat.num_recu %></td>
+        <td style="text-align:center"><%= achat.etat_paiement %></td>
       </tr>
     <% end %>
   </tbody>

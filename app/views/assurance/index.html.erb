@@ -4,6 +4,8 @@
 <div class="mb-3">
   <%= link_to 'Tous', assurances_path, class: 'btn btn-primary btn-sm' %>
   <%= link_to 'Crédits', assurances_path(filter: 'credit'), class: 'btn btn-warning btn-sm' %>
+  <%= link_to 'Non crédits', assurances_path(filter: 'noncredit'), class: 'btn btn-secondary btn-sm' %>
+
 </div>
 <%= link_to export_csv_assurances_path(format: :csv, filter: params[:filter]), class: 'btn btn-info btn-sm float-right' do %>
   <i class="bi bi-download"></i> Exporter en CSV
@@ -16,6 +18,7 @@
       <th>Saison</th>
       <th>Montant</th>
       <th>Date de Paiement</th>
+      <th>N° reçu</th>
       <th>Etat de paiement</th>
     </tr>
   </thead>
@@ -33,6 +36,7 @@
 
         <td><%= assurance.montant %>&nbspDT</td>
         <td><%= "#{assurance.date_paiement.strftime('%d')} #{I18n.t('date.month_names_short')[assurance.date_paiement.month]}, #{assurance.date_paiement.strftime('%Y')}" if assurance.date_paiement %></td>
+        <td style="text-align:center"><%= assurance.num_recu %></td>
         <td style="text-align:center"><%= assurance.etat_paiement %></td>
       </tr>
     <% end %>

@@ -1,17 +1,22 @@
 require "csv"
 class AssuranceController < ApplicationController
-  before_action :set_assurance, only: %i[destroy update]
+  before_action :set_assurance, only: %i[edit destroy update]
 
   def index
     @assurances = case params[:filter]
     when "credit"
       Assurance.where(etat_paiement: "Crédit")
+    when "noncredit"
+      Assurance.where(etat_paiement: "Non crédit")
     else
       Assurance.all
     end
   end
 
   def show
+  end
+
+  def edit
   end
 
   def create
@@ -37,7 +42,7 @@ class AssuranceController < ApplicationController
   def update
     respond_to do |format|
       if @assurance.update(assurance_params)
-        format.html { redirect_to "/joueurs/#{@assurance.joueur_id}/edit", notice: "L'état de paiement de l'assurance a été mis à jour avec succès." }
+        format.html { redirect_to "/joueurs/#{@assurance.joueur_id}/edit", notice: "L'assurance a été mise à jour avec succès." }
         format.json { render :edit, status: :ok, location: @assurance }
       else
         format.html do
@@ -63,23 +68,24 @@ class AssuranceController < ApplicationController
     @records = case params[:filter]
     when "credit"
       Assurance.where(etat_paiement: "Crédit")
+    when "noncredit"
+      Assurance.where(etat_paiement: "Non crédit")
     else
       Assurance.all
     end
 
     csv_data = CSV.generate(headers: true) do |csv|
-      csv << [ "Nom du joueur", "Saison", "Montant", "Date de paiement", "Etat de paiement" ]
+      csv << [ "Nom du joueur", "Saison", "Montant", "Date de paiement", "Num de recu", "Etat de paiement" ]
       @records.reverse.each do |record|
         etat_abonnement = case record.etat_paiement
         when "Crédit"
-              "Credit"
-        when "Non crédit"
-              "Non credit"
+              "credit"
         end
         csv << [ "#{record.joueur.prénom} #{record.joueur.nom}",
                 "#{record.saison.date_debut.strftime('%d')} #{I18n.t('date.month_names_short_csv')[record.saison.date_debut.month]} #{record.saison.date_debut.strftime('%Y')} - #{record.saison.date_fin.strftime('%d')} #{I18n.t('date.month_names_short_csv')[record.saison.date_fin.month]} #{record.saison.date_fin.strftime('%Y')}",
                 "#{record.montant} DT",
                 record.date_paiement,
+                record.num_recu,
                 etat_abonnement ]
       end
     end
@@ -95,6 +101,6 @@ class AssuranceController < ApplicationController
   end
 
   def assurance_params
-    params.require(:assurance).permit(:date_paiement,  :etat_paiement, :joueur_id, :saison_id, :montant)
+    params.require(:assurance).permit(:date_paiement,  :etat_paiement, :joueur_id, :saison_id, :montant, :num_recu)
   end
 end

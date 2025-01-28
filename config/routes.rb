@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   get "/assurances/new", to: "assurance#new", as: "new_assurance"
   post "/assurances", to: "assurance#create"
   patch "assurances/:id", to: "assurance#update", as: "update_assurance"
+  get "assurances/:id/edit", to: "assurance#edit", as: "edit_assurance"
   get "assurances/export_csv", to: "assurance#export_csv", as: "export_csv_assurances"
 
   get "achats", to: "achat#index", as: "achats"
@@ -34,6 +35,7 @@ Rails.application.routes.draw do
   get "/achats/new", to: "achat#new", as: "new_achat"
   post "/achats", to: "achat#create"
   patch "achats/:id", to: "achat#update", as: "update_achat"
+  get "achats/:id/edit", to: "achat#edit", as: "edit_achat"
   get "achats/export_csv", to: "achat#export_csv", as: "export_csv_achats"
 
 

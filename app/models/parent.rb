@@ -1,5 +1,5 @@
 class Parent < ApplicationRecord
-  has_many :joueurs, dependent: :destroy
+  has_many :joueurs, dependent: :nullify
 
   def somme_credits_enfants
     joueurs.to_a.sum(&:somme_des_credits)

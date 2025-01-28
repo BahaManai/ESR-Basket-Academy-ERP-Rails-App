@@ -1,0 +1,5 @@
+class AddNumRecuToAssurances < ActiveRecord::Migration[8.0]
+  def change
+    add_column :assurances, :num_recu, :integer, default: nil, null: true
+  end
+end

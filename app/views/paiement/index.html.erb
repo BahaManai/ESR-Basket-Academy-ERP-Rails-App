@@ -6,6 +6,7 @@
   <%= link_to 'Active', paiements_path(filter: 'active'), class: 'btn btn-success btn-sm' %>
   <%= link_to 'Expiré', paiements_path(filter: 'expired'), class: 'btn btn-danger btn-sm' %>
   <%= link_to 'Crédit', paiements_path(filter: 'credit'), class: 'btn btn-warning btn-sm' %>
+  <%= link_to 'Non crédit', paiements_path(filter: 'noncredit'), class: 'btn btn-secondary btn-sm' %>
 </div>
 
 <%= link_to export_csv_paiements_path(format: :csv, filter: params[:filter]), class: 'btn btn-info btn-sm float-right' do %>

@@ -67,10 +67,10 @@
   </div>
 
   <div class="mb-3">
-    <%= form.label :num_recu, "Numéro de reçu *", class: "form-label" %>
-    <%= form.number_field :num_recu, class: "form-control", required: true, min: 0 %>
+    <%= form.label :num_recu, "Numéro de reçu", class: "form-label" %>
+    <%= form.number_field :num_recu, class: "form-control", min: 0 %>
     <div class="invalid-feedback">
-      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le numéro de reçu est obligatoire et doit être supérieur ou égal à 0.
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le numéro de reçu doit être supérieur ou égal à 0.
     </div>
   </div>
 
