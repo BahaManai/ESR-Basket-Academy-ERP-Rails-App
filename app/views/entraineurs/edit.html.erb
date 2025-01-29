@@ -6,11 +6,13 @@
 <% @page_title = "Fiche de #{@entraineur.prénom} #{@entraineur.nom}"%>
 
 <div style="display: flex; justify-content: space-between; gap: 20px;">
-  <div style="flex: 1; border: 1px solid #ccc; padding: 20px;">
+  <div style="flex: 1; border: 1px solid #ccc; padding: 20px;;background-color:#ffffff">
     <h3>Modifier l'entraîneur</h3>
     <%= form_with(model: @entraineur, class: "needs-validation", local: true, html: { novalidate: true }) do |form| %>
       <div>
-        <%= form.submit "Enregistrer", class: "btn btn-primary", style: "float:right" %>
+        <%= button_tag type: 'submit', class: "btn btn-info btn-sm", style: "float:right" do %>
+          <i class="bi bi-bookmark-check"></i>&nbsp; Enregistrer
+        <% end %>
       </div>
       <br>
       <div class="mb-3">
@@ -49,18 +51,20 @@
     <% end %>
 
     <hr>
-    <%= button_to "Supprimer cet entraîneur", @entraineur, method: :delete, data: { controller: "confirm", confirm_message: "Êtes-vous sûr de supprimer l'entraîneur définitivement ?" }, class: "btn btn-danger" %>
+    <%= button_to @entraineur, method: :delete, data: { controller: "confirm", confirm_message: "Êtes-vous sûr de supprimer l'entraîneur définitivement ?" }, class: "btn btn-danger btn-sm" do %>
+      <i class="bi bi-trash"></i>&nbsp; Supprimer cet entraîneur
+    <%end%>
   </div>
 
-  <div style="flex: 1; border: 1px solid #ccc; padding: 20px;">
+  <div style="flex: 1; border: 1px solid #ccc; padding: 20px;;background-color:#ffffff">
         <h3>Ajouter un salaire</h3>
         <p style="text-align:right">
-          <button id="btnAjout" class="btn btn-success">Ajouter un salaire</button>
+          <button id="btnAjout" class="btn btn-success btn-sm"><i class="bi bi-plus-circle"></i>&nbsp; Ajouter un salaire</button>
 
         </p>
 
     <div class="hideForm" id="salaireForm">
-      <button id="btnAnnuler" class="btn btn-secondary" style="float:right">Annuler</button>
+      <button id="btnAnnuler" class="btn btn-secondary btn-sm" style="float:right">Annuler</button>
       <%= form_with(model: @salaire, class: "needs-validation", local: true, html: { id: "salaireFormElement", novalidate: true }) do |form| %>
         <br>
         <div style="display: none">
@@ -99,7 +103,7 @@
         <%= form.hidden_field :annee, id: "anneeField" %>
 
         <div>
-          <%= form.submit "Confirmer", class: "btn btn-primary" %>
+          <%= form.submit "Confirmer", class: "btn btn-primary btn-sm" %>
         </div>
       <% end %>
     </div>
@@ -110,7 +114,7 @@
         <tr>
           <th>Salaire</th>
           <th>Mois</th>
-          <th>Actions</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -119,7 +123,9 @@
             <td><%= salaire.salaire %>&nbspDT</td>
             <td><%= "#{I18n.t('date.month_names')[salaire.mois]} #{salaire.annee}" %></td>      
             <td>
-              <%= link_to 'Supprimer', salaire_path(salaire), method: :delete, data: { controller: "confirm", confirm_message: "Êtes-vous sûr de supprimer le salaire ?" }, class: "btn btn-danger btn-sm" %>
+              <%= link_to salaire_path(salaire), method: :delete, data: { controller: "confirm", confirm_message: "Êtes-vous sûr de supprimer le salaire ?" }, class: "btn btn-info btn-sm" do %>
+                <i class="bi bi-trash"></i>
+              <%end%>
             </td>
           </tr>
         <% end %>

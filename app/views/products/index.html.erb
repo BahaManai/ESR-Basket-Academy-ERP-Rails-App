@@ -1,14 +1,18 @@
 <% content_for :title, "Produits" %>
 <% @page_title = "Produits"%>
 
-<%= link_to "Ajouter un produit", new_product_path, class: "btn btn-primary" %>
+<p>
+  <%= link_to new_product_path, class: "btn btn-success btn-sm float-right mr-1" do %>
+    <i class="bi bi-plus-circle"></i>&nbsp; Ajouter un produit
+  <% end %>
+</p><br>
 <table class="table table-bordered datatable table-hover table-sm">
   <thead class="table-primary" style ="color:rgb(2, 30, 144)">
     <tr>
       <th>ID</th>
       <th>Nom du produit</th>
       <th>Prix (DT)</th>
-      <th>Actions</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>

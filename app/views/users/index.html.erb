@@ -1,7 +1,11 @@
 <% content_for :title, "Utilisateurs" %>
 <% @page_title = "Utilisateurs" %>
 
-<%= link_to "Ajouter un utilisateur", new_user_path, class: "btn btn-primary" %>
+<p>
+  <%= link_to new_user_path, class: "btn btn-success btn-sm float-right mr-1" do %>
+    <i class="bi bi-plus-circle"></i>&nbsp; Ajouter un utilisateur
+  <% end %>
+</p><br>
 
 <table class="table table-bordered datatable table-hover table-sm">
   <thead class="table-primary" style ="color:rgb(2, 30, 144)">
@@ -10,7 +14,7 @@
       <th>Nom d'utilisateur</th>
       <th>Email</th>
       <th>Rôle</th>
-      <th>Actions</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>

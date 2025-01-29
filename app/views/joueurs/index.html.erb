@@ -1,16 +1,20 @@
 <% content_for :title, "Joueurs" %>
 <% @page_title = "Joueurs"%>
 
-<div class="mb-3">
-  <%= link_to 'Tous', joueurs_path, class: 'btn btn-primary btn-sm' %>
-  <%= link_to 'Active', joueurs_path(filter: 'active'), class: 'btn btn-success btn-sm' %>
-  <%= link_to 'Expiré', joueurs_path(filter: 'expired'), class: 'btn btn-danger btn-sm' %>
-  <%= link_to 'Crédit', joueurs_path(filter: 'credit'), class: 'btn btn-warning btn-sm' %>
-</div>
 <%= link_to export_csv_joueurs_path(format: :csv, filter: params[:filter]), class: 'btn btn-info btn-sm float-right' do %>
   <i class="bi bi-download"></i> Exporter en CSV
-<% end %><br>
-
+<% end %>
+<p>
+  <%= link_to new_joueur_path, class: "btn btn-success btn-sm float-right mr-1" do %>
+    <i class="bi bi-plus-circle"></i>&nbsp; Ajouter un joueur
+  <% end %>
+</p>
+<div class="mb-3">
+  <%= link_to 'Tous', joueurs_path, class: 'btn btn-info btn-sm' %>
+  <%= link_to 'Active', joueurs_path(filter: 'active'), class: 'btn btn-info btn-sm' %>
+  <%= link_to 'Expiré', joueurs_path(filter: 'expired'), class: 'btn btn-info btn-sm' %>
+  <%= link_to 'Crédit', joueurs_path(filter: 'credit'), class: 'btn btn-info btn-sm' %>
+</div>
 <table class="table table-bordered datatable table-hover table-sm" id="joueurs">
   <thead class="table-primary" style ="color:rgb(2, 30, 144)">
     <tr>
@@ -24,7 +28,7 @@
       <th>Assurance</th>
       <th>Crédits</th>
       <th>Créé le</th>
-      <th>Actions</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -112,8 +116,3 @@
     <% end %>
   </tbody>
 </table>
-
-
-<p>
-  <%= link_to "Nouveau joueur", new_joueur_path, class: "btn btn-success" %>
-</p>

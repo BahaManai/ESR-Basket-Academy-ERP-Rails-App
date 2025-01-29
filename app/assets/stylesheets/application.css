@@ -56,7 +56,6 @@
 
 .etat_passé {
     background-color: #edeaea !important;
-    color: #6d6c6c;
 }
 
 .etat_passé:hover {
@@ -122,13 +121,18 @@
 
 .content-area {
     width: 100%;
-    padding: 0px 20px 20px 20px;
+    padding: 0px 0px 20px 0px;
     overflow-y: auto;
+    background-color: #f3f6fc;
+}
+
+.datatable tbody {
+    background-color: #fff;
 }
 
 .navbar-vertical {
     width: 270px;
-    background: #f8f9fa;
+    background: #031c80;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     border-right: 1px solid #ddd;
     display: flex;
@@ -136,6 +140,7 @@
 }
 
 .navbar-logo {
+    border-bottom: 1px solid #ffffff;
     margin-bottom: 10px;
     text-align: center;
 }
@@ -155,7 +160,7 @@
     padding-left: 30px !important;
     align-items: center;
     padding: 10px 15px;
-    color: #495057;
+    color: #f3f6fc;
     text-decoration: none;
     border-radius: 4px;
     transition: background 0.3s ease, transform 0.2s ease;
@@ -167,15 +172,15 @@
 }
 
 .nav-link:hover {
-    background: #e9ecef;
+    background: #0023b5;
     transform: scale(1.02);
-    color: #0056b3;
+    color: #ffffff;
 }
 
 .nav-label {
     font-size: 0.9rem;
     font-weight: bold;
-    color: #6c757d;
+    color: #f3f6fc;
     margin: 10px 15px 5px;
     text-transform: uppercase;
 }
@@ -203,7 +208,7 @@
 }
 
 .custom-notice {
-    background-color: #e8f5e9 !important;
+    background-color: #ffffff !important;
     color: #1b5e20 !important;
     border-left: 5px solid #1b5e20 !important;
     border-radius: 8px !important;
@@ -246,10 +251,11 @@
 }
 
 .chart-container {
-    min-width: 260px;
+    background-color: #ffffff;
+    min-width: 240px;
+    max-width: 355px;
     width: 30%;
-    padding-right: 30px;
-    padding-left: 30px;
+    margin-left: 20px;
 }
 
 .custom-dark {

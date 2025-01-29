@@ -78,12 +78,16 @@
   </div>
 
   <div class="mb-3">
-    <%= form.submit "Enregistrer", class: "btn btn-primary" %>
+    <%= button_tag type: 'submit', class: "btn btn-success btn-sm" do %>
+          <i class="bi bi-bookmark-check"></i>&nbsp; Enregistrer
+        <% end %>
   </div>
 <% end %>
 
 <div class="new_forms">
   <hr>
-  <%= button_to "Supprimer ce groupe", @groupe, method: :delete, data: { controller: "confirm", confirm_message: "Êtes-vous sûr de supprimer ce groupe définitivement ?" }, class: "btn btn-danger", style: "float:right" %>
+  <%= button_to @groupe, method: :delete, data: { controller: "confirm", confirm_message: "Êtes-vous sûr de supprimer ce groupe définitivement ?" }, class: "btn btn-danger btn-sm", style: "float:right" do %>
+      <i class="bi bi-trash"></i>&nbsp; Supprimer ce groupe
+    <%end%>
 </div>
 <br>

@@ -106,19 +106,19 @@
   # Regroupement de toutes les clés de mois
   all_months = (revenues.keys + expenses.keys).uniq.sort
 %>
-
+<div style="background-color:#ffffff;width:95%;margin:auto">
 <%= line_chart [
   { name: "Revenus", data: revenues, color: "#3498db" },
   { name: "Dépenses", data: expenses, color: "#e74c3c" }
 ], 
-width: "95%",
 xmin: "Jan #{selected_year}", 
 xmax: "Dec #{selected_year}",
 xtitle: "Mois", 
 ytitle: "Montant en DT", 
 title: "Revenus et Dépenses mensuels - Année #{selected_year}", 
-download: { filename: "revenus_depenses_#{selected_year}", background: "#ffffff" } %>
-
+download: { filename: "revenus_depenses_#{selected_year}", background: "#ffffff" }, 
+background: "#ffffff" %>
+</div>
 
   <hr>
   <h5>Par mois :</h5>
@@ -222,6 +222,7 @@ download: { filename: "revenus_depenses_#{selected_year}", background: "#ffffff"
     </div>
   </div>
 </div>
+  <div style="background-color:#ffffff;width:95%;margin:auto">
     <%= column_chart [
       { name: "Total Abonnements", data: { "Abonnements" => @total_abonnements_for_month }},
       { name: "Total Assurances", data: { "Assurances" => @total_assurances_for_month }},
@@ -231,7 +232,7 @@ download: { filename: "revenus_depenses_#{selected_year}", background: "#ffffff"
       { name: "Total Salaires", data: { "Salaires" => @total_salaires_for_month }},
       { name: "Total Dépenses", data: { "Dépenses" => @total_depenses_for_month }}
     ], 
-    height: "350px", width: "95%",
+    height: "350px",
     download: { filename: "recette_paiements_#{selected_month}_#{selected_year}", background: "#ffffff" }, 
     title: "Bilan Financier Mensuel - #{I18n.t('date.month_names')[selected_month]} #{selected_year}",
     xtitle: "Catégories", 
@@ -249,6 +250,7 @@ download: { filename: "revenus_depenses_#{selected_year}", background: "#ffffff"
         }
       }
     } %>
+  </div>
 
 <script>
   function redirectToMonthDashbord(select) {

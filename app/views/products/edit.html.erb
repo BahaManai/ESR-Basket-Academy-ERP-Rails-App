@@ -42,12 +42,16 @@
   </div>
 
   <div>
-    <%= form.submit "Enregistrer", class: "btn btn-primary" %>
+    <%= button_tag type: 'submit', class: "btn btn-success btn-sm" do %>
+          <i class="bi bi-bookmark-check"></i>&nbsp; Enregistrer
+        <% end %>
   </div>
 
 <% end %>
 
 <div class="new_forms">
   <hr>
-  <%= button_to "Supprimer ce produit", @product, method: :delete, data: { controller: "confirm", confirm_message: "Êtes-vous sûr de supprimer ce produit définitivement ?" }, class: "btn btn-danger", style: "float:right" %>
+  <%= button_to @product, method: :delete, data: { controller: "confirm", confirm_message: "Êtes-vous sûr de supprimer ce produit définitivement ?" }, class: "btn btn-danger btn-sm", style: "float:right" do %>
+      <i class="bi bi-trash"></i>&nbsp; Supprimer ce produit
+    <%end%>
 </div>

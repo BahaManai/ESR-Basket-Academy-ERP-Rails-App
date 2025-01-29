@@ -2,7 +2,9 @@
 <% @page_title = "Groupes" %>
 
 <p>
-  <%= link_to "Nouveau groupe", new_groupe_path, class: "btn btn-success" %>
+  <%= link_to new_groupe_path, class: "btn btn-success btn-sm mr-1" do %>
+    <i class="bi bi-plus-circle"></i>&nbsp; Ajouter un groupe
+  <% end %>
 </p>
 
 <div class="d-flex flex-wrap">
@@ -15,7 +17,7 @@
           <th>Entraîneur</th>
           <th>Jour et Heure</th>
           <th>Terrain</th>
-          <th>Actions</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>

@@ -34,8 +34,10 @@
       <% unless (controller_name == 'sessions' && action_name == 'new') || (controller_name == 'passwords' && action_name == 'new') || (controller_name == 'passwords' && action_name == 'edit') || (controller_name == 'passwords' && action_name == 'update')%>
         <%= render partial: "shared/accountbar"%>
       <% end %>
-      <%= render partial: "shared/flash"%>
-      <%= yield %>
+      <div style="padding-left:20px;padding-right:20px">
+        <%= render partial: "shared/flash"%>
+        <%= yield %>
+      </div>
     </div>
   </div>
 </body>

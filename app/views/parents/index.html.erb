@@ -2,8 +2,10 @@
 <% @page_title = "Parents"%>
 
 <p>
-  <%= link_to "Nouveau parent", new_parent_path, class: "btn btn-success" %>
-</p>
+  <%= link_to new_parent_path, class: "btn btn-success btn-sm float-right mr-1" do %>
+    <i class="bi bi-plus-circle"></i>&nbsp; Ajouter un parent
+  <% end %>
+</p><br>
 
 <div id="parents">
   <table class="table table-bordered datatable table-hover table-sm">
@@ -14,7 +16,7 @@
         <th>Téléphone</th>
         <th>Nombre d'enfants</th>
         <th>Total des crédits</th>
-        <th>Actions</th> 
+        <th></th> 
       </tr>
     </thead>
     <tbody>
