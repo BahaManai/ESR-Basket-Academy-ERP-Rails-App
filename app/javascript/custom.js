@@ -8,7 +8,10 @@ function initializeDataTables() {
                 searching: true,
                 ordering: true,
                 info: true,
-                order: []
+                order: [],
+                columnDefs: [
+                    { orderable: false, targets: -1 }
+                ]
             });
         }
     });

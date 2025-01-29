@@ -2,12 +2,13 @@
 <% @page_title = "Paiements"%>
 
 <div class="mb-3">
-  <%= link_to 'Tous', paiements_path, class: 'btn btn-info btn-sm' %>
-  <%= link_to 'Active', paiements_path(filter: 'active'), class: 'btn btn-info btn-sm' %>
-  <%= link_to 'Expiré', paiements_path(filter: 'expired'), class: 'btn btn-info btn-sm' %>
-  <%= link_to 'Crédit', paiements_path(filter: 'credit'), class: 'btn btn-info btn-sm' %>
-  <%= link_to 'Non crédit', paiements_path(filter: 'noncredit'), class: 'btn btn-info btn-sm' %>
+  <%= link_to 'Tous', paiements_path, class: "btn btn-sm #{params[:filter].present? ? 'btn-info' : 'btn-success'}" %>
+  <%= link_to 'Active', paiements_path(filter: 'active'), class: "btn btn-sm #{params[:filter] == 'active' ? 'btn-success' : 'btn-info'}" %>
+  <%= link_to 'Expiré', paiements_path(filter: 'expired'), class: "btn btn-sm #{params[:filter] == 'expired' ? 'btn-success' : 'btn-info'}" %>
+  <%= link_to 'Crédit', paiements_path(filter: 'credit'), class: "btn btn-sm #{params[:filter] == 'credit' ? 'btn-success' : 'btn-info'}" %>
+  <%= link_to 'Non crédit', paiements_path(filter: 'noncredit'), class: "btn btn-sm #{params[:filter] == 'noncredit' ? 'btn-success' : 'btn-info'}" %>
 </div>
+
 
 <%= link_to export_csv_paiements_path(format: :csv, filter: params[:filter]), class: 'btn btn-info btn-sm float-right' do %>
   <i class="bi bi-download"></i> Exporter en CSV
@@ -22,7 +23,6 @@
       <th>Expire</th>
       <th>Paiement</th>
       <th>N° reçu</th>
-      <th>Etat de paiement</th>
     </tr>
   </thead>
   <tbody>
@@ -73,13 +73,6 @@
         end
       %>"><%= paiement.montant %>&nbspDT</td>
         <td style="text-align:center"><%= paiement.num_recu %></td>
-        <td class="<%= 
-        if paiement.etat_abonnement == 'Crédit'
-          'etat_crédit'
-        else
-          ''
-        end
-      %>"><%= paiement.etat_abonnement %></td>
       </tr>
     <% end %>
   </tbody>

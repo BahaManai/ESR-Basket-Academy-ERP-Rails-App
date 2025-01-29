@@ -2,10 +2,11 @@
 
 <% @page_title = "Achats"%>
 <div class="mb-3">
-  <%= link_to 'Tous', achats_path, class: 'btn btn-info btn-sm' %>
-  <%= link_to 'Crédits', achats_path(filter: 'credit'), class: 'btn btn-info btn-sm' %>
-  <%= link_to 'Non crédits', achats_path(filter: 'noncredit'), class: 'btn btn-info btn-sm' %>
+  <%= link_to 'Tous', achats_path, class: "btn btn-sm #{params[:filter].present? ? 'btn-info' : 'btn-success'}" %>
+  <%= link_to 'Crédits', achats_path(filter: 'credit'), class: "btn btn-sm #{params[:filter] == 'credit' ? 'btn-success' : 'btn-info'}" %>
+  <%= link_to 'Non crédits', achats_path(filter: 'noncredit'), class: "btn btn-sm #{params[:filter] == 'noncredit' ? 'btn-success' : 'btn-info'}" %>
 </div>
+
 <%= link_to export_csv_achats_path(format: :csv, filter: params[:filter]), class: 'btn btn-info btn-sm float-right' do %>
   <i class="bi bi-download"></i> Exporter en CSV
 <% end %><br>
@@ -18,7 +19,6 @@
       <th>Prix</th>
       <th>Date d'Achat</th>
       <th>N° reçu</th>
-      <th>Etat de paiement</th>
 
     </tr>
   </thead>
@@ -36,7 +36,6 @@
         <td><%= achat.prix %>&nbspDT</td>
         <td><%= "#{achat.date_achat.strftime('%d')} #{I18n.t('date.month_names_short')[achat.date_achat.month]}, #{achat.date_achat.strftime('%Y')}" if achat.date_achat %></td>
         <td style="text-align:center"><%= achat.num_recu %></td>
-        <td style="text-align:center"><%= achat.etat_paiement %></td>
       </tr>
     <% end %>
   </tbody>
