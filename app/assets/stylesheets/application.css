@@ -15,6 +15,33 @@
  *= require_self
  *= require_tree .
  */
+.filter-container {
+    display: flex;
+    gap: 5px;
+    border-radius: 8px;
+}
+
+.filter-btn {
+    text-decoration: none;
+    color: #333;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    background: transparent;
+    border: 1px solid #ccc;
+}
+
+.filter-btn:hover {
+    background: #ddd;
+    text-decoration: none;
+}
+
+.filter-btn.active {
+    background: #469af4;
+    color: white;
+    border-color: #469af4;
+}
+
 
 .notice {
     color: green;
@@ -132,7 +159,7 @@
 
 .navbar-vertical {
     width: 270px;
-    background: #031c80;
+    background: #021056;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     border-right: 1px solid #ddd;
     display: flex;
@@ -160,7 +187,7 @@
     padding-left: 30px !important;
     align-items: center;
     padding: 10px 15px;
-    color: #f3f6fc;
+    color: #96a0c9;
     text-decoration: none;
     border-radius: 4px;
     transition: background 0.3s ease, transform 0.2s ease;
@@ -173,14 +200,23 @@
 
 .nav-link:hover {
     background: #0023b5;
-    transform: scale(1.02);
     color: #ffffff;
+}
+
+.nav-link.active {
+    background: #0023b5;
+    color: #ffffff;
+}
+
+.nav-link:active {
+    background: #021056;
+    color: #96a0c9;
 }
 
 .nav-label {
     font-size: 0.9rem;
     font-weight: bold;
-    color: #f3f6fc;
+    color: #96a0c9;
     margin: 10px 15px 5px;
     text-transform: uppercase;
 }

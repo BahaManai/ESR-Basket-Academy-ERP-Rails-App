@@ -6,44 +6,43 @@
   </div>
   <div class="navbar-menu">
     <span class="nav-label">Menu</span>
-    <%= link_to root_path, class: "nav-link" do %>
+    <%= link_to root_path, class: "nav-link #{'active' if controller_name == 'dashbord'}" do %>
       <i class="bi bi-house-door"></i> Tableau de bord
     <% end %>
-    <%= link_to joueurs_path, class: "nav-link" do %>
+    <%= link_to joueurs_path, class: "nav-link #{'active' if controller_name == 'joueurs'}" do %>
       <i class="bi bi-people"></i> Joueurs
     <% end %>
-    <%= link_to paiements_path, class: "nav-link" do %>
+    <%= link_to paiements_path, class: "nav-link #{'active' if controller_name == 'paiement'}" do %>
       <i class="bi bi-credit-card"></i> Paiements
     <% end %>
-    <%= link_to assurances_path, class: "nav-link" do %>
+    <%= link_to assurances_path, class: "nav-link #{'active' if controller_name == 'assurance'}" do %>
       <i class="bi bi-shield-check"></i> Assurances
     <% end %>
-    <%= link_to achats_path, class: "nav-link" do %>
+    <%= link_to achats_path, class: "nav-link #{'active' if controller_name == 'achat'}" do %>
       <i class="bi bi-cart"></i> Achats
     <% end %>
-    <%= link_to entraineurs_path, class: "nav-link" do %>
+    <%= link_to entraineurs_path, class: "nav-link #{'active' if controller_name == 'entraineurs' || controller_name == 'salaire'}" do %>
       <i class="bi bi-person-workspace"></i> Entraîneurs
     <% end %>
-    <%= link_to depenses_path, class: "nav-link" do %>
+    <%= link_to depenses_path, class: "nav-link #{'active' if controller_name == 'depenses'}" do %>
       <i class="bi bi-cash"></i> Dépenses
     <% end %>
-    <%= link_to parents_path, class: "nav-link" do %>
+    <%= link_to parents_path, class: "nav-link #{'active' if controller_name == 'parents'}" do %>
       <i class="bi bi-people-fill"></i> Parents
     <% end %>
-    <%= link_to groupes_path, class: "nav-link" do %>
+    <%= link_to groupes_path, class: "nav-link #{'active' if controller_name == 'groupes'}" do %>
       <i class="bi bi-layers"></i> Groupes
     <% end %>
     <div><br>
       <span class="nav-label">Configuration</span>
       <ul class="nav-list">
-        <li><%= link_to saisons_path, class: "nav-link" do %>
+        <li><%= link_to saisons_path, class: "nav-link #{'active' if controller_name == 'saisons'}" do %>
           <i class="bi bi-calendar-check"></i> Saisons
         <% end %></li>
-        <li><%= link_to products_path, class: "nav-link" do %>
+        <li><%= link_to products_path, class: "nav-link #{'active' if controller_name == 'products'}" do %>
           <i class="bi bi-dribbble"></i> Produits
         <% end %></li>
-
-        <li><%= link_to users_path, class: "nav-link" do %>
+        <li><%= link_to users_path, class: "nav-link #{'active' if controller_name == 'users'}" do %>
           <i class="bi bi-person-lines-fill"></i> Utilisateurs
         <% end %></li>
       </ul>
