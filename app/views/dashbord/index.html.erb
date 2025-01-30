@@ -32,62 +32,80 @@
   </div>
 
   <div class="container my-4">
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col-3 mt-3">
-        <div class="card border-primary text-center">
-          <div class="card-header text-bg-info" style="font-size:larger">Nouveaux joueurs</div>
-          <div class="card-body">
-            <h5 class="card-title"><%= @nb_joueurs_for_year %></h5>
-          </div>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <!-- Card 1: Nouveaux joueurs -->
+    <div class="col-3 mt-3">
+      <div class="card border-primary text-center">
+        <div class="card-header text-white" style="font-size: larger; background-color: #469af4;">
+          <i class="bi bi-people mr-2"></i>Nouveaux joueurs
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= @nb_joueurs_for_year %></h5>
         </div>
       </div>
+    </div>
 
-      <div class="col-3 mt-3">
-        <div class="card border-primary text-center">
-          <div class="card-header" style="font-size:larger">Recette Abonnements</div>
-          <div class="card-body">
-            <h5 class="card-title"><%= @total_abonnements_for_year %> DT</h5>
-          </div>
+    <!-- Card 2: Recette Abonnements -->
+    <div class="col-3 mt-3">
+      <div class="card border-primary text-center">
+        <div class="card-header text-white" style="font-size: larger; background-color: #469af4;">
+          <i class="bi bi-credit-card mr-2"></i>Abonnements
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= @total_abonnements_for_year %> DT</h5>
         </div>
       </div>
+    </div>
 
-      <div class="col-3 mt-3">
-        <div class="card border-primary text-center">
-          <div class="card-header" style="font-size:larger">Assurances</div>
-          <div class="card-body">
-            <h5 class="card-title"><%= @total_assurances_for_year %> DT</h5>
-          </div>
+    <!-- Card 3: Assurances -->
+    <div class="col-3 mt-3">
+      <div class="card border-primary text-center">
+        <div class="card-header text-white" style="font-size: larger; background-color: #469af4;">
+          <i class="bi bi-shield-check mr-2"></i>Assurances
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= @total_assurances_for_year %> DT</h5>
         </div>
       </div>
+    </div>
 
-      <div class="col-3 mt-3">
-        <div class="card border-primary text-center">
-          <div class="card-header" style="font-size:larger">Recette Achats</div>
-          <div class="card-body">
-            <h5 class="card-title"><%= @total_achats_for_year %> DT</h5>
-          </div>
+    <!-- Card 4: Recette Achats -->
+    <div class="col-3 mt-3">
+      <div class="card border-primary text-center">
+        <div class="card-header text-white" style="font-size: larger; background-color: #469af4;">
+          <i class="bi bi-cart-check mr-2"></i>Achats
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= @total_achats_for_year %> DT</h5>
         </div>
       </div>
+    </div>
 
-      <div class="col-3 mt-3">
-        <div class="card border-primary text-center">
-          <div class="card-header" style="font-size:larger">Total</div>
-          <div class="card-body">
-            <h5 class="card-title"><%= @total_for_year %> DT</h5>
-          </div>
+    <!-- Card 5: Total -->
+    <div class="col-3 mt-3">
+      <div class="card border-primary text-center">
+        <div class="card-header text-white" style="font-size: larger; background-color: #469af4;">
+          <i class="bi bi-graph-up mr-2"></i>Revenu total
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= @total_for_year %> DT</h5>
         </div>
       </div>
+    </div>
 
-      <div class="col-3 mt-3">
-        <div class="card border-primary text-center">
-          <div class="card-header" style="font-size:larger">Crédits</div>
-          <div class="card-body">
-            <h5 class="card-title"><%= @total_crédits_for_year %> DT</h5>
-          </div>
+    <!-- Card 6: Crédits -->
+    <div class="col-3 mt-3">
+      <div class="card border-primary text-center">
+        <div class="card-header text-white" style="font-size: larger; background-color:#469af4;">
+          <i class="bi bi-credit-card-fill mr-2"></i>Crédits
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= @total_crédits_for_year %> DT</h5>
         </div>
       </div>
     </div>
   </div>
+</div>
 
   <%
   # Calcul des revenus
@@ -159,82 +177,108 @@ background: "#ffffff" %>
 
   <div class="container my-4">
   <div class="row row-cols-1 row-cols-md-3 g-4">
-    
+    <!-- Card 1: Nouveaux joueurs -->
     <div class="col-3 mt-3">
       <div class="card border-primary text-center">
-        <div class="card-header" style="font-size:larger">Nouveaux joueurs</div>
+        <div class="card-header text-white" style="font-size: larger; background-color: #469af4;">
+          <i class="bi bi-people mr-2"></i>Nouveaux joueurs
+        </div>
         <div class="card-body">
           <h5 class="card-title"><%= @nb_joueurs_for_month %></h5>
         </div>
       </div>
     </div>
 
+    <!-- Card 2: Recette Abonnements -->
     <div class="col-3 mt-3">
       <div class="card border-primary text-center">
-        <div class="card-header" style="font-size:larger">Recette Abonnements</div>
+        <div class="card-header text-white" style="font-size: larger; background-color: #469af4;">
+          <i class="bi bi-credit-card mr-2"></i>Abonnements
+        </div>
         <div class="card-body">
           <h5 class="card-title"><%= @total_abonnements_for_month %> DT</h5>
         </div>
       </div>
     </div>
 
+    <!-- Card 3: Assurances -->
     <div class="col-3 mt-3">
       <div class="card border-primary text-center">
-        <div class="card-header" style="font-size:larger">Assurances</div>
+        <div class="card-header text-white" style="font-size: larger; background-color: #469af4;">
+          <i class="bi bi-shield-check mr-2"></i>Assurances
+        </div>
         <div class="card-body">
           <h5 class="card-title"><%= @total_assurances_for_month %> DT</h5>
         </div>
       </div>
     </div>
 
+    <!-- Card 4: Recette Achats -->
     <div class="col-3 mt-3">
       <div class="card border-primary text-center">
-        <div class="card-header" style="font-size:larger">Recette Achats</div>
+        <div class="card-header text-white" style="font-size: larger; background-color: #469af4;">
+          <i class="bi bi-cart-check mr-2"></i>Achats
+        </div>
         <div class="card-body">
           <h5 class="card-title"><%= @total_achats_for_month %> DT</h5>
         </div>
       </div>
     </div>
 
+    <!-- Card 5: Total -->
     <div class="col-3 mt-3">
       <div class="card border-primary text-center">
-        <div class="card-header" style="font-size:larger">Total</div>
+        <div class="card-header text-white" style="font-size: larger; background-color: #469af4;">
+          <i class="bi bi-graph-up mr-2"></i>Revenu total
+        </div>
         <div class="card-body">
           <h5 class="card-title"><%= @total_for_month %> DT</h5>
         </div>
       </div>
     </div>
 
+    <!-- Card 6: Crédits -->
     <div class="col-3 mt-3">
       <div class="card border-primary text-center">
-        <div class="card-header" style="font-size:larger">Crédits</div>
+        <div class="card-header text-white" style="font-size: larger; background-color: #469af4;">
+          <i class="bi bi-credit-card-fill mr-2"></i>Crédits
+        </div>
         <div class="card-body">
           <h5 class="card-title"><%= @total_crédits_for_month %> DT</h5>
         </div>
       </div>
     </div>
 
+    <!-- Card 7: Total des salaires -->
     <div class="col-3 mt-3">
       <div class="card border-primary text-center">
-        <div class="card-header" style="font-size:larger">Total des salaires</div>
+        <div class="card-header text-white" style="font-size: larger; background-color: #469af4;">
+          <i class="bi bi-cash-stack mr-2"></i>Total des salaires
+        </div>
         <div class="card-body">
           <h5 class="card-title"><%= @total_salaires_for_month %> DT</h5>
         </div>
       </div>
     </div>
 
+    <!-- Card 8: Total des dépenses -->
     <div class="col-3 mt-3">
       <div class="card border-primary text-center">
-        <div class="card-header" style="font-size:larger">Total des dépenses</div>
+        <div class="card-header text-white" style="font-size: larger; background-color: #469af4;">
+          <i class="bi bi-wallet2 mr-2"></i>Total des dépenses
+        </div>
         <div class="card-body">
           <h5 class="card-title"><%= @total_depenses_for_month %> DT</h5>
         </div>
       </div>
     </div>
 
+    <!-- Card 9: Surplus / Déficit -->
     <div class="col-3 mt-3">
       <div class="card border-primary text-center">
-        <div class="card-header" style="font-size:larger">Surplus / Déficit</div>
+        <div class="card-header text-white" style="font-size: larger; background-color: #469af4;">
+          <i class="bi bi-plus-slash-minus mr-2"></i>Surplus / Déficit
+        </div>
         <div class="card-body">
           <h5 class="card-title"><%= @surplus_déficit_month %> DT</h5>
         </div>
@@ -243,20 +287,25 @@ background: "#ffffff" %>
   </div>
 </div>
   <div style="background-color:#ffffff;width:95%;margin:auto">
-    <%= column_chart [
-      { name: "Total Abonnements", data: { "Abonnements" => @total_abonnements_for_month }},
-      { name: "Total Assurances", data: { "Assurances" => @total_assurances_for_month }},
-      { name: "Total Achats", data: { "Achats" => @total_achats_for_month }},
-      { name: "Total Revenue", data: { "Total" => @total_for_month }},
-      { name: "Credits", data: { "Crédits" => @total_crédits_for_month }},
-      { name: "Total Salaires", data: { "Salaires" => @total_salaires_for_month }},
-      { name: "Total Dépenses", data: { "Dépenses" => @total_depenses_for_month }}
-    ], 
+  <% @total_expenses_for_month = @total_salaires_for_month + @total_depenses_for_month %>
+  <%= column_chart(
+    {
+      "Abonnements" => @total_abonnements_for_month,
+      "Assurances" => @total_assurances_for_month,
+      "Achats" => @total_achats_for_month,
+      "Salaires" => @total_salaires_for_month,
+      "Dépenses" => @total_depenses_for_month,
+      "Revenu total" => @total_for_month,
+      "Dépenses totales" => @total_expenses_for_month,
+      "Crédits" => @total_crédits_for_month
+    },
+    colors: ["#1f77b4", "#1f77b4", "#1f77b4", "#9467bd", "#9467bd", "#2ca02c", "#d62728", "#ffbb00"],
+    legend: false,
     height: "350px",
     download: { filename: "recette_paiements_#{selected_month}_#{selected_year}", background: "#ffffff" }, 
     title: "Bilan Financier Mensuel - #{I18n.t('date.month_names')[selected_month]} #{selected_year}",
     xtitle: "Catégories", 
-    ytitle: "Montant total en DT", 
+    ytitle: "Montant total en DT",
     library: {
       scales: {
         x: {
@@ -265,12 +314,13 @@ background: "#ffffff" %>
       },
       datasets: {
         bar: {
-          barPercentage: 1,
-          categoryPercentage: 1
+          barPercentage: 0.5,
+          categoryPercentage: 0.9 
         }
       }
-    } %>
-  </div>
+    }
+  ) %>
+</div>
 </div>
 
 <script>

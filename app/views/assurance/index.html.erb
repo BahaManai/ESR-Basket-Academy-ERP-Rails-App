@@ -1,15 +1,15 @@
 <% content_for :title, "Assurances" %>
 
 <% @page_title = "Assurances"%>
-<div class="mb-3">
-  <%= link_to 'Tous', assurances_path, class: "btn btn-sm #{params[:filter].present? ? 'btn-info' : 'btn-success'}" %>
-  <%= link_to 'Crédits', assurances_path(filter: 'credit'), class: "btn btn-sm #{params[:filter] == 'credit' ? 'btn-success' : 'btn-info'}" %>
-  <%= link_to 'Non crédits', assurances_path(filter: 'noncredit'), class: "btn btn-sm #{params[:filter] == 'noncredit' ? 'btn-success' : 'btn-info'}" %>
-</div>
-
 <%= link_to export_csv_assurances_path(format: :csv, filter: params[:filter]), class: 'btn btn-info btn-sm float-right' do %>
   <i class="bi bi-download"></i> Exporter en CSV
-<% end %><br>
+<% end %>
+
+<div class="filter-container">
+  <%= link_to 'Tous', assurances_path, class: "filter-btn #{params[:filter].present? ? '' : 'active'}" %>
+  <%= link_to 'Crédits', assurances_path(filter: 'credit'), class: "filter-btn #{params[:filter] == 'credit' ? 'active' : ''}" %>
+  <%= link_to 'Non crédits', assurances_path(filter: 'noncredit'), class: "filter-btn #{params[:filter] == 'noncredit' ? 'active' : ''}" %>
+</div>
 
 <table class="table table-bordered datatable table-hover table-sm">
   <thead style ="color:rgb(2, 30, 144)">

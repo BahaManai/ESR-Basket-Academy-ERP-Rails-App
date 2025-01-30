@@ -34,12 +34,17 @@
         <i class="bi bi-arrow-counterclockwise"></i>
       <%end%>
 </div>
+<p>
+  <%= link_to salaires_path, class: "btn btn-info btn-sm", style: "float:right" do %>
+    <i class="bi bi-clock-history"></i>&nbsp; Journal des salaires
+  <%end%>
+</p>
 
-<div class="mb-3">
+<div class="filter-container">
   <%= link_to 'Tous', request.path + "?" + request.query_parameters.except(:filter).to_query, 
-      class: "btn btn-sm #{params[:filter].present? ? 'btn-info' : 'btn-success'}" %>
+      class: "filter-btn #{params[:filter].present? ? '' : 'active'}" %> 
   <%= link_to 'Non payés', request.path + "?" + request.query_parameters.merge(filter: 'nonpayes').to_query, 
-      class: "btn btn-sm #{params[:filter] == 'nonpayes' ? 'btn-success' : 'btn-info'}" %>
+      class: "filter-btn #{params[:filter] == 'nonpayes' ? 'active' : ''}" %>
 </div>
 
 
@@ -91,10 +96,6 @@
     <% end %>
   </tbody>
 </table>
-
-<p>
-  <%= link_to "Journal des salaires", salaires_path, class: "btn btn-secondary", style: "float:right" %>
-</p>
 
 <script>
   function redirectToMonth(input) {

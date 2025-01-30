@@ -1,18 +1,17 @@
 <% content_for :title, "Paiements" %>
 <% @page_title = "Paiements"%>
 
-<div class="mb-3">
-  <%= link_to 'Tous', paiements_path, class: "btn btn-sm #{params[:filter].present? ? 'btn-info' : 'btn-success'}" %>
-  <%= link_to 'Active', paiements_path(filter: 'active'), class: "btn btn-sm #{params[:filter] == 'active' ? 'btn-success' : 'btn-info'}" %>
-  <%= link_to 'Expiré', paiements_path(filter: 'expired'), class: "btn btn-sm #{params[:filter] == 'expired' ? 'btn-success' : 'btn-info'}" %>
-  <%= link_to 'Crédit', paiements_path(filter: 'credit'), class: "btn btn-sm #{params[:filter] == 'credit' ? 'btn-success' : 'btn-info'}" %>
-  <%= link_to 'Non crédit', paiements_path(filter: 'noncredit'), class: "btn btn-sm #{params[:filter] == 'noncredit' ? 'btn-success' : 'btn-info'}" %>
-</div>
-
-
 <%= link_to export_csv_paiements_path(format: :csv, filter: params[:filter]), class: 'btn btn-info btn-sm float-right' do %>
   <i class="bi bi-download"></i> Exporter en CSV
-<% end %><br>
+<% end %>
+
+<div class="filter-container">
+  <%= link_to 'Tous', paiements_path, class: "filter-btn #{params[:filter].present? ? '' : 'active'}" %>
+  <%= link_to 'Active', paiements_path(filter: 'active'), class: "filter-btn #{params[:filter] == 'active' ? 'active' : ''}" %>
+  <%= link_to 'Expiré', paiements_path(filter: 'expired'), class: "filter-btn #{params[:filter] == 'expired' ? 'active' : ''}" %>
+  <%= link_to 'Crédit', paiements_path(filter: 'credit'), class: "filter-btn #{params[:filter] == 'credit' ? 'active' : ''}" %>
+  <%= link_to 'Non crédit', paiements_path(filter: 'noncredit'), class: "filter-btn #{params[:filter] == 'noncredit' ? 'active' : ''}" %>
+</div>
 
 <table class="table table-bordered datatable table-hover table-sm">
     <thead style ="color:rgb(2, 30, 144)">
