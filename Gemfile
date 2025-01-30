@@ -43,6 +43,10 @@ gem "devise"
 gem "chartkick"
 gem "groupdate"
 
+gem "stackprof"
+gem "sentry-ruby"
+gem "sentry-rails"
+
 gem "dotenv-rails", groups: [ :development, :test ]
 
 group :development, :test do

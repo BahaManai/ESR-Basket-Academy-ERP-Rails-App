@@ -7,3 +7,9 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+User.find_or_create_by!(email: 'admin79@example.com') do |user|
+  user.user_name = 'admin_user'
+  user.role = 'Administrateur'  # Assurez-vous que le rôle est valide selon votre validation
+  user.password = 'securepassword'  # Utilisez un mot de passe valide
+  user.password_confirmation = 'securepassword'  # Confirmer le mot de passe
+end
