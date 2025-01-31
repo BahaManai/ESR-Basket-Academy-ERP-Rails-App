@@ -1,5 +1,5 @@
 class Saison < ApplicationRecord
-  has_many :assurances, dependent: :nullify
+  has_many :assurances, dependent: :destroy
 
   validates :date_debut, presence: true
   validates :date_fin, presence: true

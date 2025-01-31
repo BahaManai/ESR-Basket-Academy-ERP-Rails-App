@@ -1,5 +1,5 @@
 class Entraineur < ApplicationRecord
-  has_many :salaires, dependent: :nullify
+  has_many :salaires, dependent: :destroy
   has_many :groupes, dependent: :nullify
   validates :nom, presence: true
   validates :prénom, presence: true
