@@ -186,6 +186,15 @@ document.addEventListener("turbo:load", initializeEntraineurForm);
 document.addEventListener("DOMContentLoaded", initializeDataTables);
 document.addEventListener("turbo:frame-load", initializeDataTables);
 document.addEventListener("turbo:load", initializeDataTables);
+document.addEventListener("turbo:before-cache", () => {
+    $(".datatable").each(function () {
+        if ($.fn.dataTable.isDataTable(this)) {
+            $(this).DataTable().destroy();
+            $(this).removeClass('dataTable');
+            $(this).siblings('.dataTables_wrapper').remove();
+        }
+    });
+});
 
 document.addEventListener("DOMContentLoaded", onChangeSaisonMontant);
 document.addEventListener("turbo:frame-load", onChangeSaisonMontant);
@@ -198,6 +207,13 @@ document.addEventListener("turbo:load", onChangeProduitAchat);
 document.addEventListener("DOMContentLoaded", initializeFlatpickr);
 document.addEventListener("turbo:frame-load", initializeFlatpickr);
 document.addEventListener("turbo:load", initializeFlatpickr);
+document.addEventListener("turbo:before-cache", () => {
+    document.querySelectorAll(".monthpicker").forEach((element) => {
+        if (element._flatpickr) {
+            element._flatpickr.destroy();
+        }
+    });
+});
 
 document.addEventListener("DOMContentLoaded", initializeNewSalaireForm2);
 document.addEventListener("turbo:frame-load", initializeNewSalaireForm2);
