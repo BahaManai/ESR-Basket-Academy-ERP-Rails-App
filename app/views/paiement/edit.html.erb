@@ -1,12 +1,12 @@
-<% content_for :title, "Modifier le Paiement" %>
+<% content_for :title, "Abonnements | ESR Basket Academy" %>
 
 <div>
   <%= link_to "Fiche de joueur >", edit_joueur_path(@paiement.joueur) %><br>
-  <%= link_to "Paiements >", paiements_path %>
+  <%= link_to "Abonnements >", paiements_path %>
 </div>
 
 <%= form_with(model: @paiement, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |form| %>
-  <h2 class="mb-4">Modifier le paiement :</h2>
+  <h2 class="mb-4">Modifier l'abonnement :</h2>
   
   <% if @paiement.errors.any? %>
     <div class="custom-alert" role="alert">

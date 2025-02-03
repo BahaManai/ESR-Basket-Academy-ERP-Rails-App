@@ -1,5 +1,5 @@
-<% content_for :title, "Paiements" %>
-<% @page_title = "Paiements"%>
+<% content_for :title, "Abonnements | ESR Basket Academy" %>
+<% @page_title = "Abonnements"%>
 
 <%= link_to export_csv_paiements_path(format: :csv, filter: params[:filter]), class: 'btn btn-info btn-sm float-right' do %>
   <i class="bi bi-download"></i> Exporter en CSV
@@ -16,10 +16,10 @@
 <table class="table table-bordered datatable table-hover table-sm">
     <thead style ="color:rgb(2, 30, 144)">
     <tr>
-      <th>Nom du Joueur</th>
-      <th>Date d'Abonnement</th>
-      <th>Date d'Encaissement</th>
-      <th>Expire</th>
+      <th>Nom du joueur</th>
+      <th>Date d'abonnement</th>
+      <th>Date d'encaissement</th>
+      <th>Date d'expiration</th>
       <th>Paiement</th>
       <th>N° reçu</th>
     </tr>
@@ -59,7 +59,7 @@
               <% else
               %>
               </strong>
-              <span style="color:red">(Expiré)</span>
+              <span style="color:#990000">(Expiré)</span>
               <%end
                %>
             <% end %>
@@ -70,7 +70,11 @@
         else
           ''
         end
-      %>"><%= paiement.montant %>&nbspDT</td>
+      %>"><%= paiement.montant %>&nbsp;DT
+        <% if paiement.etat_abonnement == 'Crédit' %>
+          <span style="color:#996633">&nbsp;(Crédit)</span>
+        <% end %>
+      </td>
         <td style="text-align:center"><%= paiement.num_recu %></td>
       </tr>
     <% end %>

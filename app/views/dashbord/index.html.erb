@@ -1,6 +1,7 @@
 <% selected_year = (params[:annee] || Date.today.year).to_i %>
 <% selected_month = (params[:mois] || Date.today.month).to_i %>
 
+<% content_for :title, "Dashbord | ESR Basket Academy" %>
 
 <% @page_title = "Tableau de bord"%>
   <h5 style="color:#0023b5">Par année :</h5>    
@@ -97,7 +98,7 @@
     <div class="col-3 mt-3">
       <div class="card border-primary text-center">
         <div class="card-header text-white" style="font-size: larger; background-color:#469af4;">
-          <i class="bi bi-credit-card-fill mr-2"></i>Crédits
+          <i class="bi bi-credit-card-2-back-fill mr-2"></i>Crédits
         </div>
         <div class="card-body">
           <h5 class="card-title"><%= @total_crédits_for_year %> DT</h5>
@@ -241,7 +242,7 @@ background: "#ffffff" %>
     <div class="col-3 mt-3">
       <div class="card border-primary text-center">
         <div class="card-header text-white" style="font-size: larger; background-color: #469af4;">
-          <i class="bi bi-credit-card mr-2"></i>Crédits
+          <i class="bi bi-credit-card-2-back-fill mr-2"></i>Crédits
         </div>
         <div class="card-body">
           <h5 class="card-title"><%= @total_crédits_for_month %> DT</h5>

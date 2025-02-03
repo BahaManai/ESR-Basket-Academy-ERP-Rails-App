@@ -1,7 +1,7 @@
 <% selected_year = params[:annee].presence || Date.today.year %>
 <% selected_month = params[:mois].presence || Date.today.month %>
 
-<% content_for :title, "Entraîneurs" %>
+<% content_for :title, "Entraîneurs | ESR Basket Academy" %>
 <% @page_title = "Entraîneurs"%>
 <p><%= link_to new_salaire_path, class: "btn btn-primary btn-sm float-right" do %>
 <i class="bi bi-plus-circle"></i>&nbsp; Ajouter une avance

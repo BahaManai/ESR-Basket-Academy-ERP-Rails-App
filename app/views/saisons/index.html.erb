@@ -1,4 +1,4 @@
-<% content_for :title, "Saisons" %>
+<% content_for :title, "Saisons | ESR Basket Academy" %>
 <% @page_title = "Saisons"%>
 
 <p>
@@ -18,7 +18,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @saisons.each do |saison| %>
+    <% @saisons.reverse.each do |saison| %>
       <tr id="<%= dom_id saison %>">
         <td><%= saison.id %></td>
         <td><%= "#{saison.date_debut.strftime('%d')} #{I18n.t('date.month_names_short')[saison.date_debut.month]}, #{saison.date_debut.strftime('%Y')}" if saison.date_debut %></td>
