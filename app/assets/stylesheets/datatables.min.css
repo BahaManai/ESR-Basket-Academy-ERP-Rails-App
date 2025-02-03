@@ -714,6 +714,7 @@ div.dt-container div.dt-layout-table>div {
 }
 
 div.dt-container {
+    font-size: 15px;
     position: relative;
     clear: both
 }

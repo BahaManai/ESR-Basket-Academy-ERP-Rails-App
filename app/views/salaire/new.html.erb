@@ -31,9 +31,9 @@
 
   <div class="mb-3">
     <%= form.label :salaire, "Montant (DT) *", class: "form-label" %>
-    <%= form.number_field :salaire, class: "form-control", placeholder: "Montant (<= salaire mensuel)", required: true, min: "0", step: "10" %>
+    <%= form.number_field :salaire, class: "form-control", placeholder: "Montant", required: true, min: "0", step: "10" %>
     <div class="invalid-feedback">
-      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le montant est obligatoire et doit être un nombre positif.
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le montant est obligatoire et doit être inférieur au salaire mensuel.
     </div>
   </div>
 

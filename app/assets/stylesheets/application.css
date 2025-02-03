@@ -22,6 +22,7 @@
 }
 
 .filter-btn {
+    font-size: 15px;
     text-decoration: none;
     color: #333;
     padding: 6px 12px;
@@ -307,4 +308,8 @@
     margin: auto;
     padding: 10px;
     border: 1px solid #ccc;
+}
+
+table {
+    font-size: 15px;
 }
