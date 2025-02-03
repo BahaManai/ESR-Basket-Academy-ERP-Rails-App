@@ -2847,19 +2847,19 @@ fieldset:disabled a.btn {
 
 .btn-secondary {
     color: #fff;
-    background-color: #6c757d;
-    border-color: #6c757d
+    background-color: #697f93;
+    border-color: #697f93
 }
 
 .btn-secondary:hover {
     color: #fff;
-    background-color: #5a6268;
-    border-color: #545b62
+    background-color: #63717e;
+    border-color: #63717e
 }
 
 .btn-secondary.focus,
 .btn-secondary:focus {
-    box-shadow: 0 0 0 .2rem rgba(108, 117, 125, .5)
+    box-shadow: 0 0 0 .2rem rgba(105, 127, 147, .5)
 }
 
 .btn-secondary.disabled,
@@ -2873,14 +2873,14 @@ fieldset:disabled a.btn {
 .btn-secondary:not(:disabled):not(.disabled):active,
 .show>.btn-secondary.dropdown-toggle {
     color: #fff;
-    background-color: #545b62;
-    border-color: #4e555b
+    background-color: #63717e;
+    border-color: #63717e
 }
 
 .btn-secondary:not(:disabled):not(.disabled).active:focus,
 .btn-secondary:not(:disabled):not(.disabled):active:focus,
 .show>.btn-secondary.dropdown-toggle:focus {
-    box-shadow: 0 0 0 .2rem rgba(108, 117, 125, .5)
+    box-shadow: 0 0 0 .2rem rgba(105, 127, 147, .5)
 }
 
 .btn-success {

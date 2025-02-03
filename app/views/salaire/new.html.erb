@@ -5,7 +5,7 @@
 </div>
 
 <%= form_with(model: @salaire, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |form| %>
-  <h2>Ajouter une avance de salaire :</h2><br>
+  <h2 class="mb-4">Ajouter une avance de salaire :</h2>
 
   <% if @salaire.errors.any? %>
     <div class="custom-alert" role="alert">

@@ -5,7 +5,7 @@
 </div>
 
 <%= form_with(model: @saison, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |form| %>
-  <h1>Modifier la saison :</h1><br>
+  <h2 class="mb-4">Modifier la saison :</h2>
   <% if @saison.errors.any? %>
     <div class="custom-alert" role="alert">
       <button type="button" class="close-btn" aria-label="Close" onclick="document.querySelector('.custom-alert').style.display = 'none'">

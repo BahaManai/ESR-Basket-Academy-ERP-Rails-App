@@ -4,7 +4,7 @@
   <%= link_to "Entraîneurs >", entraineurs_path, class: "btn btn-link" %>
 </div>
 <%= form_with(model: @entraineur, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |form| %>
-  <h1>Nouvel entraîneur :</h1><br>
+  <h2 class="mb-4">Nouvel entraîneur :</h2>
 
   <% if @entraineur.errors.any? %>
     <div class="custom-alert" role="alert">

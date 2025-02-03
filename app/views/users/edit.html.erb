@@ -4,7 +4,7 @@
 </div>
 
 <%= form_with(model: @user, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |f| %>
-  <h1>Modifier un utilisateur :</h1><br>
+  <h2 class="mb-4">Modifier un utilisateur :</h2>
 
   <% if @user.errors.any? %>
     <div class="custom-alert" role="alert">

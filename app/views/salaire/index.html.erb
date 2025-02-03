@@ -10,7 +10,7 @@
       <th>Entraineur</th>
       <th>Mois</th>
       <th>Salaire</th>
-      <th>Actions</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -20,8 +20,8 @@
         <td><%= "#{I18n.t('date.month_names')[salaire.mois]} #{salaire.annee}" %></td>      
         <td><%= salaire.salaire %>&nbspDT</td>
         <td>
-          <%= button_to salaire_path(salaire), method: :delete, data: { controller: "confirm", confirm_message: "Êtes-vous sûr de supprimer le salaire ?" }, class: "btn btn-danger btn-sm" do %>
-            <i class="bi bi-trash"></i>
+          <%= button_to salaire_path(salaire), method: :delete, data: { controller: "confirm", confirm_message: "Êtes-vous sûr de supprimer le salaire ?" }, class: "btn btn-secondary btn-sm" do %>
+            <i class="bi bi-trash"></i>&nbsp; Supprimer
           <%end%>
         </td>
       </tr>

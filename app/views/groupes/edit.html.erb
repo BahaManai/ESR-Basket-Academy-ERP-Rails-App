@@ -5,7 +5,7 @@
 </div>
 
 <%= form_with(model: @groupe, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |form| %>
-  <h1>Modifier le groupe :</h1><br>
+  <h2 class="mb-4">Modifier le groupe :</h2>
 
   <% if @groupe.errors.any? %>
     <div class="custom-alert" role="alert">

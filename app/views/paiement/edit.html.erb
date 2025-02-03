@@ -6,7 +6,7 @@
 </div>
 
 <%= form_with(model: @paiement, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |form| %>
-  <h1>Modifier le paiement :</h1><br>
+  <h2 class="mb-4">Modifier le paiement :</h2>
   
   <% if @paiement.errors.any? %>
     <div class="custom-alert" role="alert">

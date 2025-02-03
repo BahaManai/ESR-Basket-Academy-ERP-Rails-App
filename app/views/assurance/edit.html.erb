@@ -6,7 +6,7 @@
 </div>
 
 <%= form_with(model: @assurance, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |form| %>
-  <h1>Modifier l'assurance :</h1><br>
+  <h2 class="mb-4">Modifier l'assurance :</h2>
   
   <% if @assurance.errors.any? %>
     <div class="custom-alert" role="alert">
