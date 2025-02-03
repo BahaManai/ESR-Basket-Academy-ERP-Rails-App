@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_28_142117) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_03_124403) do
   create_table "achats", force: :cascade do |t|
     t.string "designation"
     t.float "prix"
@@ -148,5 +148,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_142117) do
   add_foreign_key "groupes", "entraineurs"
   add_foreign_key "joueurs", "groupes"
   add_foreign_key "joueurs", "parents"
+  add_foreign_key "paiements", "joueurs"
   add_foreign_key "salaires", "entraineurs"
 end
