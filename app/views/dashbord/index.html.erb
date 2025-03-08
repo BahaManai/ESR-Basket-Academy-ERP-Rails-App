@@ -329,13 +329,17 @@ background: "#ffffff" %>
     const year = select.value;
     const url = new URL(window.location.href);
     url.searchParams.set('annee', year);
+    url.searchParams.delete('mois');
+    url.hash = '';
     window.location.href = url.toString();
   }
+
   function redirectToMonth(input) {
     const [year, month] = input.value.split('-');
     const url = new URL(window.location.href);
     url.searchParams.set('annee', year);
     url.searchParams.set('mois', month);
+    url.hash = '#MonthContainer';
     window.location.href = url.toString();
   }
 </script>
