@@ -1,0 +1,43 @@
+<% content_for :title, "Achats | ESR Basket Academy" %>
+
+<% @page_title = "Achats"%>
+
+<%= link_to export_csv_achats_path(format: :csv, filter: params[:filter]), class: 'btn btn-info btn-sm float-right' do %>
+  <i class="bi bi-download"></i> Exporter en CSV
+<% end %>
+
+<div class="filter-container">
+  <%= link_to 'Tous', achats_path, class: "filter-btn #{params[:filter].present? ? '' : 'active'}" %>
+  <%= link_to 'Crédits', achats_path(filter: 'credit'), class: "filter-btn #{params[:filter] == 'credit' ? 'active' : ''}" %>
+  <%= link_to 'Non crédits', achats_path(filter: 'noncredit'), class: "filter-btn #{params[:filter] == 'noncredit' ? 'active' : ''}" %>
+</div>
+
+<table class="table table-bordered datatable table-hover table-sm">
+  <thead style ="color:rgb(2, 30, 144)">
+    <tr>
+      <th>Nom du Joueur</th>
+      <th>Désignation</th>
+      <th>Prix</th>
+      <th>Date d'Achat</th>
+      <th>N° reçu</th>
+
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+    <% @achats.reverse.each do |achat| %>
+      <tr id="<%= dom_id achat %>" class="<%= 'etat_crédit' if achat.etat_paiement == 'Crédit' %>">
+        <td>
+          <% if achat.joueur %>
+            <%= link_to edit_joueur_path(achat.joueur), class: "custom-dark" do %>
+              <%= achat.joueur ? "#{achat.joueur.prénom} #{achat.joueur.nom}" : "Joueur inconnu" %>
+            <% end %>
+          <% end %>
+        </td>
+        <td><%= achat.designation %></td>
+        <td><%= achat.prix %>&nbspDT</td>
+        <td><%= "#{achat.date_achat.strftime('%d')} #{I18n.t('date.month_names_short')[achat.date_achat.month]}, #{achat.date_achat.strftime('%Y')}" if achat.date_achat %></td>
+        <td style="text-align:center"><%= achat.num_recu %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

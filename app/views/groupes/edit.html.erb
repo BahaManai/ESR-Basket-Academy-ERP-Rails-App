@@ -1,0 +1,93 @@
+<% content_for :title, "Groupes | ESR Basket Academy" %>
+
+<div>
+  <%= link_to "Groupes >", groupes_path, class: "btn btn-link" %>
+</div>
+
+<%= form_with(model: @groupe, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |form| %>
+  <h2 class="mb-4">Modifier le groupe :</h2>
+
+  <% if @groupe.errors.any? %>
+    <div class="custom-alert" role="alert">
+      <button type="button" class="close-btn" aria-label="Close" onclick="document.querySelector('.custom-alert').style.display = 'none'">
+        <i class="bi bi-x-lg"></i>
+      </button>
+      <h2>
+        <%= pluralize(@groupe.errors.count, "erreur", "erreurs") %> détectée<%= 's' if @groupe.errors.count > 1 %> :
+      </h2>
+      <ul>
+        <% @groupe.errors.full_messages.each do |message| %>
+          <li style="list-style-type: none;">
+            <i class="bi bi-exclamation-triangle-fill"></i>&nbsp; <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <div class="row">
+      <div class="col-6">
+        <%= form.label :age_min, "Age minimum *", class: "form-label" %>
+        <%= form.number_field :age_min, class: "form-control", placeholder: "Entrez l'âge minimum", required: true, min: "0" %>
+      </div>
+      <div class="col-6">
+        <%= form.label :age_max, "Age maximum *", class: "form-label" %>
+        <%= form.number_field :age_max, class: "form-control", placeholder: "Entrez l'âge maximum", required: true, min: "0" %>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="mb-3">
+    <%= form.label :entraineur_id, "Entraîneur *", class: "form-label" %>
+    <%= form.select :entraineur_id, 
+          Entraineur.all.map { |e| ["#{e.prénom} #{e.nom}", e.id, { "data-salaire" => e.salaire }] }, 
+          { prompt: "Sélectionner un entraîneur" }, 
+          { class: "custom-select", required: true } %>
+  </div>
+
+  <div class="mb-3">
+    <div class="d-flex gap-3 justify-content-between">
+      <div class="flex-grow-1 mr-2">
+        <%= form.label :jour, "Jour", class: "form-label" %>
+        <%= form.select :jour, 
+                        I18n.t('date.day_names').map { |day| [day, day] }, 
+                        { prompt: "Sélectionner un jour" }, 
+                        { class: "custom-select" } %>
+      </div>
+      <div class="flex-grow-1 mr-2">
+        <%= form.label :heure_debut, "Heure de début", class: "form-label" %>
+        <%= form.text_field :heure_debut, step: 1, class: "form-control", placeholder: "HH:MM", 
+            pattern: "\\d{2}:\\d{2}", title: "L'heure doit être au format HH:MM" %>
+      </div>
+      <div class="flex-grow-1">
+        <%= form.label :heure_fin, "Heure de fin", class: "form-label" %>
+        <%= form.text_field :heure_fin, step: 1, class: "form-control", placeholder: "HH:MM", 
+            pattern: "\\d{2}:\\d{2}", title: "L'heure doit être au format HH:MM" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :terrain, "Terrain", class: "form-label" %>
+    <%= form.select :terrain, 
+                    [["A", "A"], ["B", "B"]], 
+                    { prompt: "Sélectionner un terrain" }, 
+                    { class: "custom-select" } %>
+  </div>
+
+  <div class="mb-3">
+    <%= button_tag type: 'submit', class: "btn btn-success btn-sm" do %>
+          <i class="bi bi-bookmark-check"></i>&nbsp; Enregistrer
+        <% end %>
+  </div>
+<% end %>
+
+<div class="new_forms">
+  <hr>
+  <%= button_to @groupe, method: :delete, data: { controller: "confirm", confirm_message: "Êtes-vous sûr de supprimer ce groupe définitivement ?" }, class: "btn btn-danger btn-sm", style: "float:right" do %>
+      <i class="bi bi-trash"></i>&nbsp; Supprimer ce groupe
+    <%end%>
+</div>
+<br>

@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  heure_debut: 1
+  heure_fin: 1
+  jour: MyString
+  terrain: MyString
+  string: MyString
+  age_min: 1
+  age_max: 1
+  entraineur: one
+
+two:
+  heure_debut: 1
+  heure_fin: 1
+  jour: MyString
+  terrain: MyString
+  string: MyString
+  age_min: 1
+  age_max: 1
+  entraineur: two

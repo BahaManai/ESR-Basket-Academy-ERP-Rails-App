@@ -1,0 +1,56 @@
+<% content_for :title, "Parents | ESR Basket Academy" %>
+
+<div>
+  <%= link_to "Parents >", parents_path %>
+</div>
+
+<%= form_with(model: @parent, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |form| %>
+  <h2 class="mb-4">Nouveau parent :</h2>
+
+  <% if @parent.errors.any? %>
+    <div class="custom-alert" role="alert">
+      <button type="button" class="close-btn" aria-label="Close" onclick="document.querySelector('.custom-alert').style.display = 'none'">
+      <i class="bi bi-x-lg"></i>
+      </button>
+      <h2>
+        <%= pluralize(@parent.errors.count, "erreur", "erreurs") %> détectée<%= 's' if @parent.errors.count > 1 %> :
+      </h2>
+      <ul>
+        <% @parent.errors.full_messages.each do |message| %>
+          <li style="list-style-type: none;">
+            <i class="bi bi-exclamation-triangle-fill"></i>&nbsp; <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :prénom, "Prénom *", class: "form-label" %>
+    <%= form.text_field :prénom, class: "form-control", placeholder: "Entrez le prénom", required: true %>
+    <div class="invalid-feedback">
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le prénom est obligatoire.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :nom, "Nom *", class: "form-label" %>
+    <%= form.text_field :nom, class: "form-control", placeholder: "Entrez le nom", required: true %>
+    <div class="invalid-feedback">
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le nom est obligatoire.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :téléphone, "Téléphone", class: "form-label" %>
+    <%= form.text_field :téléphone, class: "form-control", placeholder: "Entrez le numéro de téléphone", 
+        pattern: "\\d{8}", title: "Le téléphone doit contenir exactement 8 chiffres." %>
+    <div class="invalid-feedback">
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le numéro de téléphone doit être un nombre de 8 chiffres.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit "Créer le parent", class: "btn btn-success" %>
+  </div>
+<% end %>

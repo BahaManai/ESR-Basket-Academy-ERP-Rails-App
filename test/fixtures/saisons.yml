@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date_debut: 2025-01-02
+  date_fin: 2025-12-02
+  montant_abonnement: 100
+  montant_assurance: 50
+
+two:
+  date_debut: 2025-01-01
+  date_fin: 2025-12-01
+  montant_abonnement: 150
+  montant_assurance: 75

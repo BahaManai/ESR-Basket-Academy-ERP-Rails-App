@@ -1,0 +1,30 @@
+<% content_for :title, "Salaires | ESR Basket Academy" %>
+<div>
+  <%= link_to "Entraîneurs >", entraineurs_path %>
+</div>
+<% @page_title = "Journal des salaires"%>
+
+<table class="table table-bordered datatable table-hover table-sm">
+  <thead style ="color:rgb(2, 30, 144)">
+    <tr>
+      <th>Entraineur</th>
+      <th>Mois</th>
+      <th>Salaire</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @salaires.each do |salaire| %>
+      <tr id="<%= dom_id salaire %>">
+        <td><%= salaire.entraineur ? "#{salaire.entraineur.prénom} #{salaire.entraineur.nom}" : "Entraîneur inconnu" %></td>
+        <td><%= "#{I18n.t('date.month_names')[salaire.mois]} #{salaire.annee}" %></td>      
+        <td><%= salaire.salaire %>&nbspDT</td>
+        <td>
+          <%= button_to salaire_path(salaire), method: :delete, data: { controller: "confirm", confirm_message: "Êtes-vous sûr de supprimer le salaire ?" }, class: "btn btn-secondary btn-sm" do %>
+            <i class="bi bi-trash"></i>&nbsp; Supprimer
+          <%end%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

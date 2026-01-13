@@ -1,0 +1,64 @@
+<% content_for :title, "Entraîneurs | ESR Basket Academy" %>
+
+<div>
+  <%= link_to "Entraîneurs >", entraineurs_path, class: "btn btn-link" %>
+</div>
+<%= form_with(model: @entraineur, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |form| %>
+  <h2 class="mb-4">Nouvel entraîneur :</h2>
+
+  <% if @entraineur.errors.any? %>
+    <div class="custom-alert" role="alert">
+      <button type="button" class="close-btn" aria-label="Close" onclick="document.querySelector('.custom-alert').style.display = 'none'">
+      <i class="bi bi-x-lg"></i>
+      </button>
+      <h2>
+        <%= pluralize(@entraineur.errors.count, "erreur", "erreurs") %> détectée<%= 's' if @entraineur.errors.count > 1 %> :
+      </h2>
+      <ul>
+        <% @entraineur.errors.full_messages.each do |message| %>
+          <li style="list-style-type: none;">
+            <i class="bi bi-exclamation-triangle-fill"></i>&nbsp; <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :prénom, "Prénom *", class: "form-label" %>
+    <%= form.text_field :prénom, class: "form-control", placeholder: "Entrez le prénom", required: true %>
+    <div class="invalid-feedback">
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le prénom est obligatoire.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :nom, "Nom *", class: "form-label" %>
+    <%= form.text_field :nom, class: "form-control", placeholder: "Entrez le nom", required: true %>
+    <div class="invalid-feedback">
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le nom est obligatoire.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :téléphone, class: "form-label" %>
+    <%= form.text_field :téléphone, class: "form-control", placeholder: "Entrez le numéro de téléphone", 
+        pattern: "\\d{8}", title: "Le téléphone doit contenir exactement 8 chiffres." %>
+    <div class="invalid-feedback">
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le numéro de téléphone doit être un nombre de 8 chiffres.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :salaire, "Salaire *", class: "form-label" %>
+    <%= form.number_field :salaire, class: "form-control", placeholder: "Entrez le salaire en DT", 
+        min: "0", step: "10", title: "Le salaire doit être un nombre positif.", required: true %>
+    <div class="invalid-feedback">
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le salaire doit être un nombre supérieur ou égal à 0.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit "Créer l'entraîneur", class: "btn btn-success" %>
+  </div>
+<% end %>

@@ -1,0 +1,28 @@
+<div class="container d-flex justify-content-center align-items-center">
+  <div class="card shadow-lg" style="width: 100%; max-width: 400px; margin-top: 70px; border: 1px solid #0023b5; border-radius: 17px; box-shadow: -8px 8px 15px rgba(0, 0, 0, 0.2);">
+    <div style="background-image: url(<%= asset_path 'logo_BASKET.jpg' %>); background-size: cover; background-position: center; height: 100px; border-radius: 15px 15px 0px 0px;"></div>
+    <div class="card-body">
+      <h3 class="text-center mb-4" style="color: #0023b5">Réenvoyer les instructions de confirmation</h3>
+      
+      <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: "needs-validation", novalidate: true }) do |f| %>
+        
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="field mb-3">
+          <%= f.label :email, "Email", class: "form-label" %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: "form-control", required: true, placeholder: "Entrez votre email" %>
+          <div class="invalid-feedback">
+            <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Veuillez entrer une adresse email valide.
+          </div>
+        </div>
+
+        <div class="actions d-grid text-center mb-3">
+          <%= f.submit "Réenvoyer les instructions de confirmation", class: "btn btn-primary" %>
+        </div>
+        
+      <% end %>
+
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</div>

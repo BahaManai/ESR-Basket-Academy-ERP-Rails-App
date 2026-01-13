@@ -1,0 +1,48 @@
+<% content_for :title, "Produits | ESR Basket Academy" %>
+
+<div>
+  <%= link_to "Produits >", products_path %>
+</div>
+
+<%= form_with(model: @product, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |form| %>
+  <h2 class="mb-4">Ajouter un produit :</h2>
+  
+  <% if @product.errors.any? %>
+    <div class="custom-alert" role="alert">
+      <button type="button" class="close-btn" aria-label="Close" onclick="document.querySelector('.custom-alert').style.display = 'none'">
+      <i class="bi bi-x-lg"></i>
+      </button>
+      <h2>
+        <%= pluralize(@product.errors.count, "erreur", "erreurs") %> détectée<%= 's' if @product.errors.count > 1 %> :
+      </h2>
+      <ul>
+        <% @product.errors.full_messages.each do |message| %>
+          <li style="list-style-type: none;">
+            <i class="bi bi-exclamation-triangle-fill"></i>&nbsp; <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :nom, "Nom du produit *", class: "form-label" %>
+    <%= form.text_field :nom, class: "form-control", required: true, placeholder: "Entrez le nom du produit" %>
+    <div class="invalid-feedback">
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le nom du produit est obligatoire et doit être unique.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :prix, "Prix (DT) *", class: "form-label" %>
+    <%= form.number_field :prix, class: "form-control", step: 0.01, required: true, min: 0, placeholder: "Entrez le prix du produit" %>
+    <div class="invalid-feedback">
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le prix est obligatoire et doit être supérieur ou égal à 0.
+    </div>
+  </div>
+
+
+  <div class="mb-3">
+    <%= form.submit "Ajouter", class: "btn btn-success" %>
+  </div>
+<% end %>

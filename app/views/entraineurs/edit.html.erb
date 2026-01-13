@@ -1,0 +1,137 @@
+
+<% content_for :title, "Entraîneurs | ESR Basket Academy" %>
+<div style="margin-bottom:10px">
+  <%= link_to "Entraîneurs >", entraineurs_path %>
+</div>
+<% @page_title = "Fiche de #{@entraineur.prénom} #{@entraineur.nom}"%>
+
+<div style="display: flex; justify-content: space-between; gap: 20px;">
+  <div style="flex: 1; border: 1px solid #ccc; padding: 20px;;background-color:#ffffff">
+    <h3>Modifier l'entraîneur</h3>
+    <%= form_with(model: @entraineur, class: "needs-validation", local: true, html: { novalidate: true }) do |form| %>
+      <div>
+        <%= button_tag type: 'submit', class: "btn btn-info btn-sm", style: "float:right" do %>
+          <i class="bi bi-bookmark-check"></i>&nbsp; Enregistrer
+        <% end %>
+      </div>
+      <br>
+      <div class="mb-3">
+        <%= form.label :prénom, "Prénom *", class: "form-label" %>
+        <%= form.text_field :prénom, class: "form-control", placeholder: "Entrez le prénom", required: true %>
+        <div class="invalid-feedback">
+          <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le prénom est obligatoire.
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <%= form.label :nom, "Nom *", class: "form-label" %>
+        <%= form.text_field :nom, class: "form-control", placeholder: "Entrez le nom", required: true %>
+        <div class="invalid-feedback">
+          <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le nom est obligatoire.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :téléphone, class: "form-label" %>
+        <%= form.text_field :téléphone, class: "form-control", placeholder: "Entrez le numéro de téléphone", 
+            pattern: "\\d{8}", title: "Le téléphone doit contenir exactement 8 chiffres." %>
+        <div class="invalid-feedback">
+          <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le numéro de téléphone doit être un nombre de 8 chiffres.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :salaire, "Salaire mensuel (DT) *", class: "form-label" %>
+        <%= form.number_field :salaire, class: "form-control", placeholder: "Entrez le salaire en DT", 
+            min: "0", step: "10", title: "Le salaire doit être un nombre positif.", required: true %>
+        <div class="invalid-feedback">
+          <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le salaire doit être un nombre supérieur ou égal à 0.
+        </div>
+      </div>
+    <% end %>
+
+    <hr>
+    <%= button_to @entraineur, method: :delete, data: { controller: "confirm", confirm_message: "Êtes-vous sûr de supprimer l'entraîneur définitivement ?" }, class: "btn btn-danger btn-sm" do %>
+      <i class="bi bi-trash"></i>&nbsp; Supprimer cet entraîneur
+    <%end%>
+  </div>
+
+  <div style="flex: 1; border: 1px solid #ccc; padding: 20px;;background-color:#ffffff">
+        <h3>Ajouter un salaire</h3>
+        <p style="text-align:right">
+          <button id="btnAjout" class="btn btn-success btn-sm"><i class="bi bi-plus-circle"></i>&nbsp; Ajouter un salaire</button>
+
+        </p>
+
+    <div class="hideForm" id="salaireForm">
+      <button id="btnAnnuler" class="btn btn-secondary btn-sm" style="float:right">Annuler</button>
+      <%= form_with(model: @salaire, class: "needs-validation", local: true, html: { id: "salaireFormElement", novalidate: true }) do |form| %>
+        <br>
+        <div style="display: none">
+          <%= form.label :entraineur_id, style: "display: none" %>
+          <%= form.number_field :entraineur_id, value: @entraineur.id , style: "display: none" %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :mois_et_annee, "Mois et année *", class: "form-label" %>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" style="background-color:rgba(119, 169, 223, 0.35)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-week" viewBox="0 0 16 16" style="color: #0069d9;">
+                  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
+                  <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5zM11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+              </span>
+            </div>
+            <input type="text" placeholder="Mois et année" id="monthPicker" class="form-control monthpicker" style="display: block" value="<%= @annee_par_defaut %>-<%= @mois_par_defaut %>" required>
+            <div class="invalid-feedback">
+              <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Veuillez choisir un mois et une année.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :salaire, "Montant (DT) *", class: "form-label" %>
+          <%= form.number_field :salaire, class: "form-control", placeholder: "Montant (<= #{@entraineur.salaire.to_i})", required: true, min: "0", max: "#{@entraineur.salaire.to_i}", step: "10", value: @entraineur.salaire %>
+          <div class="invalid-feedback">
+            <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le montant est obligatoire et doit être un nombre positif <= <%= @entraineur.salaire.to_i%>
+          </div>
+        </div>
+
+        <br>
+        <%= form.hidden_field :mois, id: "moisField" %>
+        <%= form.hidden_field :annee, id: "anneeField" %>
+
+        <div>
+          <%= form.submit "Confirmer", class: "btn btn-primary btn-sm" %>
+        </div>
+      <% end %>
+    </div>
+
+
+    <table class="table table-bordered datatable table-hover table-sm">
+      <thead style ="color:rgb(2, 30, 144)">
+        <tr>
+          <th>Salaire</th>
+          <th>Mois</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @entraineur.salaires.reverse.each do |salaire| %>
+          <tr id="<%= dom_id salaire %>">
+            <td><%= salaire.salaire %>&nbspDT</td>
+            <td><%= "#{I18n.t('date.month_names')[salaire.mois]} #{salaire.annee}" %></td>      
+            <td>
+              <%= button_to salaire_path(salaire), method: :delete, data: { controller: "confirm", confirm_message: "Êtes-vous sûr de supprimer le salaire ?" }, class: "btn btn-secondary btn-sm",style:"padding:3px 3px 0px 3px" do %>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 14">
+                  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                </svg>
+              <%end%>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>

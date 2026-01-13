@@ -1,0 +1,13 @@
+one:
+  designation: "Produit A"
+  prix: 1.5
+  date_achat: 2024-01-03 # Ensure this is <= Date.today
+  etat_paiement: "Crédit" # Valid state
+  joueur: one # References a joueur in joueurs.yml
+
+two:
+  designation: "Produit B"
+  prix: 10.0
+  date_achat: 2024-01-01 # Ensure this is <= Date.today
+  etat_paiement: "Non crédit" # Valid state
+  joueur: two # References a joueur in joueurs.yml

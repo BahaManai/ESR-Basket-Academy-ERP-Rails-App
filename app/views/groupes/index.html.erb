@@ -1,0 +1,154 @@
+<% content_for :title, "Groupes | ESR Basket Academy" %>
+<% @page_title = "Groupes" %>
+
+<p>
+  <%= link_to new_groupe_path, class: "btn btn-success btn-sm mr-1 float-right" do %>
+    <i class="bi bi-plus-circle"></i>&nbsp; Ajouter un groupe
+  <% end %>
+</p><br><br>
+
+<div class="d-flex flex-wrap">
+  <div class="mb-2" style="width:70%">
+    <table class="table table-bordered datatable table-hover table-sm">
+      <thead style ="color:rgb(2, 30, 144)">
+        <tr>
+          <th></th>
+          <th>Groupe</th>
+          <th>Entraîneur</th>
+          <th>Jour et Heure</th>
+          <th>Terrain</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @groupes.each do |groupe| %>
+          <tr>
+            <td><%= groupe.id %></td>
+            <td><%= "#{groupe.age_min}-#{groupe.age_max} ans" %></td>        
+            <td><%= "#{groupe.entraineur&.prénom} #{groupe.entraineur&.nom}" || "Aucun" %></td>
+            <td><%= "#{groupe.jour} #{groupe.heure_debut} - #{groupe.heure_fin}" %></td>
+            <td><%= groupe.terrain if groupe.terrain %></td>
+            <td>
+                <button class="btn btn-primary btn-sm mr-1" onclick="toggleJoueurs('<%= groupe.id %>')">
+              <i class="bi bi-people-fill"></i> &nbsp;Joueurs
+            </button>
+              <%= link_to edit_groupe_path(groupe),style:"padding:3px 3px 0px 3px" ,class: "btn btn-info btn-sm" do %>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 14">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                      </svg>
+                    <%end%>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="chart-container">
+    <%= pie_chart @groupes_joueurs_count, 
+          labels: @groupes_joueurs_count.map { |groupe| groupe[0] },
+          data: @groupes_joueurs_count.map { |groupe| groupe[1] }, 
+          download: { filename: "joueurs_par_groupe", background: "#ffffff" },
+          title: "Répartition des Joueurs par Groupe" %>
+  </div>
+</div>
+
+<div id="joueurs-details-container">
+  <% @groupes.each do |groupe| %>
+    <div class="card my-3" id="joueurs-details-<%= groupe.id %>" style="display: none;">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5>La liste des joueurs du groupe des <%= "#{groupe.age_min}-#{groupe.age_max} ans" %></h5>
+        <button class="btn btn-secondary btn-icon-only" onclick="hideJoueursDetails('<%= groupe.id %>')"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <div class="card-body">
+        <% if groupe.joueurs.any? %>
+          <table class="table table-bordered datatable table-hover table-sm">
+            <thead style ="color:rgb(2, 30, 144)">
+              <tr>
+                <th>Nom et prénom</th>
+                <th>Age</th>
+                <th>Contact du parent</th>
+                <th>Assurance</th>
+                <th>Dernier abonnement</th>
+                <th>Date d'expiration</th>
+                <th>Total des crédits</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% groupe.joueurs.each do |enfant| %>
+                <tr>
+                  <td><%= "#{enfant.prénom} #{enfant.nom}" %></td>
+                  <td><%= ((Date.today - enfant.date_naissance).to_i / 365.25).to_i if enfant.date_naissance %></td>
+                  <td><%= enfant.parent.téléphone if enfant.parent %></td>
+                  <td><% if enfant.assurances.any? { |assurance| assurance.saison_id == @saison.id } %>
+                        <% assurance_actuelle = enfant.assurances.find { |assurance| assurance.saison_id == @saison.id } %>
+                        <% if assurance_actuelle.etat_paiement == 'Crédit' %>
+                          Crédit
+                        <% else %>
+                          Payé
+                        <% end %>
+                      <% else %>
+                        Non payé
+                      <% end %>
+                  </td>
+                  <td>
+                    <% if enfant.paiements.any? %>
+                      <% dernier_paiement = enfant.paiements.last %>
+                      <%= "#{dernier_paiement.date_abonnement.strftime('%d %b %Y')}" %>
+                    <% else %>
+                      Aucun paiement
+                    <% end %>
+                  </td>
+                  <td>
+                    <% if enfant.paiements.any? %>
+                      <% expiration_date = enfant.paiements.last.date_abonnement + 30.days %>
+                      <%= expiration_date.strftime('%d %b %Y') %>
+                    <% else %>
+                      Non défini
+                    <% end %>
+                  </td>
+                  <td><%= enfant.somme_des_credits %> DT</td>
+                  <td>
+                    <%= link_to edit_joueur_path(enfant),style:"padding:3px 3px 0px 3px" ,class: "btn btn-info btn-sm" do %>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 14">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                      </svg>
+                    <%end%>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <p>Aucun joueur trouvé pour ce groupe.</p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  function toggleJoueurs(groupeId) {
+  // Masquer toutes les lignes des joueurs
+  document.querySelectorAll('#joueurs-details-container .card').forEach(function(card) {
+    card.style.display = 'none';
+  });
+
+  // Afficher les détails du groupe sélectionné
+  var detailsContainer = document.getElementById('joueurs-details-' + groupeId);
+  if (detailsContainer.style.display === 'none') {
+    detailsContainer.style.display = 'block';
+    detailsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    detailsContainer.style.display = 'none';
+  }
+}
+
+
+  function hideJoueursDetails(groupeId) {
+    var detailsContainer = document.getElementById('joueurs-details-' + groupeId);
+    detailsContainer.style.display = 'none';
+  }
+</script>

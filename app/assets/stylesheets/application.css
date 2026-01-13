@@ -1,0 +1,315 @@
+/*
+ * This is a manifest file that'll be compiled into application.css.
+ *
+ * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
+ * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
+ * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
+ * depending on specificity.
+ *
+ * Consider organizing styles into separate files for maintainability.
+ */
+
+/*
+ *= require bootstrap.min
+ *= require datatables.min
+ *= require_self
+ *= require_tree .
+ */
+.filter-container {
+    display: flex;
+    gap: 5px;
+    border-radius: 8px;
+}
+
+.filter-btn {
+    font-size: 15px;
+    text-decoration: none;
+    color: #333;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    background: transparent;
+    border: 1px solid #ccc;
+}
+
+.filter-btn:hover {
+    background: #ddd;
+    text-decoration: none;
+}
+
+.filter-btn.active {
+    background: #469af4;
+    color: white;
+    border-color: #469af4;
+}
+
+
+.notice {
+    color: green;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.hideForm {
+    border: 1px solid #ccc;
+    padding: 20px;
+    display: none;
+}
+
+.datatable td,
+.datatable th {
+    text-align: left !important;
+}
+
+
+.etat_abonnement {
+    background-color: #ffff99 !important;
+}
+
+.etat_crédit {
+    background-color: #fafaa2 !important;
+}
+
+.etat_crédit:hover {
+    background-color: #fefe81 !important;
+}
+
+.etat_expiré {
+    background-color: #f8bcbc !important;
+}
+
+.etat_expiré:hover {
+    background-color: #f6a8a8 !important;
+}
+
+.etat_passé {
+    background-color: #edeaea !important;
+}
+
+.etat_passé:hover {
+    background-color: #dedbdb !important;
+}
+
+.new_forms {
+    width: 50%;
+    margin: auto;
+}
+
+.custom-alert {
+    background-color: #be3644;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #f5c2c7;
+    font-size: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+.custom-alert strong {
+    font-weight: bold;
+}
+
+.custom-alert .close-btn {
+    float: right;
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #721c24;
+}
+
+.custom-alert .close-btn:hover {
+    background-color: #ca737e;
+    color: white;
+}
+
+
+
+
+.navbar_menu {
+    color: #76839a;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 11px;
+    margin-bottom: 0.5rem;
+    padding-top: 1.5rem !important;
+    font-weight: 500;
+    padding: 5px 30px 5px;
+    opacity: 0.7;
+
+}
+
+.app-layout {
+    display: flex;
+    height: 100vh;
+}
+
+
+.content-area {
+    width: 100%;
+    padding: 0px 0px 20px 0px;
+    overflow-y: auto;
+    background-color: #f3f6fc;
+}
+
+.datatable tbody {
+    background-color: #fff;
+}
+
+.navbar-vertical {
+    width: 270px;
+    background: #021056;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar-logo {
+    border-bottom: 1px solid #ffffff;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.image_logo {
+    max-width: 100%;
+    height: auto;
+}
+
+.navbar-menu {
+    flex-grow: 1;
+    padding: 10px 0;
+}
+
+.nav-link {
+    display: flex;
+    padding-left: 30px !important;
+    align-items: center;
+    padding: 10px 15px;
+    color: #96a0c9;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.nav-link i {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.nav-link:hover {
+    background: #0023b5;
+    color: #ffffff;
+}
+
+.nav-link.active {
+    background: #0023b5;
+    color: #ffffff;
+}
+
+.nav-link:active {
+    background: #021056;
+    color: #96a0c9;
+}
+
+.nav-label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #96a0c9;
+    margin: 10px 15px 5px;
+    text-transform: uppercase;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-list li {
+    margin: 5px 0;
+}
+
+@media (max-width: 768px) {
+    .navbar-vertical {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .navbar-menu .nav-link {
+        justify-content: center;
+    }
+}
+
+.custom-notice {
+    background-color: #ffffff !important;
+    color: #1b5e20 !important;
+    border-left: 5px solid #1b5e20 !important;
+    border-radius: 8px !important;
+    padding: 12px 16px !important;
+    border-top: 1px solid rgb(79, 159, 83) !important;
+    border-bottom: 1px solid rgb(79, 159, 83) !important;
+    border-right: 1px solid rgb(79, 159, 83) !important;
+}
+
+.custom-notice .close-btn {
+    float: right;
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #1b5e20;
+}
+
+.custom-notice .close-btn:hover {
+    background-color: #88ba8c;
+    color: white;
+}
+
+.btn-icon-only {
+    padding: 0 !important;
+    width: 25px !important;
+    height: 25px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    border-radius: 50% !important;
+}
+
+.log_out_button :hover {
+    color: #0056b3;
+}
+
+.log_out_button :active {
+    border: none !important;
+}
+
+.chart-container {
+    background-color: #ffffff;
+    min-width: 240px;
+    max-width: 350px;
+    width: 30%;
+    margin-left: 20px;
+}
+
+.custom-dark {
+    color: #333
+}
+
+.custom-dark:hover {
+    text-decoration: none !important;
+}
+
+#chart-1,
+#chart-2 {
+    margin: auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+table {
+    font-size: 15px;
+}

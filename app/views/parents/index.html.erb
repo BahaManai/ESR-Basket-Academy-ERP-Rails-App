@@ -1,0 +1,149 @@
+<% content_for :title, "Parents | ESR Basket Academy" %>
+<% @page_title = "Parents"%>
+
+<p>
+  <%= link_to new_parent_path, class: "btn btn-success btn-sm float-right mr-1" do %>
+    <i class="bi bi-plus-circle"></i>&nbsp; Ajouter un parent
+  <% end %>
+</p><br>
+
+<div id="parents">
+  <table class="table table-bordered datatable table-hover table-sm ">
+      <thead style ="color:rgb(2, 30, 144)">
+      <tr>
+        <th>#</th>
+        <th>Nom et Prénom</th>
+        <th>Téléphone</th>
+        <th>Nombre d'enfants</th>
+        <th>Total des crédits</th>
+        <th></th> 
+      </tr>
+    </thead>
+    <tbody>
+      <% @parents.each do |parent| %>
+        <tr id="<%= dom_id parent %>">
+          <td><%= parent.id %></td>
+          <td><%= "#{parent.prénom} #{parent.nom}" %></td>
+          <td><%= parent.téléphone.presence || '-' %></td>
+          <td><%= parent.joueurs.count %></td>
+          <td><%= parent.somme_credits_enfants %> DT</td>
+          <td>
+            <button class="btn btn-primary btn-sm mr-1" onclick="toggleDetails('<%= parent.id %>')">
+              <i class="bi bi-people-fill"></i> &nbsp;Enfants
+            </button>
+            <%= link_to edit_parent_path(parent),style:"padding:3px 3px 0px 3px" ,class: "btn btn-info btn-sm" do %>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 14">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                      </svg>
+                    <%end%>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div id="children-details-container">
+  <% @parents.each do |parent| %>
+    <div class="card my-3" id="children-details-<%= parent.id %>" style="display: none;">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5>Détails des enfants de <%= "#{parent.prénom} #{parent.nom}" %></h5>
+        <button class="btn btn-secondary btn-icon-only" onclick="hideDetails('<%= parent.id %>')"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <div class="card-body">
+        <% if parent.joueurs.any? %>
+          <table class="table table-bordered table-hover table-sm">
+            <thead style ="color:rgb(2, 30, 144)">
+              <tr>
+                <th>Nom et prénom</th>
+                <th>Age</th>
+                <th>Groupe</th>
+                <th>Assurance</th>
+                <th>Dernier abonnement</th>
+                <th>Date d'expiration</th>
+                <th>Total des crédits</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% parent.joueurs.each do |enfant| %>
+                <tr>
+                  <td><%= "#{enfant.prénom} #{enfant.nom}" %></td>
+                  <td><%= ((Date.today - enfant.date_naissance).to_i / 365.25).to_i if enfant.date_naissance %></td>
+                  <td><%= "#{enfant.groupe.age_min}-#{enfant.groupe.age_max} ans" if enfant.groupe %></td>
+                  <td><% if enfant.assurances.any? { |assurance| assurance.saison_id == @saison.id } %>
+                        <% assurance_actuelle = enfant.assurances.find { |assurance| assurance.saison_id == @saison.id } %>
+                        <% if assurance_actuelle.etat_paiement == 'Crédit' %>
+                          Crédit
+                        <% else %>
+                          Payé
+                        <% end %>
+                      <% else %>
+                        Non payé
+                      <% end %>
+                  </td>
+                  <td>
+                    <% if enfant.paiements.any? %>
+                      <% dernier_paiement = enfant.paiements.last %>
+                      <%= "#{dernier_paiement.date_abonnement.strftime('%d %b %Y')}" %>
+                    <% else %>
+                      Aucun paiement
+                    <% end %>
+                  </td>
+                  <td>
+                    <% if enfant.paiements.any? %>
+                      <% expiration_date = enfant.paiements.last.date_abonnement + 30.days %>
+                      <%= expiration_date.strftime('%d %b %Y') %>
+                    <% else %>
+                      Non défini
+                    <% end %>
+                  </td>
+                  <td><%= enfant.somme_des_credits %> DT</td>
+                  <td>
+                    <%= link_to edit_joueur_path(enfant),style:"padding:3px 3px 0px 3px" ,class: "btn btn-info btn-sm" do %>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 14">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                      </svg>
+                    <%end%>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <p>Aucun enfant trouvé pour ce parent.</p>
+        <% end %>
+      </div>
+      <p style="margin-left:20px">
+      <%= link_to "Ajouter un enfant", new_joueur_path, class: "btn btn-success" %>
+      </p>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  function toggleDetails(parentId) {
+    document.querySelectorAll('#children-details-container .card').forEach(function(card) {
+      card.style.display = 'none';
+    });
+
+    // Afficher les détails pour le parent sélectionné
+    var detailsContainer = document.getElementById('children-details-' + parentId);
+    if (detailsContainer.style.display === 'none') {
+      detailsContainer.style.display = 'block';
+      // Faire défiler la page jusqu'à cette section
+      detailsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      detailsContainer.style.display = 'none';
+    }
+  }
+
+
+  function hideDetails(parentId) {
+    // Cacher les détails pour le parent sélectionné
+    var detailsContainer = document.getElementById('children-details-' + parentId);
+    detailsContainer.style.display = 'none';
+  }
+</script>

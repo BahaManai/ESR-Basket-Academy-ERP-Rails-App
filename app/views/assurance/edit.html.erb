@@ -1,0 +1,92 @@
+<% content_for :title, "Assurances | ESR Basket Academy" %>
+
+<div>
+  <%= link_to "Fiche de joueur >", edit_joueur_path(@assurance.joueur) %><br>
+  <%= link_to "Assurances >", assurances_path %>
+</div>
+
+<%= form_with(model: @assurance, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |form| %>
+  <h2 class="mb-4">Modifier l'assurance :</h2>
+  
+  <% if @assurance.errors.any? %>
+    <div class="custom-alert" role="alert">
+      <button type="button" class="close-btn" aria-label="Close" onclick="document.querySelector('.custom-alert').style.display = 'none'">
+        <i class="bi bi-x-lg"></i>
+      </button>
+      <h2>
+        <%= pluralize(@assurance.errors.count, "erreur", "erreurs") %> détectée<%= 's' if @assurance.errors.count > 1 %> :
+      </h2>
+      <ul>
+        <% @assurance.errors.full_messages.each do |message| %>
+          <li style="list-style-type: none;">
+            <i class="bi bi-exclamation-triangle-fill"></i>&nbsp; <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.check_box :etat_paiement, { data: { controller: "confirm", confirm_message: "Êtes-vous sûr de changer l'état de paiement ?" } }, 'Crédit', 'Non crédit' %>
+    <%= form.label :etat_paiement, "Marquer comme Crédit", class: "form-label" %>
+  </div>
+
+  <div class="mb-3">
+    <%
+      saison = @assurance.saison
+      start_date = "#{saison.date_debut.strftime('%d')} #{I18n.t('date.month_names_short')[saison.date_debut.month]} #{saison.date_debut.strftime('%Y')}"
+      end_date = "#{saison.date_fin.strftime('%d')} #{I18n.t('date.month_names_short')[saison.date_fin.month]} #{saison.date_fin.strftime('%Y')}"
+    %>
+          <%= form.label :saison_id, "Saison *", class: "form-label" %>
+          <%= form.text_field :saison_id , class: "form-control", disabled: true , value: "#{start_date} à #{end_date}" %>
+
+          <div class="invalid-feedback">
+            <i class="bi bi-exclamation-circle mr-1 ml-1"></i>La saison est obligatoire.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :montant, "Montant (DT) *", class: "form-label" %>
+          <%= form.number_field :montant, class: "form-control", placeholder: "Montant", required: true, min: 0 %>
+          <div class="invalid-feedback">
+            <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le montant est obligatoire et doit être supérieur ou égal à 0.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :date_paiement, "Date de paiement *", class: "form-label" %>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" style="background-color:rgba(119, 169, 223, 0.35)">
+                <i class="bi bi-calendar2-week" style="color: #0069d9;"></i>
+              </span>
+            </div>
+            <%= form.text_field :date_paiement, class: "form-control datepicker", placeholder: "date de paiement", required: true, autocomplete: "off" %>
+            <div class="invalid-feedback">
+              <i class="bi bi-exclamation-circle mr-1 ml-1"></i>La date de paiement est obligatoire.
+            </div>
+          </div>
+        </div>
+
+  <div class="mb-3">
+    <%= form.label :num_recu, "Numéro de reçu", class: "form-label" %>
+    <%= form.number_field :num_recu, class: "form-control", min: 0 %>
+    <div class="invalid-feedback">
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le numéro de reçu doit être supérieur ou égal à 0.
+    </div>
+  </div>
+
+  <div>
+    <%= button_tag type: 'submit', class: "btn btn-success btn-sm" do %>
+          <i class="bi bi-bookmark-check"></i>&nbsp; Enregistrer
+        <% end %>
+  </div>
+
+<% end %>
+
+<div class="new_forms">
+  <hr>
+  <%= button_to @assurance, method: :delete, data: { controller: "confirm", confirm_message: "Êtes-vous sûr de supprimer cette assurance définitivement ?" }, class: "btn btn-danger btn-sm", style: "float:right" do %>
+      <i class="bi bi-trash"></i>&nbsp; Supprimer cette assurance
+    <%end%>
+</div>

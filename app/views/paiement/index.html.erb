@@ -1,0 +1,82 @@
+<% content_for :title, "Abonnements | ESR Basket Academy" %>
+<% @page_title = "Abonnements"%>
+
+<%= link_to export_csv_paiements_path(format: :csv, filter: params[:filter]), class: 'btn btn-info btn-sm float-right' do %>
+  <i class="bi bi-download"></i> Exporter en CSV
+<% end %>
+
+<div class="filter-container">
+  <%= link_to 'Tous', paiements_path, class: "filter-btn #{params[:filter].present? ? '' : 'active'}" %>
+  <%= link_to 'Active', paiements_path(filter: 'active'), class: "filter-btn #{params[:filter] == 'active' ? 'active' : ''}" %>
+  <%= link_to 'Expiré', paiements_path(filter: 'expired'), class: "filter-btn #{params[:filter] == 'expired' ? 'active' : ''}" %>
+  <%= link_to 'Crédit', paiements_path(filter: 'credit'), class: "filter-btn #{params[:filter] == 'credit' ? 'active' : ''}" %>
+  <%= link_to 'Non crédit', paiements_path(filter: 'noncredit'), class: "filter-btn #{params[:filter] == 'noncredit' ? 'active' : ''}" %>
+</div>
+
+<table class="table table-bordered datatable table-hover table-sm">
+    <thead style ="color:rgb(2, 30, 144)">
+    <tr>
+      <th>Nom du joueur</th>
+      <th>Date d'abonnement</th>
+      <th>Date d'encaissement</th>
+      <th>Date d'expiration</th>
+      <th>Paiement</th>
+      <th>N° reçu</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @paiements.reverse.each do |paiement| %>
+        <tr id="<%= dom_id paiement %>"
+          class="<%= 
+            if paiement == paiement.joueur.paiements.last
+              if (paiement.joueur.paiements.last.date_abonnement + 30.days - Date.today).to_i < 0
+                'etat_expiré'
+              else
+                ''
+              end
+            else
+              'etat_passé'
+            end
+          %>">
+        <td>
+          <% if paiement.joueur %>
+            <%= link_to edit_joueur_path(paiement.joueur), class: "custom-dark" do %>
+              <%= paiement.joueur ? "#{paiement.joueur.prénom} #{paiement.joueur.nom}" : "Joueur inconnu" %>
+            <% end %>
+          <% end %>
+        </td>
+        <td><%= "#{paiement.date_abonnement.strftime('%d')} #{I18n.t('date.month_names_short')[paiement.date_abonnement.month]}, #{paiement.date_abonnement.strftime('%Y')}" if paiement.date_abonnement %></td>
+        <td><%= "#{paiement.date_encaissement.strftime('%d')} #{I18n.t('date.month_names_short')[paiement.date_encaissement.month]}, #{paiement.date_encaissement.strftime('%Y')}" if paiement.date_encaissement %></td>
+        <td> 
+          <% expiration_date = paiement.date_abonnement + 30.days %>
+          <%= "#{expiration_date.strftime('%d')} #{I18n.t('date.month_names_short')[expiration_date.month]}, #{expiration_date.strftime('%Y')}" %>
+          <br><strong>
+            <% if paiement == paiement.joueur.paiements.last %>
+              <% if (expiration_date - Date.today).to_i > 0 %>
+              reste : <%= (expiration_date - Date.today).to_i %> jours
+              <% elsif (expiration_date - Date.today).to_i == 0 %>
+              Aujourd'hui
+              <% else
+              %>
+              </strong>
+              <span style="color:#990000">(Expiré)</span>
+              <%end
+               %>
+            <% end %>
+        </td>
+        <td class="<%= 
+        if paiement.etat_abonnement == 'Crédit'
+          'etat_crédit'
+        else
+          ''
+        end
+      %>"><%= paiement.montant %>&nbsp;DT
+        <% if paiement.etat_abonnement == 'Crédit' %>
+          <span style="color:#996633">&nbsp;(Crédit)</span>
+        <% end %>
+      </td>
+        <td style="text-align:center"><%= paiement.num_recu %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

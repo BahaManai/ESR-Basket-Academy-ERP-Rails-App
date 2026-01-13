@@ -1,0 +1,64 @@
+<% content_for :title, "Salaires | ESR Basket Academy" %>
+
+<div>
+  <%= link_to "Entraîneurs >", entraineurs_path, class: "btn btn-link" %>
+</div>
+
+<%= form_with(model: @salaire, class: "new_forms needs-validation", local: true, html: { novalidate: true }) do |form| %>
+  <h2 class="mb-4">Ajouter une avance de salaire :</h2>
+
+  <% if @salaire.errors.any? %>
+    <div class="custom-alert" role="alert">
+      <h2><%= pluralize(@salaire.errors.count, "erreur") %> détectée<%= 's' if @salaire.errors.count > 1 %> :</h2>
+      <ul>
+        <% @salaire.errors.full_messages.each do |message| %>
+          <li style="list-style-type: none;"><i class="bi bi-exclamation-triangle-fill"></i>&nbsp; <%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :entraineur_id, "Entraîneur *", class: "form-label" %>
+    <%= form.select :entraineur_id,
+          Entraineur.all.map { |e| ["#{e.prénom} #{e.nom} (#{e.salaire.to_i} DT)", e.id] }, 
+          { prompt: "Entraîneur (salaire mensuel)" },
+          { class: "custom-select", required: true } %>
+    <div class="invalid-feedback">
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le choix de l'entraîneur est obligatoire.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :salaire, "Montant (DT) *", class: "form-label" %>
+    <%= form.number_field :salaire, class: "form-control", placeholder: "Montant", required: true, min: "0", step: "10" %>
+    <div class="invalid-feedback">
+      <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Le montant est obligatoire et doit être inférieur au salaire mensuel.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :mois_et_annee, "Mois et année *", class: "form-label" %>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" style="background-color:rgba(119, 169, 223, 0.35)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-week" viewBox="0 0 16 16" style="color: #0069d9;">
+            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
+            <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5zM11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+        </span>
+      </div>
+      <input type="text" id="monthPicker3" class="form-control monthpicker" placeholder="Mois et année" required>
+      <div class="invalid-feedback">
+        <i class="bi bi-exclamation-circle mr-1 ml-1"></i>Veuillez choisir un mois et une année.
+      </div>
+    </div>
+  </div>
+
+  <%= form.hidden_field :mois, id: "moisField3" %>
+  <%= form.hidden_field :annee, id: "anneeField3" %>
+
+  <div class="mb-3">
+    <%= form.submit "Ajouter", class: "btn btn-success" %>
+  </div>
+<% end %>

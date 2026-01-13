@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nom: "Dupont"
+  prénom: "Jean"
+  téléphone: 11234567  # Valid phone number (8 digits)
+
+two:
+  nom: "Martin"
+  prénom: "Sophie"
+  téléphone: 17654321  # Valid phone number (8 digits)

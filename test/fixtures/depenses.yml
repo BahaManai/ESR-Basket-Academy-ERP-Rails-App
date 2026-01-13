@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  designation: "Achat matériel"
+  prix: 1.5
+  date_depense: 2024-01-02 # Ensure this is <= Date.today
+
+two:
+  designation: "Frais déplacement"
+  prix: 10.0
+  date_depense: 2024-01-01 # Ensure this is <= Date.today
