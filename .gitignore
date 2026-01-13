@@ -32,4 +32,26 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Ignore environment variables
 .env
+.env.*
+!.env.example
+
+# Ignore database files
+/storage/*.sqlite3
+/storage/*.sqlite3-*
+
+# Ignore uploaded files
+/storage/uploads/
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
